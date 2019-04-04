@@ -1,9 +1,10 @@
 package gui;
 
-
+import aplicacion.*;
 public class VPrincipal extends javax.swing.JFrame {
   
-    aplicacion.FachadaAplicacion fa;
+    FachadaAplicacion fa;
+    Usuario usuario;
     
     /** Creates new form VPrincipal */
     public VPrincipal(aplicacion.FachadaAplicacion fa) {
@@ -43,9 +44,11 @@ public class VPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-    * @param args the command line arguments
-    */
+   
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu popupAdministracion;
