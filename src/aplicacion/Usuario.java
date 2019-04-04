@@ -1,0 +1,50 @@
+package aplicacion;
+
+public abstract class Usuario {
+     private String login;
+     private String pw;
+     private String correo;
+     private java.util.Date fechaNacimiento;
+     
+     public Usuario(String login, String pw, String correo, java.util.Date fechaNacimiento) {
+         this.login = login;
+         this.pw = pw;
+         this.correo = correo;
+         this.fechaNacimiento = fechaNacimiento;
+     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPw() {
+        return pw;
+    }
+
+    public void setPw(String pw) {
+        this.pw = pw;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public java.util.Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(java.util.Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+     
+     
+    
+}
