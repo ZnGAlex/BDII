@@ -37,13 +37,187 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="670" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="btnAnadir" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnDetalles" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="scrollPaneJuegos" min="-2" pref="458" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="etiquetaCategorias" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="boxCategorias" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="etiquetaDesarrolladora" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="boxDesarrolladora" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="etiquetaNombre" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="textoNombre" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnPerfil" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnAmigos" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnJuegos" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnCarrito" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="etiquetaCarrito" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="512" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnPerfil" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAmigos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnJuegos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="etiquetaCarrito" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCarrito" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="etiquetaCategorias" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="boxCategorias" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="etiquetaDesarrolladora" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="boxDesarrolladora" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="etiquetaNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textoNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="scrollPaneJuegos" min="-2" pref="307" max="-2" attributes="0"/>
+                  <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnDetalles" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAnadir" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="btnPerfil">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mi perfil"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAmigos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mis amigos"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnJuegos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mis juegos"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="etiquetaCarrito">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCarrito">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Carrito"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="scrollPaneJuegos">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="tablaJuegos">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new ModeloTablaJuegos()" type="code"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="etiquetaCategorias">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Categor&#xed;as"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="boxCategorias">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="etiquetaDesarrolladora">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Desarrolladora"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="boxDesarrolladora">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="etiquetaNombre">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nombre"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textoNombre">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnBuscar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Buscar"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnDetalles">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ver detalles"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDetallesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAnadir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="A&#xf1;adir al Carrito"/>
+      </Properties>
+    </Component>
+  </SubComponents>
 </Form>
