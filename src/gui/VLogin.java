@@ -3,6 +3,7 @@ package gui;
 import aplicacion.Administrador;
 import aplicacion.Jugador;
 import aplicacion.Usuario;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,7 +20,11 @@ public class VLogin extends javax.swing.JDialog {
         super(parent, modal);
         this.fa=fa;
         initComponents();
+        //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
+        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
         etiquetaFallo.setVisible(false);
+        //Hacemos la ventana visible para el usuario
+        this.setVisible(true);
     }
 
     /** This method is called from within the constructor to

@@ -5,19 +5,31 @@
  */
 package gui;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author alumnogreibd
  */
 public class VMisAmigos extends javax.swing.JDialog {
-
+    
+    private final aplicacion.FachadaAplicacion fa;
     /**
      * Creates new form VMisAmigos
+     * @param parent
+     * @param modal
+     * @param fa
      */
-    public VMisAmigos(java.awt.Frame parent, boolean modal) {
+    public VMisAmigos(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa) {
+        
         super(parent, modal);
+        //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
+        this.fa = fa;       
         initComponents();
-        this.setVisible(modal);
+        //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
+        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
+        //Hacemos la ventana visible para el usuario
+        this.setVisible(true);  
     }
 
     /**
@@ -34,8 +46,8 @@ public class VMisAmigos extends javax.swing.JDialog {
         campoNombre = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnSelectorAmigosTotal = new javax.swing.JToggleButton();
-        tablaUsuarios = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ScrollTablaUsuarios = new javax.swing.JScrollPane();
+        tablaJugadores = new javax.swing.JTable();
         btnBloquear = new javax.swing.JButton();
         btnVerInfoAmigo = new javax.swing.JButton();
         btnVerBloqueados = new javax.swing.JButton();
@@ -60,18 +72,8 @@ public class VMisAmigos extends javax.swing.JDialog {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tablaUsuarios.setViewportView(jTable1);
+        tablaJugadores.setModel(new ModeloTablaJugadores());
+        ScrollTablaUsuarios.setViewportView(tablaJugadores);
 
         btnBloquear.setText("Bloquear");
 
@@ -94,7 +96,7 @@ public class VMisAmigos extends javax.swing.JDialog {
                         .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addComponent(btnBuscar))
-                    .addComponent(tablaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ScrollTablaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBloquear)
@@ -116,7 +118,7 @@ public class VMisAmigos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(tablaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ScrollTablaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(116, 116, 116)
                         .addComponent(btnBloquear)
@@ -161,6 +163,7 @@ public class VMisAmigos extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ScrollTablaUsuarios;
     private javax.swing.JButton btnBloquear;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnHacerAmigo;
@@ -170,7 +173,6 @@ public class VMisAmigos extends javax.swing.JDialog {
     private javax.swing.JTextField campoNombre;
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JScrollPane tablaUsuarios;
+    private javax.swing.JTable tablaJugadores;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,18 +5,31 @@
  */
 package gui;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author alumnogreibd
  */
 public class VVerBloqueados extends javax.swing.JDialog {
 
+    private final aplicacion.FachadaAplicacion fa;
     /**
      * Creates new form VVerBloqueados
+     * @param parent
+     * @param modal
+     * @param fa
      */
-    public VVerBloqueados(java.awt.Frame parent, boolean modal) {
+    public VVerBloqueados(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa) {
+        
         super(parent, modal);
+        //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
+        this.fa = fa;       
         initComponents();
+        //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
+        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
+        //Hacemos la ventana visible para el usuario
+        this.setVisible(true);  
     }
 
     /**
@@ -32,8 +45,8 @@ public class VVerBloqueados extends javax.swing.JDialog {
         etiquetaNombre = new javax.swing.JLabel();
         campoNombre = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        tablaUsuarios = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ScrollTablaUsuarios = new javax.swing.JScrollPane();
+        tablaBloqueados = new javax.swing.JTable();
         btnDesbloquear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -42,18 +55,9 @@ public class VVerBloqueados extends javax.swing.JDialog {
 
         btnBuscar.setText("Buscar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tablaUsuarios.setViewportView(jTable1);
+        tablaBloqueados.setModel(new ModeloTablaJugadores()
+        );
+        ScrollTablaUsuarios.setViewportView(tablaBloqueados);
 
         btnDesbloquear.setText("Desbloquear");
 
@@ -71,7 +75,7 @@ public class VVerBloqueados extends javax.swing.JDialog {
                         .addGap(42, 42, 42)
                         .addComponent(btnBuscar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tablaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ScrollTablaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDesbloquear)))
                 .addContainerGap(44, Short.MAX_VALUE))
@@ -87,7 +91,7 @@ public class VVerBloqueados extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(tablaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ScrollTablaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(201, 201, 201)
                         .addComponent(btnDesbloquear)))
@@ -115,12 +119,12 @@ public class VVerBloqueados extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ScrollTablaUsuarios;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnDesbloquear;
     private javax.swing.JTextField campoNombre;
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JScrollPane tablaUsuarios;
+    private javax.swing.JTable tablaBloqueados;
     // End of variables declaration//GEN-END:variables
 }

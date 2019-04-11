@@ -5,18 +5,31 @@
  */
 package gui;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author alumnogreibd
  */
 public class VJugar extends javax.swing.JDialog {
-
+    
+    private final aplicacion.FachadaAplicacion fa;
     /**
      * Creates new form VJugar
+     * @param parent
+     * @param modal
+     * @param fa
      */
-    public VJugar(java.awt.Frame parent, boolean modal) {
+    public VJugar(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa) {
+        
         super(parent, modal);
+        //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
+        this.fa = fa;       
         initComponents();
+        //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
+        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
+        //Hacemos la ventana visible para el usuario
+        this.setVisible(true);  
     }
 
     /**

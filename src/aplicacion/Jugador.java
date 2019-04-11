@@ -7,6 +7,11 @@ public class Jugador extends Usuario {
         super(login, pw, correo, fechaNacimiento);
         this.baneado = baneado;
     }
+    
+    @Override
+    public String getLogin(){
+        return super.getLogin();
+    }
 
     public boolean getBaneado() {
         return this.baneado;
