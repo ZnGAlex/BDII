@@ -11,9 +11,11 @@ import java.sql.*;
  *
  * @author Alex
  */
+
 public class DAOJuegos  extends AbstractDAO{
     public DAOJuegos(Connection con, aplicacion.FachadaAplicacion fa){
         super.setConexion(con);
         super.setFachadaAplicacion(fa);
     }
 }
+
