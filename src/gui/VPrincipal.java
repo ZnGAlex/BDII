@@ -4,12 +4,22 @@ package gui;
 public class VPrincipal extends javax.swing.JFrame {
   
     aplicacion.FachadaAplicacion fa;
+    ModeloTablaJuegos mtJuegos;
     
     /** Creates new form VPrincipal */
     public VPrincipal(aplicacion.FachadaAplicacion fa) {
         this.fa=fa;
         initComponents();
     }
+    
+    public VPrincipal(aplicacion.FachadaAplicacion fa,int ELIMINARESTO) {
+        this.fa=fa;
+        initComponents();
+        
+        this.mtJuegos = new ModeloTablaJuegos();
+        tablaJuegos.setModel(mtJuegos);
+    }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
