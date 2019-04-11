@@ -1,10 +1,10 @@
 package gui;
 
-
+import aplicacion.*;
 public class VPrincipal extends javax.swing.JFrame {
-  
     aplicacion.FachadaAplicacion fa;
     ModeloTablaJuegos mtJuegos;
+    Usuario usuario;
     
     /** Creates new form VPrincipal */
     public VPrincipal(aplicacion.FachadaAplicacion fa) {
@@ -164,6 +164,12 @@ public class VPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+   
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+
     private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDetallesActionPerformed
@@ -171,6 +177,7 @@ public class VPrincipal extends javax.swing.JFrame {
     /**
     * @param args the command line arguments
     */
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox boxCategorias;

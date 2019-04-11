@@ -59,7 +59,7 @@ public class ModeloTablaJuegos extends AbstractTableModel{
 
         switch (col){
             case 0: resultado= juegos.get(row).getNombre(); break;
-            case 1: resultado= juegos.get(row).getEdad(); break;
+            case 1: resultado= juegos.get(row).getEdadRecomendada(); break;
             case 2: resultado=juegos.get(row).getDesarrolladora();break;
         }
         return resultado;
