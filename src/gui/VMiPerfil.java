@@ -5,6 +5,8 @@
  */
 package gui;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author alumnogreibd
@@ -18,7 +20,12 @@ public class VMiPerfil extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        if(modoExterno){
+        //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
+        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
+        
+        //El modo externo sirve para mostrar información de un usuario a un amigo, sin que  éste pueda
+        //  modificar datos del usuario ni ocultar/compartir logros
+        if(modoExterno){    
             this.campoAnoNacimiento.setEditable(false);
             this.campoMesNacimiento.setEditable(false);
             this.campoDiaNacimiento.setEditable(false);
@@ -39,7 +46,8 @@ public class VMiPerfil extends javax.swing.JDialog {
             
             System.out.println("Modo externo activado");
             
-            
+        // El modo interno tiene utilidad si queremos mostrar la información de un usuario
+        //  a él mismo, permitiéndole modificar diferentes datos y la visibilidad de los logros
         }else{
             
             this.campoAnoNacimiento.setEditable(true);
@@ -63,7 +71,7 @@ public class VMiPerfil extends javax.swing.JDialog {
             System.out.println("Modo externo desactivado");
         }
         
-        this.setVisible(modal);
+        this.setVisible(true);  //Hacemos que la ventana sea visible por el usuario
     }
 
     /**

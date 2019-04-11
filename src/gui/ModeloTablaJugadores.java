@@ -10,10 +10,10 @@ import javax.swing.table.*;
  *
  * @author basesdatos
  */
-public class ModeloTablaJugador extends AbstractTableModel{
+public class ModeloTablaJugadores extends AbstractTableModel{
     private java.util.List<Jugador> jugadores;
 
-    public ModeloTablaJugador(){
+    public ModeloTablaJugadores(){
         this.jugadores=new java.util.ArrayList<>();
     }
 

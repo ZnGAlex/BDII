@@ -59,7 +59,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
         etiquetaCategorias.setText("Categorías");
 
-        boxCategorias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        boxCategorias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "qwewe" }));
 
         etiquetaDesarrolladora.setText("Desarrolladora");
 
