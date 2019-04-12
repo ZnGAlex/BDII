@@ -12,7 +12,7 @@ public class Desarrolladora {
         this.pais = pais;
         this.juegos = new ArrayList<>();
     }
-    
+   
     public Desarrolladora(String nombre, String pais, ArrayList juegos) {
         this.nombre = nombre;
         this.pais = pais;
