@@ -2,6 +2,7 @@ package baseDatos;
 
 import aplicacion.Jugador;
 import aplicacion.Administrador;
+import aplicacion.Juego;
 import aplicacion.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +33,7 @@ public class DAOUsuarios extends AbstractDAO {
             if (rs.next()) {
                 /* Si el usuario a hacer login es jugador, se crea una instancia de jugador */
                 java.util.Date fecha = (java.util.Date) rs.getObject("fechaNacimiento");
-                usuario = new Jugador(rs.getString("login"), rs.getString("clave"), rs.getString("correo"), fecha ,rs.getBoolean("baneado"));
+                usuario = new Jugador(rs.getString("nick"), rs.getString("clave"), rs.getString("correo"), fecha ,rs.getBoolean("baneado"));
             }
             
             if (usuario != null) return usuario;
@@ -46,7 +47,7 @@ public class DAOUsuarios extends AbstractDAO {
             if (rs.next()) {
                 /* Si el usuario a hacer login es administrador, se crea una instancia de administrador */
                 java.util.Date fecha = (java.util.Date) rs.getObject("fechaNacimiento");
-                usuario = new Administrador(rs.getString("login"), rs.getString("clave"), rs.getString("correo"), fecha, rs.getInt("sueldo"));
+                usuario = new Administrador(rs.getString("nick"), rs.getString("clave"), rs.getString("correo"), fecha, rs.getInt("sueldo"));
             }
             
         } catch (SQLException e) {
@@ -67,7 +68,7 @@ public class DAOUsuarios extends AbstractDAO {
         Connection con = this.getConexion();
         
         try {
-            stmt = con.prepareStatement("INSERT INTO Jugadores (login, clave, correo, fechaNacimiento, baneado)"
+            stmt = con.prepareStatement("INSERT INTO Jugadores (nick, clave, correo, fechaNacimiento, baneado)"
                                       + " VALUES (?, MD5(?), ?, ?, ?)");
             stmt.setString(1, login);
             stmt.setString(2, pw);
@@ -88,5 +89,67 @@ public class DAOUsuarios extends AbstractDAO {
             }
         }
         
+    }
+    
+     public void jugar(Jugador jugador, Juego juego){
+        
+        PreparedStatement stmc = null;
+       
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("insert into Jugar(jugador,juego) "
+            +" values(?,?) ");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2, juego.getNombre());
+            
+            stmc.executeUpdate();
+            
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al intentar jugar");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+    
+    public void dejarJugar(Jugador jugador, Juego juego){
+        
+        PreparedStatement stmc = null;
+       
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("update Jugar "
+            +"set fec_fin = now() "
+            +"where juego like ? "
+            +"and jugador like ? "
+            +"and fec_fin = null ");
+            stmc.setString(1, juego.getNombre());
+            stmc.setString(2, jugador.getNick());
+            
+            
+            stmc.executeUpdate();
+            
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, al dejar de jugar");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
     }
 }
