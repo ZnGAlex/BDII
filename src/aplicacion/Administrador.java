@@ -3,8 +3,8 @@ package aplicacion;
 public class Administrador extends Usuario {
     private Integer sueldo;
     
-    public Administrador (String login, String pw, String correo, java.util.Date fechaNacimiento, Integer sueldo) {
-        super(login, pw, correo, fechaNacimiento);
+    public Administrador (String nick, String pw, String correo, java.util.Date fechaNacimiento, Integer sueldo) {
+        super(nick, pw, correo, fechaNacimiento);
         this.sueldo = sueldo;
     }
 
