@@ -3,14 +3,14 @@ package aplicacion;
 public class Jugador extends Usuario {
     private boolean baneado;
 
-    public Jugador(String login, String pw, String correo, java.util.Date fechaNacimiento, boolean baneado) {
-        super(login, pw, correo, fechaNacimiento);
+    public Jugador(String nick, String pw, String correo, java.util.Date fechaNacimiento, boolean baneado) {
+        super(nick, pw, correo, fechaNacimiento);
         this.baneado = baneado;
     }
     
     @Override
-    public String getLogin(){
-        return super.getLogin();
+    public String getNick(){
+        return super.getNick();
     }
 
     public boolean getBaneado() {
@@ -23,7 +23,7 @@ public class Jugador extends Usuario {
     
     @Override
     public String toString() {
-        return "Nombre: " + getLogin();
+        return "Nombre: " + getNick();
     }
     
 }
