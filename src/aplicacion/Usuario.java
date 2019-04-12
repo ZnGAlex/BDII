@@ -1,24 +1,24 @@
 package aplicacion;
 
 public abstract class Usuario {
-     private String login;
+     private String nick;
      private String pw;
      private String correo;
      private java.util.Date fechaNacimiento;
      
-     public Usuario(String login, String pw, String correo, java.util.Date fechaNacimiento) {
-         this.login = login;
+     public Usuario(String nick, String pw, String correo, java.util.Date fechaNacimiento) {
+         this.nick = nick;
          this.pw = pw;
          this.correo = correo;
          this.fechaNacimiento = fechaNacimiento;
      }
 
-    public String getLogin() {
-        return login;
+    public String getNick() {
+        return nick;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
     public String getPw() {
