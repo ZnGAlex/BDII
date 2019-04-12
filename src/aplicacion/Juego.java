@@ -30,11 +30,10 @@ public class Juego {
         this.desarrolladora = desarrolladora;
     }
     
-    public Juego (Integer id, String nombre, Integer edadRecomendada, ArrayList<Categoria> categorias, Desarrolladora desarrolladora) {
+    public Juego (Integer id, String nombre, Integer edadRecomendada, Desarrolladora desarrolladora) {
         this.id = id;
         this.nombre = nombre;
         this.edadRecomendada = edadRecomendada;
-        this.categorias = categorias;
         this.desarrolladora = desarrolladora;
     }  
     
