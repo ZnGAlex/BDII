@@ -57,7 +57,7 @@ public class ModeloTablaJugadores extends AbstractTableModel{
         Object resultado=null;
 
         switch (col){
-            case 0: resultado= jugadores.get(row).getLogin(); break;
+            case 0: resultado= jugadores.get(row).getNick(); break;
         }
         return resultado;
     }
