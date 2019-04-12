@@ -23,23 +23,27 @@ public class DAOUsuarios extends AbstractDAO {
         Connection con = this.getConexion();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Jugadores WHERE clave = MD5(?)");
-            stmt.setString(1, pw);
+            stmt = con.prepareStatement("SELECT * FROM Jugadores WHERE nick = ? AND clave = MD5(?)");
+            stmt.setString(1, login);
+            stmt.setString(2, pw);
             
             rs = stmt.executeQuery();
             
-            while (rs.next()) {
+            if (rs.next()) {
                 /* Si el usuario a hacer login es jugador, se crea una instancia de jugador */
                 java.util.Date fecha = (java.util.Date) rs.getObject("fechaNacimiento");
                 usuario = new Jugador(rs.getString("login"), rs.getString("clave"), rs.getString("correo"), fecha ,rs.getBoolean("baneado"));
             }
             
-            stmt = con.prepareStatement("SELECT * FROM Administradores WHERE clave = MD5(?)");
-            stmt.setString(1, pw);
+            if (usuario != null) return usuario;
+            
+            stmt = con.prepareStatement("SELECT * FROM Administradores WHERE nick = ? AND clave = MD5(?)");
+            stmt.setString(1, login);
+            stmt.setString(2, pw);
             
             rs = stmt.executeQuery();
             
-            while (rs.next()) {
+            if (rs.next()) {
                 /* Si el usuario a hacer login es administrador, se crea una instancia de administrador */
                 java.util.Date fecha = (java.util.Date) rs.getObject("fechaNacimiento");
                 usuario = new Administrador(rs.getString("login"), rs.getString("clave"), rs.getString("correo"), fecha, rs.getInt("sueldo"));
