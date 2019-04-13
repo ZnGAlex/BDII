@@ -152,4 +152,66 @@ public class DAOUsuarios extends AbstractDAO {
             }
         }
     }
+    
+    public void retrasnmitir(Jugador jugador, Juego juego){
+        
+        PreparedStatement stmc = null;
+       
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("insert into Retransmitir(jugador,juego) "
+            +" values(?,?) ");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2, juego.getNombre());
+            
+            stmc.executeUpdate();
+            
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al intentar retransmitir");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+    
+    public void dejarRetransmitir(Jugador jugador, Juego juego){
+        
+        PreparedStatement stmc = null;
+       
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("update Retrasnmitir "
+            +"set fec_fin = now() "
+            +"where juego like ? "
+            +"and jugador like ? "
+            +"and fec_fin = null ");
+            stmc.setString(1, juego.getNombre());
+            stmc.setString(2, jugador.getNick());
+            
+            
+            stmc.executeUpdate();
+            
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, al dejar de retransmitir");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
 }
