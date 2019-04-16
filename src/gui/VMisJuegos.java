@@ -5,6 +5,7 @@
  */
 package gui;
 
+import aplicacion.Usuario;
 import java.awt.Toolkit;
 
 /**
@@ -13,6 +14,8 @@ import java.awt.Toolkit;
  */
 public class VMisJuegos extends javax.swing.JDialog {
     
+    private Usuario usuario;
+    
     private final aplicacion.FachadaAplicacion fa;
     /**
      * Creates new form VMisJuegos
@@ -20,11 +23,13 @@ public class VMisJuegos extends javax.swing.JDialog {
      * @param modal
      * @param fa
      */
-    public VMisJuegos(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa) {
+    public VMisJuegos(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Usuario usuario) {
         
         super(parent, modal);
         //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
-        this.fa = fa;       
+        this.fa = fa;
+        this.usuario = usuario;
+        
         initComponents();
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);

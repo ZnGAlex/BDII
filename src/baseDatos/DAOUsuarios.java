@@ -32,7 +32,7 @@ public class DAOUsuarios extends AbstractDAO {
             
             if (rs.next()) {
                 /* Si el usuario a hacer login es jugador, se crea una instancia de jugador */
-                java.util.Date fecha = (java.util.Date) rs.getObject("fechaNacimiento");
+                java.util.Date fecha = (java.util.Date) rs.getObject("fec_nacimiento");
                 usuario = new Jugador(rs.getString("nick"), rs.getString("clave"), rs.getString("correo"), fecha ,rs.getBoolean("baneado"));
             }
             
@@ -46,7 +46,7 @@ public class DAOUsuarios extends AbstractDAO {
             
             if (rs.next()) {
                 /* Si el usuario a hacer login es administrador, se crea una instancia de administrador */
-                java.util.Date fecha = (java.util.Date) rs.getObject("fechaNacimiento");
+                java.util.Date fecha = (java.util.Date) rs.getObject("fec_nacimiento");
                 usuario = new Administrador(rs.getString("nick"), rs.getString("clave"), rs.getString("correo"), fecha, rs.getInt("sueldo"));
             }
             
@@ -68,7 +68,7 @@ public class DAOUsuarios extends AbstractDAO {
         Connection con = this.getConexion();
         
         try {
-            stmt = con.prepareStatement("INSERT INTO Jugadores (nick, clave, correo, fechaNacimiento, baneado)"
+            stmt = con.prepareStatement("INSERT INTO Jugadores (nick, clave, correo, fec_nacimiento, baneado)"
                                       + " VALUES (?, MD5(?), ?, ?, ?)");
             stmt.setString(1, login);
             stmt.setString(2, pw);
@@ -276,7 +276,38 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
-    
+    public boolean usuarioTieneJuego(String nick,Integer idJuego){
+        boolean resultado = false;
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("select * "
+                    + "from comprar "
+                    + "where jugador like ? "
+                        + "and juego like ?");
+            stmc.setString(1, nick);
+            stmc.setInt(2, idJuego);
+
+            rst = stmc.executeQuery();
+            if (rst.next()) {
+                resultado = true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al consultar pertenecia de juego");
+        } finally {
+            try {
+                stmc.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
     
     
 }

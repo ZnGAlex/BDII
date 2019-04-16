@@ -126,16 +126,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Mi perfil"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPerfilActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAmigos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Mis amigos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAmigosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnJuegos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Mis juegos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnJuegosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaCarrito">
       <Properties>
@@ -146,6 +155,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Carrito"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCarritoActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollPaneJuegos">
 
@@ -157,6 +169,10 @@
               <Connection code="new ModeloTablaJuegos()" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaJuegosMouseClicked"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tablaJuegosKeyPressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -204,6 +220,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="A&#xf1;adir al Carrito"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnadirActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

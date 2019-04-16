@@ -5,28 +5,31 @@ public class VPrincipal extends javax.swing.JFrame {
   
     FachadaAplicacion fa;
     Usuario usuario;
+    java.util.List<Juego> juegos;
+    java.util.List<Juego> carrito;
     
     /** Creates new form VPrincipal */
     public VPrincipal(aplicacion.FachadaAplicacion fa) {
         this.fa=fa;
         initComponents();
-        
-        //Inicializar listado de categorias de boxCategorias
+        btnAnadir.setEnabled(false);
+        btnDetalles.setEnabled(false);
+    }
+    
+    public void inicializarBoxes(){
+         //Inicializar listado de categorias de boxCategorias
         java.util.List<Categoria> categorias = fa.obtenerCategorias();
-        
+        boxCategorias.addItem("");
         for(Categoria cat: categorias){
             boxCategorias.addItem(cat.getNombre());
         }
         
         //Inicializar listado de Desarrolladoras de boxDesarrolladora
         java.util.List<Desarrolladora> desarrolladoras = fa.obtenerDesarrolladoras();
-        
+        boxDesarrolladora.addItem("");
         for(Desarrolladora des: desarrolladoras){
             boxDesarrolladora.addItem(des.getNombre());
         }
-        
-        //Modelo de tabla de juegos
-        
     }
 
     /** This method is called from within the constructor to
@@ -62,16 +65,46 @@ public class VPrincipal extends javax.swing.JFrame {
         setResizable(false);
 
         btnPerfil.setText("Mi perfil");
+        btnPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPerfilActionPerformed(evt);
+            }
+        });
 
         btnAmigos.setText("Mis amigos");
+        btnAmigos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAmigosActionPerformed(evt);
+            }
+        });
 
         btnJuegos.setText("Mis juegos");
+        btnJuegos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJuegosActionPerformed(evt);
+            }
+        });
 
         etiquetaCarrito.setText("0");
 
         btnCarrito.setText("Carrito");
+        btnCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarritoActionPerformed(evt);
+            }
+        });
 
         tablaJuegos.setModel(new ModeloTablaJuegos());
+        tablaJuegos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaJuegosMouseClicked(evt);
+            }
+        });
+        tablaJuegos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tablaJuegosKeyPressed(evt);
+            }
+        });
         scrollPaneJuegos.setViewportView(tablaJuegos);
 
         etiquetaCategorias.setText("Categorías");
@@ -101,6 +134,11 @@ public class VPrincipal extends javax.swing.JFrame {
         });
 
         btnAnadir.setText("Añadir al Carrito");
+        btnAnadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnadirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,6 +225,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
         // TODO add your handling code here:
+        fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()));
     }//GEN-LAST:event_btnDetallesActionPerformed
 
     private void boxDesarrolladoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxDesarrolladoraActionPerformed
@@ -195,8 +234,49 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        
+        juegos = fa.consultarJuegosTienda((String)boxCategorias.getSelectedItem(),(String) boxDesarrolladora.getSelectedItem(), textoNombre.getText());
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void tablaJuegosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaJuegosKeyPressed
+        tablaJuegosMouseClicked(null);
+    }//GEN-LAST:event_tablaJuegosKeyPressed
+
+    private void tablaJuegosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJuegosMouseClicked
+        int row = tablaJuegos.getSelectedRow();
+        Integer id = (Integer) ((ModeloTablaJuegos)tablaJuegos.getModel()).getValueAt(row, 4);
+        
+        btnAnadir.setEnabled(!fa.usuarioTieneJuego(usuario.getNick(),id));
+        btnDetalles.setEnabled(true);
+    }//GEN-LAST:event_tablaJuegosMouseClicked
+
+    private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
+        // TODO add your handling code here:
+        carrito.add(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()));
+        Integer numero = Integer.parseInt(etiquetaCarrito.getText());
+        numero++;
+        etiquetaCarrito.setText(numero.toString());
+    }//GEN-LAST:event_btnAnadirActionPerformed
+
+    private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
+        // TODO add your handling code here:
+        fa.muestraVMiPerfil(usuario);
+    }//GEN-LAST:event_btnPerfilActionPerformed
+
+    private void btnAmigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmigosActionPerformed
+        // TODO add your handling code here:
+        fa.muestraVMisAmigos(usuario);
+    }//GEN-LAST:event_btnAmigosActionPerformed
+
+    private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
+        // TODO add your handling code here:
+        fa.muestraVMisJuegos(usuario);
+    }//GEN-LAST:event_btnJuegosActionPerformed
+
+    private void btnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarritoActionPerformed
+        // TODO add your handling code here:
+        fa.muestraVCarrito(usuario,carrito);
+    }//GEN-LAST:event_btnCarritoActionPerformed
 
     /**
     * @param args the command line arguments

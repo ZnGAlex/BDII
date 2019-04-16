@@ -16,6 +16,7 @@ public class FachadaBaseDatos {
     private DAOUsuarios daoUsuarios;
     private DAOCategorias daoCategorias;
     private DAODesarrolladoras daoDesarrolladoras;
+    private DAOJuegos daoJuegos;
     
     public FachadaBaseDatos (aplicacion.FachadaAplicacion fa){
         
@@ -41,6 +42,9 @@ public class FachadaBaseDatos {
                     configuracion.getProperty("baseDatos"),
                     usuario);
             daoUsuarios = new DAOUsuarios(conexion, fa);
+            daoCategorias = new DAOCategorias(conexion, fa);
+            daoDesarrolladoras = new DAODesarrolladoras(conexion,fa);
+            daoJuegos = new DAOJuegos(conexion,fa);
         } catch (FileNotFoundException f){
             System.out.println(f.getMessage());
             // fa.muestraExcepcion(f.getMessage());
@@ -84,6 +88,14 @@ public class FachadaBaseDatos {
     
     public void dejarRetransmitir(Jugador j, Juego ju){
         daoUsuarios.dejarRetransmitir(j, ju);
+    }
+    
+    public java.util.List<Juego> consultarJuegosTienda(String categoria, String desarrolladora, String nombre){
+        return daoJuegos.consultarJuegosTienda(categoria, desarrolladora, nombre);
+    }
+    
+    public boolean usuarioTieneJuego(String nick,Integer idJuego){
+        return daoUsuarios.usuarioTieneJuego(nick,idJuego);
     }
     
 }

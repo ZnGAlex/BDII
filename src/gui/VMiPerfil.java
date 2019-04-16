@@ -5,6 +5,7 @@
  */
 package gui;
 
+import aplicacion.Usuario;
 import java.awt.Toolkit;
 
 /**
@@ -12,12 +13,14 @@ import java.awt.Toolkit;
  * @author alumnogreibd
  */
 public class VMiPerfil extends javax.swing.JDialog {
-
+    private Usuario usuario;
     /**
      * Creates new form VMiPerfil
      */
-    public VMiPerfil(java.awt.Frame parent, boolean modal, boolean modoExterno) {
+    public VMiPerfil(java.awt.Frame parent, boolean modal, boolean modoExterno, Usuario usuario) {
         super(parent, modal);
+        
+        this.usuario = usuario;
         initComponents();
         
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda

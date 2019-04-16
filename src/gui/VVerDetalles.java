@@ -5,6 +5,7 @@
  */
 package gui;
 
+import aplicacion.Juego;
 import java.awt.Toolkit;
 
 /**
@@ -12,7 +13,8 @@ import java.awt.Toolkit;
  * @author alumnogreibd
  */
 public class VVerDetalles extends javax.swing.JDialog {
-
+    
+    private Juego juego;
     
     //private final VLibro padre;
     private final aplicacion.FachadaAplicacion fa;
@@ -21,12 +23,14 @@ public class VVerDetalles extends javax.swing.JDialog {
      * @param parent
      * @param modal
      * @param fa
+     * @param juego
      */
-    public VVerDetalles(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa) {
+    public VVerDetalles(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Juego juego) {
         
         super(parent, modal);
         //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
-        this.fa = fa;       
+        this.fa = fa;
+        this.juego = juego;
         initComponents();
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);

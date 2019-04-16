@@ -32,4 +32,8 @@ public class GestionUsuarios {
     public void dejarRetransmitir(Jugador j, Juego ju){
         fbd.dejarRetransmitir(j, ju);
     }
+    
+    public boolean usuarioTieneJuego(String nick,Integer idJuego){
+        return fbd.usuarioTieneJuego(nick,idJuego);
+    }
 }

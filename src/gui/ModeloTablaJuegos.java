@@ -61,12 +61,17 @@ public class ModeloTablaJuegos extends AbstractTableModel{
             case 0: resultado= juegos.get(row).getNombre(); break;
             case 1: resultado= juegos.get(row).getEdadRecomendada(); break;
             case 2: resultado=juegos.get(row).getDesarrolladora().getNombre();break;
+            case 3: resultado=juegos.get(row).getId();break;
         }
         return resultado;
     }
+    
+    public Juego getJuegoAt(int row){
+        return juegos.get(row);
+    }
 
-    public void setFilas(java.util.List<Juego> libros){
-        this.juegos=libros;
+    public void setFilas(java.util.List<Juego> juegos){
+        this.juegos=juegos;
         fireTableDataChanged();
     }
 
