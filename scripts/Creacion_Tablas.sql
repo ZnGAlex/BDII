@@ -30,11 +30,10 @@ create table SerAmigo
 create table Bloquear
 (
 	jugador varchar(20) not null,
-	amigo varchar(20) not null,
 	bloqueado varchar(20) not null,
 	fecha timestamp not null default CURRENT_TIMESTAMP,
 	motivo varchar(200),
-	primary key(jugador,amigo,fecha),
+	primary key(jugador,bloqueado,fecha),
 	foreign key(jugador) references jugador(nick)
 	on delete cascade on update cascade,
 	foreign key(bloqueado) references jugador(nick)
