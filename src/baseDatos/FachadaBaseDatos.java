@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+import aplicacion.Juego;
+import aplicacion.Jugador;
 
 public class FachadaBaseDatos {
     private aplicacion.FachadaAplicacion fa;
@@ -66,6 +68,22 @@ public class FachadaBaseDatos {
     
     public java.util.List<Desarrolladora> obtenerDesarrolladoras() {
         return daoDesarrolladoras.obtenerDesarrolladoras();
+    }
+
+    public void jugar(Jugador j, Juego ju){
+        daoUsuarios.jugar(j, ju);
+    }
+    
+    public void dejarJugar(Jugador j, Juego ju){
+        daoUsuarios.dejarJugar(j, ju);
+    }
+    
+    public void retransmitir(Jugador j, Juego ju){
+        daoUsuarios.retrasnmitir(j, ju);
+    }
+    
+    public void dejarRetransmitir(Jugador j, Juego ju){
+        daoUsuarios.dejarRetransmitir(j, ju);
     }
     
 }
