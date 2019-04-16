@@ -10,7 +10,7 @@
 create table Jugador
 (
 	nick varchar(20) not null primary key,
-	clave varchar(20) not null,
+	clave varchar(100) not null,
 	correo varchar(60),
 	fecha_nac date,
 	baneado boolean not null default false
