@@ -10,6 +10,23 @@ public class VPrincipal extends javax.swing.JFrame {
     public VPrincipal(aplicacion.FachadaAplicacion fa) {
         this.fa=fa;
         initComponents();
+        
+        //Inicializar listado de categorias de boxCategorias
+        java.util.List<Categoria> categorias = fa.obtenerCategorias();
+        
+        for(Categoria cat: categorias){
+            boxCategorias.addItem(cat.getNombre());
+        }
+        
+        //Inicializar listado de Desarrolladoras de boxDesarrolladora
+        java.util.List<Desarrolladora> desarrolladoras = fa.obtenerDesarrolladoras();
+        
+        for(Desarrolladora des: desarrolladoras){
+            boxDesarrolladora.addItem(des.getNombre());
+        }
+        
+        //Modelo de tabla de juegos
+        
     }
 
     /** This method is called from within the constructor to
@@ -59,15 +76,22 @@ public class VPrincipal extends javax.swing.JFrame {
 
         etiquetaCategorias.setText("Categorías");
 
-        boxCategorias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "qwewe" }));
-
         etiquetaDesarrolladora.setText("Desarrolladora");
 
-        boxDesarrolladora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        boxDesarrolladora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxDesarrolladoraActionPerformed(evt);
+            }
+        });
 
         etiquetaNombre.setText("Nombre");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnDetalles.setText("Ver detalles");
         btnDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -100,12 +124,12 @@ public class VPrincipal extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(etiquetaCategorias)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(boxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(boxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(etiquetaDesarrolladora)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(boxDesarrolladora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(boxDesarrolladora, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(etiquetaNombre)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textoNombre))
@@ -164,6 +188,15 @@ public class VPrincipal extends javax.swing.JFrame {
     private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDetallesActionPerformed
+
+    private void boxDesarrolladoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxDesarrolladoraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxDesarrolladoraActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
     * @param args the command line arguments

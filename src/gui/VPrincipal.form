@@ -58,12 +58,12 @@
                           <Group type="102" attributes="0">
                               <Component id="etiquetaCategorias" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="boxCategorias" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="boxCategorias" min="-2" pref="93" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="etiquetaDesarrolladora" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="boxDesarrolladora" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="boxDesarrolladora" min="-2" pref="113" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="etiquetaNombre" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="textoNombre" max="32767" attributes="0"/>
@@ -166,17 +166,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="boxCategorias">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-            <StringItem index="4" value="qwewe"/>
-          </StringArray>
-        </Property>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaDesarrolladora">
       <Properties>
@@ -184,16 +173,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="boxDesarrolladora">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boxDesarrolladoraActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaNombre">
       <Properties>
@@ -206,6 +188,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDetalles">
       <Properties>

@@ -1,5 +1,7 @@
 package baseDatos;
 
+import aplicacion.Categoria;
+import aplicacion.Desarrolladora;
 import aplicacion.Usuario;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,6 +12,8 @@ public class FachadaBaseDatos {
     private aplicacion.FachadaAplicacion fa;
     private java.sql.Connection conexion;
     private DAOUsuarios daoUsuarios;
+    private DAOCategorias daoCategorias;
+    private DAODesarrolladoras daoDesarrolladoras;
     
     public FachadaBaseDatos (aplicacion.FachadaAplicacion fa){
         
@@ -54,6 +58,14 @@ public class FachadaBaseDatos {
     
     public void registrarUsuario(String login, String pw, String correo, java.util.Date fechaNacimiento) {
         daoUsuarios.registrarUsuario(login, pw, correo, fechaNacimiento);
+    }
+    
+    public java.util.List<Categoria> obtenerCategorias(){
+        return daoCategorias.obtenerCategorias();
+    }
+    
+    public java.util.List<Desarrolladora> obtenerDesarrolladoras() {
+        return daoDesarrolladoras.obtenerDesarrolladoras();
     }
     
 }
