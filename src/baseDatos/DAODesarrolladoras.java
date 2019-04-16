@@ -28,7 +28,7 @@ public class DAODesarrolladoras extends AbstractDAO{
 
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("select * from desarrolladoras");;
+            stmc = con.prepareStatement("select * from Desarrolladora");;
 
             rst = stmc.executeQuery();
             while (rst.next()) {

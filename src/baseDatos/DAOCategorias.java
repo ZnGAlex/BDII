@@ -33,7 +33,7 @@ class DAOCategorias extends AbstractDAO{
 
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("select * from categorias");;
+            stmc = con.prepareStatement("select * from Categoria");;
 
             rst = stmc.executeQuery();
             while (rst.next()) {
