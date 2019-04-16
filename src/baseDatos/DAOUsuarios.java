@@ -214,4 +214,69 @@ public class DAOUsuarios extends AbstractDAO {
             }
         }
     }
+    
+    public void anhadirAmigo(Jugador jugador, Jugador amigo){
+        
+        PreparedStatement stmc = null;
+       
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("");
+            
+            
+            
+            stmc.executeUpdate();
+            
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, al intentar entablar amistad");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+    
+    public void quitarAmigo(Jugador jugador, Jugador amigo){
+        
+        PreparedStatement stmc = null;
+       
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("delete from amigos "
+                +" where (jugador like ? and amigo like ?) "
+                + " or (jugador like ? and amigo like ?) ");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2, amigo.getNick());
+            stmc.setString(3, amigo.getNick());
+            stmc.setString(4, jugador.getNick());
+            
+            
+            stmc.executeUpdate();
+            
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, al quitar amigo");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+    
+    
+    
+    
 }
