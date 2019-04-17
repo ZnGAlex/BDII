@@ -1,9 +1,9 @@
 ﻿create table Administrador
 (
 	nick varchar(20) not null primary key,
-	clave varchar(20) not null,
+	clave varchar(100) not null,
 	correo varchar(60),
-	fecha_nac date,
+	fecha_nacimiento date,
 	sueldo integer not null default 1000
 );
 
@@ -12,7 +12,7 @@ create table Jugador
 	nick varchar(20) not null primary key,
 	clave varchar(100) not null,
 	correo varchar(60),
-	fec_nacimiento date,
+	fecha_nacimiento date,
 	baneado boolean not null default false
 );
 
