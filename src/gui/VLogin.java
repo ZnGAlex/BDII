@@ -307,7 +307,7 @@ public class VLogin extends javax.swing.JDialog {
             etiquetaFallo.setVisible(true);
         } else {
             /* Login correcto */
-            this.fa.muestraVPrincipal();
+            this.fa.muestraVPrincipal(usuario);
             this.dispose();
         }
     }//GEN-LAST:event_btnAceptarActionPerformed

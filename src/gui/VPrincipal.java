@@ -14,6 +14,7 @@ public class VPrincipal extends javax.swing.JFrame {
         initComponents();
         btnAnadir.setEnabled(false);
         btnDetalles.setEnabled(false);
+        this.carrito = new java.util.ArrayList<>();
     }
     
     public void inicializarBoxes(){
@@ -101,8 +102,8 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
         tablaJuegos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tablaJuegosKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tablaJuegosKeyReleased(evt);
             }
         });
         scrollPaneJuegos.setViewportView(tablaJuegos);
@@ -222,7 +223,6 @@ public class VPrincipal extends javax.swing.JFrame {
         this.usuario = usuario;
     }
     
-
     private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
         // TODO add your handling code here:
         fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()));
@@ -238,15 +238,20 @@ public class VPrincipal extends javax.swing.JFrame {
         ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void tablaJuegosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaJuegosKeyPressed
-        tablaJuegosMouseClicked(null);
-    }//GEN-LAST:event_tablaJuegosKeyPressed
-
+    public boolean estaEnCarrito(Juego juego) {
+        for (Juego j : carrito) {
+            if (j.getId().equals(juego.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private void tablaJuegosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJuegosMouseClicked
         int row = tablaJuegos.getSelectedRow();
-        Integer id = (Integer) ((ModeloTablaJuegos)tablaJuegos.getModel()).getValueAt(row, 4);
+        Integer id = (Integer) ((ModeloTablaJuegos)tablaJuegos.getModel()).getValueAt(row, 3);
         
-        btnAnadir.setEnabled(!fa.usuarioTieneJuego(usuario.getNick(),id));
+        btnAnadir.setEnabled(!fa.usuarioTieneJuego(usuario.getNick(),id) && !estaEnCarrito(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(row)));
         btnDetalles.setEnabled(true);
     }//GEN-LAST:event_tablaJuegosMouseClicked
 
@@ -256,6 +261,7 @@ public class VPrincipal extends javax.swing.JFrame {
         Integer numero = Integer.parseInt(etiquetaCarrito.getText());
         numero++;
         etiquetaCarrito.setText(numero.toString());
+        btnAnadir.setEnabled(false);
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
@@ -277,6 +283,11 @@ public class VPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         fa.muestraVCarrito(usuario,carrito);
     }//GEN-LAST:event_btnCarritoActionPerformed
+
+    private void tablaJuegosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaJuegosKeyReleased
+        // TODO add your handling code here:
+        tablaJuegosMouseClicked(null);
+    }//GEN-LAST:event_tablaJuegosKeyReleased
 
     /**
     * @param args the command line arguments

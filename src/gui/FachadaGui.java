@@ -14,8 +14,9 @@ public class FachadaGui {
         this.vp = new VPrincipal(this.fa);
     }
 
-    public void muestraVPrincipal() {
+    public void muestraVPrincipal(Usuario usuario) {
         vp.inicializarBoxes();
+        vp.setUsuario(usuario);
         this.vp.setVisible(true);
     }
 

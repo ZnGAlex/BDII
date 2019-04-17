@@ -25,8 +25,8 @@ public class FachadaAplicacion {
         fa.iniciaLogin();
     }
 
-    public void muestraVPrincipal() {
-        fgui.muestraVPrincipal();
+    public void muestraVPrincipal(Usuario usuario) {
+        fgui.muestraVPrincipal(usuario);
     }
 
     public void iniciaLogin() {

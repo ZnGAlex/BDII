@@ -288,7 +288,7 @@ public class DAOUsuarios extends AbstractDAO {
             stmc = con.prepareStatement("select * "
                     + "from comprar "
                     + "where jugador like ? "
-                        + "and juego like ?");
+                        + "and juego = ?");
             stmc.setString(1, nick);
             stmc.setInt(2, idJuego);
 

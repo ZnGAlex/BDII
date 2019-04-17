@@ -29,23 +29,30 @@ public class DAOJuegos extends AbstractDAO {
         PreparedStatement stmc = null;
         ResultSet rst;
         Connection con;
+        
+        if(categoria.equals("")){
+            categoria = "%";
+        }
+        if(desarrolladora.equals("")){
+            desarrolladora = "%";
+        }
 
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("select j.id, j.nombre, j.edadrecomendada, j.desarrolladora, j.pais"
-                    + "from Juego as j, TenerCategoria as c, Desarrolladora as d"
-                    + "where j.nombre like c.juego "
+            stmc = con.prepareStatement("select distinct j.id, j.nombre, j.edadrecomendada, j.desarrolladora, d.pais "
+                    + "from Juego as j, TenerCategoria as c, Desarrolladora as d "
+                    + "where j.id = c.juego "
                     + "and j.desarrolladora like d.nombre "
-                    + "and j.nombre like %?% "
+                    + "and j.nombre like ? "
                     + "and j.desarrolladora like ? "
-                    + "and c.categoria like ?");
-            stmc.setString(1, nombre);
+                    + "and c.categoria like ? ");
+            stmc.setString(1, "%" + nombre + "%");
             stmc.setString(2, desarrolladora);
             stmc.setString(3, categoria);
 
             rst = stmc.executeQuery();
             while (rst.next()) {
-                jactual = new Juego(rst.getInt("j.id"), rst.getString("j.nombre"), rst.getInt("j.edadrecomendada"), null, new Desarrolladora(rst.getString("desarrolladora"), rst.getString("pais")));
+                jactual = new Juego(rst.getInt("id"), rst.getString("nombre"), rst.getInt("edadrecomendada"), null, new Desarrolladora(rst.getString("desarrolladora"), rst.getString("pais")));
                 resultado.add(jactual);
             }
 
