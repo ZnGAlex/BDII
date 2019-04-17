@@ -69,7 +69,7 @@ public class DAOUsuarios extends AbstractDAO {
         
         try {
 
-            stmt = con.prepareStatement("INSERT INTO Jugadores (nick, clave, correo, fec_nacimiento, baneado)"
+            stmt = con.prepareStatement("INSERT INTO Jugador (nick, clave, correo, fec_nacimiento, baneado)"
                                       + " VALUES (?, MD5(?), ?, ?, ?)");
             stmt.setString(1, login);
             stmt.setString(2, pw);
