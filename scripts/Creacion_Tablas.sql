@@ -3,7 +3,7 @@
 	nick varchar(20) not null primary key,
 	clave varchar(100) not null,
 	correo varchar(60),
-	fecha_nacimiento date,
+	fec_nacimiento date,
 	sueldo integer not null default 1000
 );
 
@@ -12,7 +12,7 @@ create table Jugador
 	nick varchar(20) not null primary key,
 	clave varchar(100) not null,
 	correo varchar(60),
-	fecha_nacimiento date,
+	fec_nacimiento date,
 	baneado boolean not null default false
 );
 
