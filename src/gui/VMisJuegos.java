@@ -57,6 +57,9 @@ public class VMisJuegos extends javax.swing.JDialog {
         //Hacemos la ventana visible para el usuario
         this.inicializarBoxes();
         this.setVisible(true);  
+        btnJugar.setEnabled(false);
+        btnVerDetalles.setEnabled(false);
+        btnVerLogros.setEnabled(false);
     }
 
     
@@ -88,27 +91,20 @@ public class VMisJuegos extends javax.swing.JDialog {
 
         etiquetaCategoria.setText("Categoría:");
 
-        boxCategorias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxCategoriasActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Desarrolladora:");
 
         btnJugar.setText("Jugar");
+        btnJugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJugarActionPerformed(evt);
+            }
+        });
 
         btnVerDetalles.setText("Ver detalles");
 
         btnVerLogros.setText("Ver logros");
 
         jLabel2.setText("Nombre:");
-
-        CampoNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CampoNombreActionPerformed(evt);
-            }
-        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +114,11 @@ public class VMisJuegos extends javax.swing.JDialog {
         });
 
         tablaJuegos.setModel(new ModeloTablaJuegos());
+        tablaJuegos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaJuegosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaJuegos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -195,21 +196,29 @@ public class VMisJuegos extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void boxCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCategoriasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_boxCategoriasActionPerformed
-
-    private void CampoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CampoNombreActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         String categoria=(String)boxCategorias.getSelectedItem();
         String desarrolladora=(String) boxDesarrolladora.getSelectedItem();
         juegos = fa.consultarJuegosPropios(categoria,desarrolladora, CampoNombre.getText(), (Jugador)this.usuario);
-        ((ModeloTablaJuegos)(tablaJuegos.getModel())).setFilas(juegos);
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+        // TODO add your handling code here:
+        Juego juego=((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow());
+        //fa.jugar((Jugador)this.usuario,juego);
+        fa.muestraJugar((Jugador)this.usuario, juego);
+        
+    }//GEN-LAST:event_btnJugarActionPerformed
+
+    private void tablaJuegosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJuegosMouseClicked
+        // TODO add your handling code here:
+        btnJugar.setEnabled(true);
+        btnVerDetalles.setEnabled(true);
+        btnVerLogros.setEnabled(true);
+        
+    }//GEN-LAST:event_tablaJuegosMouseClicked
 
 
 

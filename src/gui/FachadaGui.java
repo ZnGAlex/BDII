@@ -56,6 +56,12 @@ public class FachadaGui {
         vmj = new VMisJuegos(this.vp,true,fa,usuario);
     }
     
+    public void muestraJugar(Jugador jugador, Juego juego){
+        VJugar vj;
+        
+        vj= new VJugar(this.vp,true,fa,jugador,juego);
+    }
+    
     public void muestraVCarrito(Usuario usuario, java.util.List<Juego> juegos){
         VCarrito vc;
         

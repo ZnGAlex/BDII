@@ -6,30 +6,54 @@
 package gui;
 
 import java.awt.Toolkit;
+import aplicacion.Juego;
+import aplicacion.Jugador;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author alumnogreibd
  */
 public class VJugar extends javax.swing.JDialog {
-    
+
+    private Jugador jugador;
+    private Juego juego;
+
     private final aplicacion.FachadaAplicacion fa;
+
     /**
      * Creates new form VJugar
+     *
      * @param parent
      * @param modal
      * @param fa
      */
-    public VJugar(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa) {
-        
+    public VJugar(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Jugador j, Juego ju) {
+
         super(parent, modal);
         //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
-        this.fa = fa;       
+        this.fa = fa;
+        this.juego = ju;
+        this.jugador = j;
         initComponents();
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
-        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
+        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - this.getWidth() / 2, Toolkit.getDefaultToolkit().getScreenSize().height / 2 - this.getHeight() / 2);
         //Hacemos la ventana visible para el usuario
-        this.setVisible(true);  
+        this.setVisible(true);
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent w) {
+                salir();
+            }
+
+        });
+
+    }
+
+    void salir() {
+        System.out.println("Saliendo");
+        this.dispose();
     }
 
     /**
@@ -106,7 +130,6 @@ public class VJugar extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

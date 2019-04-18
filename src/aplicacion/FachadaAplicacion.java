@@ -81,7 +81,15 @@ public class FachadaAplicacion {
         fgui.muestraVMisJuegos(usuario);
     }
     
+    public void muestraJugar(Jugador jugador, Juego juego){
+        fgui.muestraJugar(jugador, juego);
+    }
+    
     public void muestraVCarrito(Usuario usuario, java.util.List<Juego> juegos){
         fgui.muestraVCarrito(usuario, juegos);
+    }
+    
+    public void jugar(Jugador jugador, Juego juego){
+        gu.jugar(jugador, juego);
     }
 }

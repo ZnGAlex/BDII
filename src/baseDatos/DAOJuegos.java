@@ -103,7 +103,7 @@ public class DAOJuegos extends AbstractDAO {
 
             rst = stmc.executeQuery();
             while (rst.next()) {
-                jactual = new Juego(rst.getInt("j.id"), rst.getString("j.nombre"), rst.getInt("j.edadrecomendada"), null, new Desarrolladora(rst.getString("desarrolladora"), rst.getString("pais")));
+                jactual = new Juego(rst.getInt("id"), rst.getString("nombre"), rst.getInt("edadrecomendada"), null, new Desarrolladora(rst.getString("desarrolladora"), rst.getString("pais")));
                 resultado.add(jactual);
             }
 
