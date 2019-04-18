@@ -43,10 +43,9 @@ public class VJugar extends javax.swing.JDialog {
 
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent w) {
+            public void windowClosed(java.awt.event.WindowEvent w) {
                 salir();
             }
-
         });
 
     }
