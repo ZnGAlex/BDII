@@ -24,4 +24,8 @@ public class GestionJuegos {
     public java.util.List<Juego> consultarJuegosTienda(String categoria, String desarrolladora, String nombre){
         return fbd.consultarJuegosTienda(categoria,desarrolladora,nombre);
     }
+    
+    public java.util.List<Juego> consultarJuegosPropios(String categoria, String desarrolladora, String nombre, Jugador jugador){
+        return fbd.consultarJuegosPropios(categoria, desarrolladora, nombre, jugador);
+    }
 }

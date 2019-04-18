@@ -57,6 +57,10 @@ public class FachadaAplicacion {
         return gj.consultarJuegosTienda(categoria,desarrolladora,nombre);
     }
     
+    public java.util.List<Juego> consultarJuegosPropios(String categoria, String desarrolladora, String nombre, Jugador jugador){
+        return gj.consultarJuegosPropios(categoria,desarrolladora,nombre, jugador);
+    }
+    
     public boolean usuarioTieneJuego(String nick,Integer idJuego){
         return gu.usuarioTieneJuego(nick,idJuego);
     }

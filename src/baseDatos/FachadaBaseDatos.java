@@ -94,6 +94,10 @@ public class FachadaBaseDatos {
         return daoJuegos.consultarJuegosTienda(categoria, desarrolladora, nombre);
     }
     
+    public java.util.List<Juego> consultarJuegosPropios(String categoria, String desarrolladora, String nombre, Jugador jugador){
+        return daoJuegos.consultarJuegosPropios(categoria, desarrolladora, nombre, jugador);
+    }
+    
     public boolean usuarioTieneJuego(String nick,Integer idJuego){
         return daoUsuarios.usuarioTieneJuego(nick,idJuego);
     }

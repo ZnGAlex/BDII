@@ -5,7 +5,11 @@
  */
 package gui;
 
+import aplicacion.Categoria;
+import aplicacion.Desarrolladora;
 import aplicacion.Usuario;
+import aplicacion.Juego;
+import aplicacion.Jugador;
 import java.awt.Toolkit;
 
 /**
@@ -15,6 +19,7 @@ import java.awt.Toolkit;
 public class VMisJuegos extends javax.swing.JDialog {
     
     private Usuario usuario;
+    java.util.List<Juego> juegos;
     
     private final aplicacion.FachadaAplicacion fa;
     /**
@@ -23,6 +28,22 @@ public class VMisJuegos extends javax.swing.JDialog {
      * @param modal
      * @param fa
      */
+    public void inicializarBoxes(){
+         //Inicializar listado de categorias de boxCategorias
+        java.util.List<Categoria> categorias = fa.obtenerCategorias();
+        boxCategorias.addItem("");
+        for(Categoria cat: categorias){
+            boxCategorias.addItem(cat.getNombre());
+        }
+        
+        //Inicializar listado de Desarrolladoras de boxDesarrolladora
+        java.util.List<Desarrolladora> desarrolladoras = fa.obtenerDesarrolladoras();
+        boxDesarrolladora.addItem("");
+        for(Desarrolladora des: desarrolladoras){
+            boxDesarrolladora.addItem(des.getNombre());
+        }
+    }
+    
     public VMisJuegos(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Usuario usuario) {
         
         super(parent, modal);
@@ -34,9 +55,12 @@ public class VMisJuegos extends javax.swing.JDialog {
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
         //Hacemos la ventana visible para el usuario
+        this.inicializarBoxes();
         this.setVisible(true);  
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,45 +72,29 @@ public class VMisJuegos extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         etiquetaCategoria = new javax.swing.JLabel();
-        ComboBoxCategorias = new javax.swing.JComboBox();
+        boxCategorias = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
-        ComboBoxDesarrolladora = new javax.swing.JComboBox();
-        tablaJuegos = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        boxDesarrolladora = new javax.swing.JComboBox();
         btnJugar = new javax.swing.JButton();
         btnVerDetalles = new javax.swing.JButton();
         btnVerLogros = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         CampoNombre = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaJuegos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         etiquetaCategoria.setText("Categoría:");
 
-        ComboBoxCategorias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboBoxCategorias.addActionListener(new java.awt.event.ActionListener() {
+        boxCategorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBoxCategoriasActionPerformed(evt);
+                boxCategoriasActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Desarrolladora:");
-
-        ComboBoxDesarrolladora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tablaJuegos.setViewportView(jTable1);
 
         btnJugar.setText("Jugar");
 
@@ -96,7 +104,21 @@ public class VMisJuegos extends javax.swing.JDialog {
 
         jLabel2.setText("Nombre:");
 
+        CampoNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CampoNombreActionPerformed(evt);
+            }
+        });
+
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        tablaJuegos.setModel(new ModeloTablaJuegos());
+        jScrollPane1.setViewportView(tablaJuegos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,26 +130,27 @@ public class VMisJuegos extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(etiquetaCategoria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboBoxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addComponent(boxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboBoxDesarrolladora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnJugar)
-                            .addGap(86, 86, 86)
-                            .addComponent(btnVerDetalles)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnVerLogros))
-                        .addComponent(tablaJuegos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(CampoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(boxDesarrolladora, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CampoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnJugar)
+                                .addGap(59, 59, 59)
+                                .addComponent(btnVerDetalles)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnVerLogros))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(81, 81, 81)
+                        .addComponent(btnBuscar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,24 +158,21 @@ public class VMisJuegos extends javax.swing.JDialog {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(etiquetaCategoria)
-                    .addComponent(ComboBoxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(ComboBoxDesarrolladora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boxDesarrolladora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(CampoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(tablaJuegos, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(btnBuscar)))
-                .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnJugar)
+                    .addComponent(btnBuscar)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVerDetalles)
+                    .addComponent(btnJugar)
                     .addComponent(btnVerLogros))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -160,29 +180,43 @@ public class VMisJuegos extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ComboBoxCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxCategoriasActionPerformed
+    private void boxCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCategoriasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxCategoriasActionPerformed
+    }//GEN-LAST:event_boxCategoriasActionPerformed
+
+    private void CampoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CampoNombreActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        String categoria=(String)boxCategorias.getSelectedItem();
+        String desarrolladora=(String) boxDesarrolladora.getSelectedItem();
+        juegos = fa.consultarJuegosPropios(categoria,desarrolladora, CampoNombre.getText(), (Jugador)this.usuario);
+        ((ModeloTablaJuegos)(tablaJuegos.getModel())).setFilas(juegos);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CampoNombre;
-    private javax.swing.JComboBox ComboBoxCategorias;
-    private javax.swing.JComboBox ComboBoxDesarrolladora;
+    private javax.swing.JComboBox boxCategorias;
+    private javax.swing.JComboBox boxDesarrolladora;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnJugar;
     private javax.swing.JButton btnVerDetalles;
@@ -191,7 +225,7 @@ public class VMisJuegos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JScrollPane tablaJuegos;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaJuegos;
     // End of variables declaration//GEN-END:variables
 }

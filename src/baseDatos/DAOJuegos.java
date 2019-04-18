@@ -77,20 +77,27 @@ public class DAOJuegos extends AbstractDAO {
         PreparedStatement stmc = null;
         ResultSet rst;
         Connection con;
-
+        
+        if(categoria.equals("")){
+            categoria = "%";
+        }
+        if(desarrolladora.equals("")){
+            desarrolladora = "%";
+        }
+        
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("select j.id, j.nombre, j.edadrecomendada, j.desarrolladora, j.pais"
-                    + "from Juego as j, TenerCategoria as c, Desarrolladora as d, Comprar as co"
-                    + "where j.nombre like c.juego "
+            stmc = con.prepareStatement("select j.id, j.nombre, j.edadrecomendada, j.desarrolladora, d.pais "
+                    + "from Juego as j, TenerCategoria as c, Desarrolladora as d, Comprar as co "
+                    + "where j.id = c.juego "
                     + "and j.desarrolladora like d.nombre "
                     + "and co.jugador like ? "
-                    + "and co.juego like j.id "
-                    + "and j.nombre like %?% "
+                    + "and co.juego = j.id "
+                    + "and j.nombre like ? "
                     + "and j.desarrolladora like ? "
-                    + "and c.categoria like ?");
-            stmc.setString(1, jugador.getNick());
-            stmc.setString(2, nombre);
+                    + "and c.categoria like ? ");
+            stmc.setString(1, "%"+jugador.getNick()+"%");
+            stmc.setString(2, "%"+nombre+"%");
             stmc.setString(3, desarrolladora);
             stmc.setString(4, categoria);
 
