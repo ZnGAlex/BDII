@@ -103,7 +103,7 @@ public class DAOUsuarios extends AbstractDAO {
             stmc = con.prepareStatement("insert into Jugar(jugador,juego) "
             +" values(?,?) ");
             stmc.setString(1, jugador.getNick());
-            stmc.setString(2, juego.getNombre());
+            stmc.setInt(2, juego.getId());
             
             stmc.executeUpdate();
             
@@ -130,11 +130,11 @@ public class DAOUsuarios extends AbstractDAO {
         con = this.getConexion();
         try {
             stmc = con.prepareStatement("update Jugar "
-            +"set fec_fin = now() "
-            +"where juego like ? "
+            +"set fechafin = now() "
+            +"where juego = ? "
             +"and jugador like ? "
-            +"and fec_fin = null ");
-            stmc.setString(1, juego.getNombre());
+            +"and fechafin is null ");
+            stmc.setInt(1, juego.getId());
             stmc.setString(2, jugador.getNick());
             
             
@@ -165,7 +165,7 @@ public class DAOUsuarios extends AbstractDAO {
             stmc = con.prepareStatement("insert into Retransmitir(jugador,juego) "
             +" values(?,?) ");
             stmc.setString(1, jugador.getNick());
-            stmc.setString(2, juego.getNombre());
+            stmc.setInt(2, juego.getId());
             
             stmc.executeUpdate();
             
@@ -191,12 +191,12 @@ public class DAOUsuarios extends AbstractDAO {
 
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("update Retrasnmitir "
-            +"set fec_fin = now() "
-            +"where juego like ? "
+            stmc = con.prepareStatement("update Retransmitir "
+            +"set fechafin = now() "
+            +"where juego = ? "
             +"and jugador like ? "
-            +"and fec_fin = null ");
-            stmc.setString(1, juego.getNombre());
+            +"and fechafin is null ");
+            stmc.setInt(1, juego.getId());
             stmc.setString(2, jugador.getNick());
             
             

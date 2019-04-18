@@ -87,7 +87,7 @@ public class DAOJuegos extends AbstractDAO {
         
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("select j.id, j.nombre, j.edadrecomendada, j.desarrolladora, d.pais "
+            stmc = con.prepareStatement("select distinct j.id, j.nombre, j.edadrecomendada, j.desarrolladora, d.pais "
                     + "from Juego as j, TenerCategoria as c, Desarrolladora as d, Comprar as co "
                     + "where j.id = c.juego "
                     + "and j.desarrolladora like d.nombre "

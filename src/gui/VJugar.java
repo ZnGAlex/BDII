@@ -18,6 +18,7 @@ public class VJugar extends javax.swing.JDialog {
 
     private Jugador jugador;
     private Juego juego;
+    private int retransmitiendo;
 
     private final aplicacion.FachadaAplicacion fa;
 
@@ -35,6 +36,7 @@ public class VJugar extends javax.swing.JDialog {
         this.fa = fa;
         this.juego = ju;
         this.jugador = j;
+        this.retransmitiendo = 0;
         initComponents();
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - this.getWidth() / 2, Toolkit.getDefaultToolkit().getScreenSize().height / 2 - this.getHeight() / 2);
@@ -51,7 +53,10 @@ public class VJugar extends javax.swing.JDialog {
     }
 
     void salir() {
-        System.out.println("Saliendo");
+        if(this.retransmitiendo==1){
+        fa.dejarRetransmitir(jugador, juego);
+        }
+        fa.dejarJugar(jugador, juego);
         this.dispose();
     }
 
@@ -83,6 +88,11 @@ public class VJugar extends javax.swing.JDialog {
         etiquetaRetransmitiendo.setText("***** Retransmitiendo *****");
 
         btnRetransmitir.setText("Retransmitir");
+        btnRetransmitir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetransmitirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,6 +139,18 @@ public class VJugar extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRetransmitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetransmitirActionPerformed
+        // TODO add your handling code here:
+        if(this.retransmitiendo==0){
+            this.retransmitiendo=1;
+            fa.retransmitir(jugador, juego);
+        }
+        else{
+            this.retransmitiendo=0;
+            fa.dejarRetransmitir(jugador, juego);
+        }
+    }//GEN-LAST:event_btnRetransmitirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

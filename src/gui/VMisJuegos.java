@@ -207,7 +207,7 @@ public class VMisJuegos extends javax.swing.JDialog {
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
         // TODO add your handling code here:
         Juego juego=((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow());
-        //fa.jugar((Jugador)this.usuario,juego);
+        fa.jugar((Jugador)this.usuario,juego);
         fa.muestraJugar((Jugador)this.usuario, juego);
         
     }//GEN-LAST:event_btnJugarActionPerformed

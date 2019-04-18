@@ -92,4 +92,17 @@ public class FachadaAplicacion {
     public void jugar(Jugador jugador, Juego juego){
         gu.jugar(jugador, juego);
     }
+    
+    public void dejarJugar(Jugador jugador, Juego juego){
+        gu.dejarJugar(jugador, juego);
+    }
+    
+    public void retransmitir(Jugador jugador, Juego juego){
+        gu.retranmitir(jugador, juego);
+    }
+    
+    public void dejarRetransmitir(Jugador jugador, Juego juego){
+        gu.dejarRetransmitir(jugador, juego);
+    }
+    
 }
