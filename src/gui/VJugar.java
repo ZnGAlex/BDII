@@ -38,10 +38,12 @@ public class VJugar extends javax.swing.JDialog {
         this.jugador = j;
         this.retransmitiendo = 0;
         initComponents();
+        this.etiquetaRetransmitiendo.setVisible(false);
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - this.getWidth() / 2, Toolkit.getDefaultToolkit().getScreenSize().height / 2 - this.getHeight() / 2);
         //Hacemos la ventana visible para el usuario
         this.setVisible(true);
+        
 
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -145,10 +147,12 @@ public class VJugar extends javax.swing.JDialog {
         if(this.retransmitiendo==0){
             this.retransmitiendo=1;
             fa.retransmitir(jugador, juego);
+            this.etiquetaRetransmitiendo.setVisible(true);
         }
         else{
             this.retransmitiendo=0;
             fa.dejarRetransmitir(jugador, juego);
+            this.etiquetaRetransmitiendo.setVisible(false);
         }
     }//GEN-LAST:event_btnRetransmitirActionPerformed
 
