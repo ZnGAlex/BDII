@@ -56,10 +56,11 @@ public class VMisJuegos extends javax.swing.JDialog {
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
         //Hacemos la ventana visible para el usuario
         this.inicializarBoxes();
-        this.setVisible(true);  
         btnJugar.setEnabled(false);
         btnVerDetalles.setEnabled(false);
         btnVerLogros.setEnabled(false);
+        this.setVisible(true);  
+        
     }
 
     
@@ -101,6 +102,11 @@ public class VMisJuegos extends javax.swing.JDialog {
         });
 
         btnVerDetalles.setText("Ver detalles");
+        btnVerDetalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerDetallesActionPerformed(evt);
+            }
+        });
 
         btnVerLogros.setText("Ver logros");
 
@@ -202,6 +208,9 @@ public class VMisJuegos extends javax.swing.JDialog {
         String desarrolladora=(String) boxDesarrolladora.getSelectedItem();
         juegos = fa.consultarJuegosPropios(categoria,desarrolladora, CampoNombre.getText(), (Jugador)this.usuario);
         ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
+        btnJugar.setEnabled(false);
+        btnVerDetalles.setEnabled(false);
+        btnVerLogros.setEnabled(false);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
@@ -219,6 +228,11 @@ public class VMisJuegos extends javax.swing.JDialog {
         btnVerLogros.setEnabled(true);
         
     }//GEN-LAST:event_tablaJuegosMouseClicked
+
+    private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
+        // TODO add your handling code here:
+        fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()));
+    }//GEN-LAST:event_btnVerDetallesActionPerformed
 
 
 

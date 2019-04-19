@@ -1,6 +1,7 @@
 package baseDatos;
 
 import aplicacion.Categoria;
+import aplicacion.Complemento;
 import aplicacion.Desarrolladora;
 import aplicacion.Usuario;
 import java.io.FileInputStream;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.util.Properties;
 import aplicacion.Juego;
 import aplicacion.Jugador;
+import aplicacion.Logro;
 
 public class FachadaBaseDatos {
     private aplicacion.FachadaAplicacion fa;
@@ -100,6 +102,18 @@ public class FachadaBaseDatos {
     
     public boolean usuarioTieneJuego(String nick,Integer idJuego){
         return daoUsuarios.usuarioTieneJuego(nick,idJuego);
+    }
+    
+    public java.util.List<Complemento> obtenerComplementos(Juego juego){
+        return daoJuegos.obtenerComplementos(juego);
+    }
+    
+    public java.util.List<Logro> obtenerLogros(Juego juego){
+        return daoJuegos.obtenerLogros(juego);
+    }
+    
+    public java.util.List<Categoria> obtenerCategoriasJuego(Juego juego){
+        return daoCategorias.obtenerCategoriasJuego(juego);
     }
     
 }

@@ -28,4 +28,12 @@ public class GestionJuegos {
     public java.util.List<Juego> consultarJuegosPropios(String categoria, String desarrolladora, String nombre, Jugador jugador){
         return fbd.consultarJuegosPropios(categoria, desarrolladora, nombre, jugador);
     }
+    
+    public java.util.List<Complemento> obtenerComplementos(Juego juego){
+        return fbd.obtenerComplementos(juego);
+    }
+    
+    public java.util.List<Logro> obtenerLogros(Juego juego){
+        return fbd.obtenerLogros(juego);
+    }
 }

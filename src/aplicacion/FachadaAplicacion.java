@@ -105,4 +105,16 @@ public class FachadaAplicacion {
         gu.dejarRetransmitir(jugador, juego);
     }
     
+    public java.util.List<Complemento> obtenerComplementos(Juego juego){
+        return gj.obtenerComplementos(juego);
+    }
+    
+    public java.util.List<Logro> obtenerLogros(Juego juego){
+        return gj.obtenerLogros(juego);
+    }
+    
+    public java.util.List<Categoria> obtenerCategoriasJuego(Juego juego){
+        return gc.obtenerCategoriasJuego(juego);
+    }
+    
 }

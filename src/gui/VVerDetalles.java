@@ -5,7 +5,9 @@
  */
 package gui;
 
+import aplicacion.Complemento;
 import aplicacion.Juego;
+import aplicacion.Categoria;
 import java.awt.Toolkit;
 
 /**
@@ -15,6 +17,8 @@ import java.awt.Toolkit;
 public class VVerDetalles extends javax.swing.JDialog {
     
     private Juego juego;
+    private java.util.List<Complemento> complementos;
+    private java.util.List<Categoria> categorias;
     
     //private final VLibro padre;
     private final aplicacion.FachadaAplicacion fa;
@@ -35,9 +39,14 @@ public class VVerDetalles extends javax.swing.JDialog {
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
         //Hacemos la ventana visible para el usuario
+        categorias = fa.obtenerCategoriasJuego(juego);
+        ((ModeloTablaCategorias)tablaCategorias.getModel()).setFilas(categorias);
+        complementos = fa.obtenerComplementos(juego);
+        ((ModeloTablaComplementos)tablaComplementos.getModel()).setFilas(complementos);
+        
         this.setVisible(true);  
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,17 +75,7 @@ public class VVerDetalles extends javax.swing.JDialog {
 
         etiquetaComplementos.setText("Complementos:");
 
-        tablaComplementos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        tablaComplementos.setModel(new ModeloTablaComplementos());
         jScrollPane1.setViewportView(tablaComplementos);
 
         btnAdquirir.setText("Adquirir");
@@ -90,17 +89,7 @@ public class VVerDetalles extends javax.swing.JDialog {
 
         jLabel1.setText("Categorías:");
 
-        tablaCategorias.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        tablaCategorias.setModel(new ModeloTablaCategorias());
         jScrollPane3.setViewportView(tablaCategorias);
 
         etiquetaDescripcionCategoria.setText("Descripción:");
@@ -204,4 +193,15 @@ public class VVerDetalles extends javax.swing.JDialog {
     private javax.swing.JTable tablaCategorias;
     private javax.swing.JTable tablaComplementos;
     // End of variables declaration//GEN-END:variables
+
+public void buscarCategorias(){
+    categorias = fa.obtenerCategoriasJuego(juego);
+    ((ModeloTablaCategorias)tablaCategorias.getModel()).setFilas(categorias);
+}
+
+public void buscarComplementos(){
+    complementos = fa.obtenerComplementos(juego);
+    ((ModeloTablaComplementos)tablaComplementos.getModel()).setFilas(complementos);
+}
+
 }

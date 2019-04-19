@@ -5,10 +5,12 @@
  */
 package baseDatos;
 
+import aplicacion.Complemento;
 import java.sql.*;
 import aplicacion.Juego;
 import aplicacion.Desarrolladora;
 import aplicacion.Jugador;
+import aplicacion.Logro;
 
 /**
  *
@@ -148,6 +150,70 @@ public class DAOJuegos extends AbstractDAO {
                 System.out.println("Imposible cerrar cursores");
             }
         }
+    }
+    
+    public java.util.List<Complemento> obtenerComplementos(Juego juego){
+        java.util.List<Complemento> resultado = new java.util.ArrayList<Complemento>();
+        Complemento comactual;
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+        con=this.getConexion();
+        try {
+            stmc=con.prepareStatement("select nombre, descripcion "
+                    + "from complemento as c "
+                    + "where juego = ? ");
+            stmc.setInt(0, juego.getId());
+            rst=stmc.executeQuery();
+            while(rst.next()){
+                comactual = new Complemento(rst.getString("nombre"), rst.getString("descripcion"), juego);
+                resultado.add(comactual);
+            }
+        
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, obtencion de complemento fallida");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
+    
+    public java.util.List<Logro> obtenerLogros(Juego juego){
+        java.util.List<Logro> resultado = new java.util.ArrayList<Logro>();
+        Logro logactual;
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+        con=this.getConexion();
+        try {
+            stmc=con.prepareStatement("select nombre, descripcion, puntos "
+                    + "from logros as c "
+                    + "where juego = ? ");
+            stmc.setInt(0, juego.getId());
+            rst=stmc.executeQuery();
+            while(rst.next()){
+                logactual = new Logro(rst.getString("nombre"), rst.getString("descripcion"), rst.getInt("puntos"), juego);
+                resultado.add(logactual);
+            }
+        
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, obtencion de logros fallida");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
     }
 }
     
