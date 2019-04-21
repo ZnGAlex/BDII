@@ -85,8 +85,8 @@ public class FachadaAplicacion {
         fgui.muestraJugar(jugador, juego);
     }
     
-    public void muestraVCarrito(Usuario usuario, java.util.List<Juego> juegos){
-        fgui.muestraVCarrito(usuario, juegos);
+    public void muestraVCarrito(gui.VPrincipal VPrincipal, Usuario usuario, java.util.List<Juego> juegos){
+        fgui.muestraVCarrito(VPrincipal, usuario, juegos);
     }
     
     public void jugar(Jugador jugador, Juego juego){
