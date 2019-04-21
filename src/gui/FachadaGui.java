@@ -62,10 +62,10 @@ public class FachadaGui {
         vj= new VJugar(this.vp,true,fa,jugador,juego);
     }
     
-    public void muestraVCarrito(Usuario usuario, java.util.List<Juego> juegos){
+    public void muestraVCarrito(gui.VPrincipal VPrincipal, Usuario usuario, java.util.List<Juego> juegos){
         VCarrito vc;
         
-        vc = new VCarrito(this.vp,true,fa,usuario,juegos);
+        vc = new VCarrito(VPrincipal, this.vp,true,fa,usuario,juegos);
     }
 
 }
