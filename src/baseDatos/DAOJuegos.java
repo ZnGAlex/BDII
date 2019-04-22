@@ -193,7 +193,7 @@ public class DAOJuegos extends AbstractDAO {
         con=this.getConexion();
         try {
             stmc=con.prepareStatement("select nombre, descripcion, puntos "
-                    + "from logros as c "
+                    + "from logro as c "
                     + "where juego = ? ");
             stmc.setInt(0, juego.getId());
             rst=stmc.executeQuery();

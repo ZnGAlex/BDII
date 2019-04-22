@@ -109,6 +109,11 @@ public class VMisJuegos extends javax.swing.JDialog {
         });
 
         btnVerLogros.setText("Ver logros");
+        btnVerLogros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerLogrosActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nombre:");
 
@@ -233,6 +238,12 @@ public class VMisJuegos extends javax.swing.JDialog {
         // TODO add your handling code here:
         fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()));
     }//GEN-LAST:event_btnVerDetallesActionPerformed
+
+    private void btnVerLogrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerLogrosActionPerformed
+        // TODO add your handling code here:
+        Juego juego = ((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow());
+        fa.muestraVVerLogros(juego, (Jugador)this.usuario);
+    }//GEN-LAST:event_btnVerLogrosActionPerformed
 
 
 

@@ -68,6 +68,10 @@ public class FachadaAplicacion {
     public void muestraVVerDetalles(Juego juego){
         fgui.muestraVVerDetalles(juego);
     }
+    
+    public void muestraVVerLogros(Juego juego, Jugador jugador){
+        fgui.muestraVVerLogros(juego, jugador);
+    }
 
     public void muestraVMiPerfil(Usuario usuario){
         fgui.muestraVMiPerfil(usuario);

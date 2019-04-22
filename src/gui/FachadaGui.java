@@ -37,6 +37,12 @@ public class FachadaGui {
 
         vvd = new VVerDetalles(this.vp, true, fa, juego);
     }
+    
+    public void muestraVVerLogros(Juego juego, Jugador jugador){
+        VVerLogros vvl;
+        
+        vvl = new VVerLogros(this.vp, true, fa, juego, jugador);
+    }
 
     public void muestraVMiPerfil(Usuario usuario) {
         VMiPerfil vmp;
