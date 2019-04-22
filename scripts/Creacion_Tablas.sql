@@ -1,4 +1,6 @@
-﻿create table Administrador
+CREATE EXTENSION pgcrypto;
+
+CREATE TABLE Administrador
 (
 	nick varchar(20) not null primary key,
 	clave varchar(100) not null,
@@ -7,7 +9,7 @@
 	sueldo integer not null default 1000
 );
 
-create table Jugador
+CREATE TABLE Jugador
 (
 	nick varchar(20) not null primary key,
 	clave varchar(100) not null,
@@ -16,7 +18,7 @@ create table Jugador
 	baneado boolean not null default false
 );
 
-create table SerAmigo
+CREATE TABLE SerAmigo
 (
 	jugador varchar(20) not null,
 	amigo varchar(20) not null,
@@ -27,7 +29,7 @@ create table SerAmigo
 	on delete cascade on update cascade
 );
 
-create table Bloquear
+CREATE TABLE Bloquear
 (
 	jugador varchar(20) not null,
 	bloqueado varchar(20) not null,
@@ -40,19 +42,19 @@ create table Bloquear
 	on delete cascade on update cascade
 );
 
-create table Categoria
+CREATE TABLE Categoria
 (
 	nombre varchar(30) not null primary key,
 	descripcion varchar(300) not null
 );
 
-create table Desarrolladora
+CREATE TABLE Desarrolladora
 (
 	nombre varchar(30) not null primary key,
 	pais varchar(30) not null
 );
 
-create table Juego
+CREATE TABLE Juego
 (
 	id serial primary key, 
 	nombre varchar(40) not null unique,
@@ -62,7 +64,7 @@ create table Juego
 	on delete set null on update cascade
 );
 
-create table Complemento
+CREATE TABLE Complemento
 (
 	nombre varchar(40) not null,
 	descripcion varchar(500),
@@ -72,7 +74,7 @@ create table Complemento
 	on delete cascade on update cascade
 );
 
-create table Logro
+CREATE TABLE Logro
 (
 	nombre varchar(30) not null,
 	descripcion varchar(500),
@@ -83,7 +85,7 @@ create table Logro
 	on delete cascade on update cascade
 );
 
-create table TenerCategoria
+CREATE TABLE TenerCategoria
 (
 	categoria varchar(30) not null,
 	juego integer not null,
@@ -94,7 +96,7 @@ create table TenerCategoria
 	on delete cascade on update cascade
 );
 
-create table Jugar
+CREATE TABLE Jugar
 (
 	fechaIn timestamp not null default CURRENT_TIMESTAMP,
 	fechaFin timestamp,
@@ -107,7 +109,7 @@ create table Jugar
 	on delete cascade on update cascade
 );
 
-create table Retransmitir
+CREATE TABLE Retransmitir
 (
 	fechaIn timestamp not null default CURRENT_TIMESTAMP,
 	fechaFin timestamp,
@@ -120,7 +122,7 @@ create table Retransmitir
 	on delete cascade on update cascade
 );
 
-create table Comprar
+CREATE TABLE Comprar
 (
 	fecha date not null default CURRENT_TIMESTAMP,
 	visibilidad boolean not null default false,
@@ -133,7 +135,7 @@ create table Comprar
 	on delete cascade on update cascade
 );
 
-create table ConseguirLogro
+CREATE TABLE ConseguirLogro
 (
 	fecha date not null default CURRENT_TIMESTAMP,
 	visibilidad boolean not null default false,

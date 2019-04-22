@@ -24,7 +24,7 @@ public class DAOUsuarios extends AbstractDAO {
         Connection con = this.getConexion();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Jugador WHERE nick = ? AND clave = MD5(?)");
+            stmt = con.prepareStatement("SELECT * FROM Jugador WHERE nick = ? AND clave = crypt(?, clave)");
             stmt.setString(1, login);
             stmt.setString(2, pw);
             
@@ -38,7 +38,7 @@ public class DAOUsuarios extends AbstractDAO {
             
             if (usuario != null) return usuario;
             
-            stmt = con.prepareStatement("SELECT * FROM Administrador WHERE nick = ? AND clave = MD5(?)");
+            stmt = con.prepareStatement("SELECT * FROM Administrador WHERE nick = ? AND clave = crypt(?, clave)");
             stmt.setString(1, login);
             stmt.setString(2, pw);
             
@@ -69,13 +69,12 @@ public class DAOUsuarios extends AbstractDAO {
         
         try {
 
-            stmt = con.prepareStatement("INSERT INTO Jugador (nick, clave, correo, fec_nacimiento, baneado)"
-                                      + " VALUES (?, MD5(?), ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO Jugador (nick, clave, correo, fec_nacimiento)"
+                                      + " VALUES (?, crypt(?, gen_salt('bf')), ?, ?)");
             stmt.setString(1, login);
             stmt.setString(2, pw);
             stmt.setString(3, correo);
             stmt.setObject(4, new java.sql.Date(fechaNacimiento.getTime()));
-            stmt.setBoolean(5, false);
             
             stmt.executeUpdate();
             
