@@ -131,7 +131,7 @@ public class DAOUsuarios extends AbstractDAO {
             stmc = con.prepareStatement("update Jugar "
             +"set fechafin = now() "
             +"where juego = ? "
-            +"and jugador like ? "
+            +"and jugador = ? "
             +"and fechafin is null ");
             stmc.setInt(1, juego.getId());
             stmc.setString(2, jugador.getNick());
