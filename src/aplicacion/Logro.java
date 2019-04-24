@@ -12,6 +12,12 @@ public class Logro {
         this.puntos = puntos;
         this.juego = juego;
     }
+    
+    public Logro (String nombre, String descripcion, Integer puntos) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.puntos = puntos;
+    }
 
     public String getNombre() {
         return nombre;

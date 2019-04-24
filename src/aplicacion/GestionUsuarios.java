@@ -2,6 +2,7 @@ package aplicacion;
 
 import baseDatos.FachadaBaseDatos;
 import gui.FachadaGui;
+import java.util.ArrayList;
 
 public class GestionUsuarios {
     
@@ -35,5 +36,9 @@ public class GestionUsuarios {
     
     public boolean usuarioTieneJuego(String nick,Integer idJuego){
         return fbd.usuarioTieneJuego(nick,idJuego);
+    }
+    
+    public ArrayList<Logro> obtenerLogrosJugador(Jugador jugador) {
+        return fbd.obtenerLogrosJugador(jugador);
     }
 }

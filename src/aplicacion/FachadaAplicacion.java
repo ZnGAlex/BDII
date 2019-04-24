@@ -121,4 +121,8 @@ public class FachadaAplicacion {
         return gc.obtenerCategoriasJuego(juego);
     }
     
+    public java.util.ArrayList<Logro> obtenerLogrosJugador(Jugador jugador) {
+        return gu.obtenerLogrosJugador(jugador);
+    }
+    
 }

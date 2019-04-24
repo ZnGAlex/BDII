@@ -20,7 +20,7 @@ public class ModeloTablaLogros extends AbstractTableModel{
     }
 
     public int getColumnCount (){
-        return 2;
+        return 3;
     }
 
     public int getRowCount(){
@@ -32,8 +32,9 @@ public class ModeloTablaLogros extends AbstractTableModel{
         String nombre="";
 
         switch (col){
-            case 0: nombre= "Logro"; break;
-            case 1: nombre= "Puntos"; break;
+            case 0: nombre = "Logro"; break;
+            case 1: nombre = "Descripcion"; break;
+            case 2: nombre = "Puntos"; break;
         }
         return nombre;
     }
@@ -43,8 +44,9 @@ public class ModeloTablaLogros extends AbstractTableModel{
         Class clase=null;
 
         switch (col){
-            case 0: clase= java.lang.String.class; break;
-            case 1: clase= java.lang.Integer.class; break;
+            case 0: clase = java.lang.String.class; break;
+            case 1: clase = java.lang.String.class; break;
+            case 2: clase = java.lang.Integer.class; break;
         }
         return clase;
     }
@@ -58,9 +60,9 @@ public class ModeloTablaLogros extends AbstractTableModel{
         Object resultado=null;
 
         switch (col){
-            case 0: resultado= logros.get(row).getNombre(); break;
-            case 1: resultado= logros.get(row).getPuntos(); break;
-            case 2: resultado= logros.get(row).getDescripcion(); break;
+            case 0: resultado = logros.get(row).getNombre(); break;
+            case 1: resultado = logros.get(row).getDescripcion(); break;
+            case 2: resultado = logros.get(row).getPuntos(); break;
             
         }
         return resultado;

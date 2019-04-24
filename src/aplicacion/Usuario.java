@@ -45,6 +45,4 @@ public abstract class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
      
-     
-    
 }

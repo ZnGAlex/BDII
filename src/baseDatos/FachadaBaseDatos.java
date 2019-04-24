@@ -116,4 +116,8 @@ public class FachadaBaseDatos {
         return daoCategorias.obtenerCategoriasJuego(juego);
     }
     
+    public java.util.ArrayList<Logro> obtenerLogrosJugador(Jugador jugador) {
+        return daoUsuarios.obtenerLogrosJugador(jugador);
+    }
+    
 }

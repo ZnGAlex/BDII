@@ -47,7 +47,7 @@ public class FachadaGui {
     public void muestraVMiPerfil(Usuario usuario) {
         VMiPerfil vmp;
 
-        vmp = new VMiPerfil(this.vp, true, false, usuario);
+        vmp = new VMiPerfil(this.vp, fa, true, false, usuario);
     }
     
     public void muestraVMisAmigos(Usuario usuario){
