@@ -189,7 +189,7 @@ public class DAOJuegos extends AbstractDAO {
                 System.out.println("Imposible realizar el rollback");
             }
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, ese juego ya pertenece al jugador");
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error en comprar juegos, intentelo de nuevo");
         } finally {
 
             try {
