@@ -57,6 +57,12 @@ public class VCarrito extends javax.swing.JDialog {
     
     public void salir(){
         vPrincipal.actualizarCarrito(this.juegos);
+        this.dispose();
+    }
+    
+    public void vaciarCarrito(){
+        this.juegos.clear();
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
     }
 
     /**
@@ -161,8 +167,7 @@ public class VCarrito extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVaciarCarritoActionPerformed
-        this.juegos.clear();
-        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
+            vaciarCarrito();
     }//GEN-LAST:event_btnVaciarCarritoActionPerformed
 
     private void btnEliminarDelCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDelCarritoActionPerformed
@@ -178,6 +183,8 @@ public class VCarrito extends javax.swing.JDialog {
     private void btnRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarCompraActionPerformed
 
         fa.comprarListaJuegos((Jugador)this.usuario, this.juegos);
+        vaciarCarrito();
+        salir();
     }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
  
