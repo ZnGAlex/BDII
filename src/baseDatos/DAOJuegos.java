@@ -134,7 +134,7 @@ public class DAOJuegos extends AbstractDAO {
             stmc = con.prepareStatement("insert into Comprar(jugador,juego) "
             +" values(?,?) ");
             stmc.setString(1, jugador.getNick());
-            stmc.setString(2, juego.getNombre());
+            stmc.setInt(2, juego.getId());
             
             stmc.executeUpdate();
             
@@ -170,7 +170,7 @@ public class DAOJuegos extends AbstractDAO {
                 stmc = con.prepareStatement("insert into Comprar(jugador,juego) "
                         +" values(?,?) ");
                 stmc.setString(1, jugador.getNick());
-                stmc.setString(2, juego.getNombre());
+                stmc.setInt(2, juego.getId());
                 stmc.executeUpdate();
             }
 
