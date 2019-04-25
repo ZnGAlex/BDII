@@ -26,7 +26,7 @@ public class DAOJuegos extends AbstractDAO {
 
     public java.util.List<Juego> consultarJuegosTienda(String categoria, String desarrolladora, String nombre) {
 
-        java.util.List<Juego> resultado = new java.util.ArrayList<Juego>();
+        java.util.List<Juego> resultado = new java.util.ArrayList<>();
         Juego jactual;
         PreparedStatement stmc = null;
         ResultSet rst;
@@ -74,7 +74,7 @@ public class DAOJuegos extends AbstractDAO {
     //Esta se podria mezclar con la anterior
     public java.util.List<Juego> consultarJuegosPropios(String categoria, String desarrolladora, String nombre, Jugador jugador) {
 
-        java.util.List<Juego> resultado = new java.util.ArrayList<Juego>();
+        java.util.List<Juego> resultado = new java.util.ArrayList<>();
         Juego jactual;
         PreparedStatement stmc = null;
         ResultSet rst;
@@ -152,8 +152,59 @@ public class DAOJuegos extends AbstractDAO {
         }
     }
     
+    public void comprarListaJuegos(Jugador jugador, java.util.List<Juego> juegos){
+        
+        PreparedStatement stmc = null;
+       
+        Connection con;
+
+        con = this.getConexion();
+        
+        
+        try {
+            
+        //Desactivamos autocommit 
+        con.setAutoCommit(false);
+            
+            for (Juego juego : juegos) {
+                stmc = con.prepareStatement("insert into Comprar(jugador,juego) "
+                        +" values(?,?) ");
+                stmc.setString(1, jugador.getNick());
+                stmc.setString(2, juego.getNombre());
+                stmc.executeUpdate();
+            }
+
+        con.commit();
+            
+        
+            
+        } catch (SQLException e) {
+            
+            try {
+                //Si ha fallado hacemos el rollback
+                con.rollback();
+
+            } catch (SQLException ex) {
+                System.out.println("Imposible realizar el rollback");
+            }
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, ese juego ya pertenece al jugador");
+        } finally {
+
+            try {
+                //Desactivamos autocommit 
+                con.setAutoCommit(true);
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+        
+    
     public java.util.List<Complemento> obtenerComplementos(Juego juego){
-        java.util.List<Complemento> resultado = new java.util.ArrayList<Complemento>();
+        java.util.List<Complemento> resultado = new java.util.ArrayList<>();
         Complemento comactual;
         PreparedStatement stmc = null;
         ResultSet rst;
@@ -185,7 +236,7 @@ public class DAOJuegos extends AbstractDAO {
     }
     
     public java.util.List<Logro> obtenerLogros(Juego juego){
-        java.util.List<Logro> resultado = new java.util.ArrayList<Logro>();
+        java.util.List<Logro> resultado = new java.util.ArrayList<>();
         Logro logactual;
         PreparedStatement stmc = null;
         ResultSet rst;
