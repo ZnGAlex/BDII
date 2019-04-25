@@ -6,13 +6,17 @@
 package gui;
 
 import aplicacion.FachadaAplicacion;
+import aplicacion.Jugador;
+import java.awt.Toolkit;
+import java.util.ArrayList;
 
 /**
  *
  * @author Alex
  */
 public class VPrincipalAdministrador extends javax.swing.JDialog {
-    FachadaAplicacion fa;
+    private FachadaAplicacion fa;
+    private ArrayList<Jugador> jugadores;
     
     /**
      * Creates new form VPrincipalAdministrador
@@ -20,8 +24,16 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
     public VPrincipalAdministrador(FachadaAplicacion fa) {
         this.fa = fa;
         initComponents();
+        this.jugadores = new ArrayList<>();
         
+        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
         
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
     /**
@@ -36,7 +48,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaJugadores = new javax.swing.JTable();
         etiquetaNick = new javax.swing.JLabel();
         datosNick = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -45,9 +57,10 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Administración");
 
-        jTable1.setModel(new ModeloTablaJugadoresAdmin());
-        jScrollPane1.setViewportView(jTable1);
+        tablaJugadores.setModel(new ModeloTablaJugadoresAdmin());
+        jScrollPane1.setViewportView(tablaJugadores);
 
         etiquetaNick.setText("Nick:");
 
@@ -67,7 +80,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(etiquetaNick, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -77,7 +90,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(datosCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,8 +145,23 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        String nick = this.datosNick.getText();
+        String correo = this.datosCorreo.getText();
+        
+        jugadores = fa.buscarJugadores(nick, correo);
+        setTablaJugadores();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    
+    public void setTablaJugadores(){
+        ModeloTablaJugadoresAdmin m;
+
+        m = (ModeloTablaJugadoresAdmin) tablaJugadores.getModel();
+        m.setFilas(jugadores);
+        if (m.getRowCount() > 0) {
+            tablaJugadores.setRowSelectionInterval(0, 0);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -145,6 +173,6 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaJugadores;
     // End of variables declaration//GEN-END:variables
 }

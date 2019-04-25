@@ -141,4 +141,8 @@ public class FachadaAplicacion {
         return gu.obtenerLogrosJugador(jugador);
     }
     
+    public java.util.ArrayList<Jugador> buscarJugadores(String nick, String correo) {
+        return fbd.buscarJugadores(nick, correo);
+    }
+    
 }

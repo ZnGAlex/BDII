@@ -132,4 +132,8 @@ public class FachadaBaseDatos {
         return daoUsuarios.obtenerLogrosJugador(jugador);
     }
     
+    public java.util.ArrayList<Jugador> buscarJugadores(String nick, String correo) {
+        return daoUsuarios.buscarJugadores(nick, correo);
+    }
+    
 }

@@ -428,7 +428,7 @@ public class DAOUsuarios extends AbstractDAO {
         Connection con = this.getConexion();
         
         try {
-            stmt = con.prepareStatement("SELECT nick, correo, fec_nacimiento, baneado FROM jugador WHERE nick = ? AND correo = ?");
+            stmt = con.prepareStatement("SELECT nick, correo, fec_nacimiento, baneado FROM jugador WHERE nick LIKE ? AND correo LIKE ?");
             stmt.setString(1, '%' + nick + '%');
             stmt.setString(2, '%' + correo + '%');
             
