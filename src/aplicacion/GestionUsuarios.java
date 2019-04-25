@@ -41,4 +41,8 @@ public class GestionUsuarios {
     public ArrayList<Logro> obtenerLogrosJugador(Jugador jugador) {
         return fbd.obtenerLogrosJugador(jugador);
     }
+    
+    public void banearJugador(String nickJugador) {
+        fbd.banearJugador(nickJugador);
+    }
 }

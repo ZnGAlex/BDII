@@ -145,4 +145,8 @@ public class FachadaAplicacion {
         return fbd.buscarJugadores(nick, correo);
     }
     
+    public void banearJugador(String nickJugador) {
+        gu.banearJugador(nickJugador);
+    }
+    
 }

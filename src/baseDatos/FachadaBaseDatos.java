@@ -136,4 +136,8 @@ public class FachadaBaseDatos {
         return daoUsuarios.buscarJugadores(nick, correo);
     }
     
+    public void banearJugador(String nickJugador) {
+        daoUsuarios.banearJugador(nickJugador);
+    }
+    
 }

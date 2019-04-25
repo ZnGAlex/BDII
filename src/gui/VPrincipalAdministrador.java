@@ -54,6 +54,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         datosCorreo = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        btnBanear = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -70,6 +71,13 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnBanear.setText("Banear");
+        btnBanear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBanearActionPerformed(evt);
             }
         });
 
@@ -90,7 +98,10 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(datosCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnBanear)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -104,8 +115,10 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
                     .addComponent(datosCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                .addGap(40, 40, 40))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBanear)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Usuarios", jPanel1);
@@ -152,6 +165,16 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         setTablaJugadores();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnBanearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanearActionPerformed
+        // TODO add your handling code here:
+        ModeloTablaJugadoresAdmin mtl = (ModeloTablaJugadoresAdmin) tablaJugadores.getModel();
+        String nickJugador;
+        nickJugador = mtl.obtenerJugador(tablaJugadores.getSelectedRow()).getNick();
+        fa.banearJugador(nickJugador);
+        this.jugadores = fa.buscarJugadores(this.datosNick.getText(), this.datosCorreo.getText());
+        setTablaJugadores();
+    }//GEN-LAST:event_btnBanearActionPerformed
+
     
     public void setTablaJugadores(){
         ModeloTablaJugadoresAdmin m;
@@ -164,6 +187,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBanear;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JTextField datosCorreo;
     private javax.swing.JTextField datosNick;
