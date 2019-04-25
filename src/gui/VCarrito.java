@@ -55,11 +55,13 @@ public class VCarrito extends javax.swing.JDialog {
         
     }
     
+    //Con esta función los cambios que realizamos en esta ventana son transmitidos a la ventana princpal
     public void salir(){
         vPrincipal.actualizarCarrito(this.juegos);
         this.dispose();
     }
     
+    //Vaciamos el carrito y repintamos la tabla para que se vea vacío
     public void vaciarCarrito(){
         this.juegos.clear();
         ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
@@ -171,9 +173,9 @@ public class VCarrito extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVaciarCarritoActionPerformed
 
     private void btnEliminarDelCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDelCarritoActionPerformed
-        Juego j = ((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow());
-        this.juegos.remove(j);
-        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
+        Juego j = ((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()); //Sacamos el juego que tiene el usuario seleccionado
+        this.juegos.remove(j);      //Eliminamos el juego de la tabla
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);   //Rehacemos la lista que enseñamos sin el juego seleccionado
     }//GEN-LAST:event_btnEliminarDelCarritoActionPerformed
 
     private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
@@ -182,9 +184,9 @@ public class VCarrito extends javax.swing.JDialog {
 
     private void btnRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarCompraActionPerformed
 
-        fa.comprarListaJuegos((Jugador)this.usuario, this.juegos);
-        vaciarCarrito();
-        salir();
+        fa.comprarListaJuegos((Jugador)this.usuario, this.juegos);  //Realizamos de forma atómica la compra de todos los juegos de la lista
+        vaciarCarrito();        //Vaciamos el carrito
+        salir();                //Cerramos la ventana actualizando en la ventana principal la lista del carrito
     }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
  
