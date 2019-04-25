@@ -30,6 +30,7 @@ public class FachadaGui {
         VAvisoCorrecto vac;
 
         vac = new VAvisoCorrecto(vp, true, s);
+        vac.setVisible(true);
     }
 
     public void muestraVVerDetalles(Juego juego) {

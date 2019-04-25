@@ -8,7 +8,6 @@ public class VAvisoCorrecto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         textoAvisoCorrecto.setText(txtExcepcion);
-        this.setVisible(true);
         
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
