@@ -188,7 +188,7 @@ public class VVerDetalles extends javax.swing.JDialog {
 
     private void tablaComplementosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaComplementosMouseClicked
         // TODO add your handling code here:
-        String descripcion = ((ModeloTablaCategorias)tablaComplementos.getModel()).getJuegoAt(tablaComplementos.getSelectedRow()).getDescripcion();
+        String descripcion = ((ModeloTablaComplementos)tablaComplementos.getModel()).getJuegoAt(tablaComplementos.getSelectedRow()).getDescripcion();
         this.DescripcionComplemento.setText(descripcion);
     }//GEN-LAST:event_tablaComplementosMouseClicked
 
