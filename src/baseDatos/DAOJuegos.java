@@ -195,7 +195,7 @@ public class DAOJuegos extends AbstractDAO {
             stmc=con.prepareStatement("select nombre, descripcion, puntos "
                     + "from logro as c "
                     + "where juego = ? ");
-            stmc.setInt(0, juego.getId());
+            stmc.setInt(1, juego.getId());
             rst=stmc.executeQuery();
             while(rst.next()){
                 logactual = new Logro(rst.getString("nombre"), rst.getString("descripcion"), rst.getInt("puntos"), juego);
