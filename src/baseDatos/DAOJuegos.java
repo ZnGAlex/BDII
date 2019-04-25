@@ -152,6 +152,7 @@ public class DAOJuegos extends AbstractDAO {
         }
     }
     
+    //Comprar una lista de juegos de forma atómica
     public void comprarListaJuegos(Jugador jugador, java.util.List<Juego> juegos){
         
         PreparedStatement stmc = null;
