@@ -163,7 +163,7 @@ public class DAOJuegos extends AbstractDAO {
             stmc=con.prepareStatement("select nombre, descripcion "
                     + "from complemento as c "
                     + "where juego = ? ");
-            stmc.setInt(0, juego.getId());
+            stmc.setInt(1, juego.getId());
             rst=stmc.executeQuery();
             while(rst.next()){
                 comactual = new Complemento(rst.getString("nombre"), rst.getString("descripcion"), juego);
