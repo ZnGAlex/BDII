@@ -57,12 +57,20 @@ public class FachadaAplicacion {
         return gj.consultarJuegosTienda(categoria,desarrolladora,nombre);
     }
     
+    public java.util.List<Juego> consultarJuegosPropios(String categoria, String desarrolladora, String nombre, Jugador jugador){
+        return gj.consultarJuegosPropios(categoria,desarrolladora,nombre, jugador);
+    }
+    
     public boolean usuarioTieneJuego(String nick,Integer idJuego){
         return gu.usuarioTieneJuego(nick,idJuego);
     }
     
     public void muestraVVerDetalles(Juego juego){
         fgui.muestraVVerDetalles(juego);
+    }
+    
+    public void muestraVVerLogros(Juego juego, Jugador jugador){
+        fgui.muestraVVerLogros(juego, jugador);
     }
 
     public void muestraVMiPerfil(Usuario usuario){
@@ -77,7 +85,44 @@ public class FachadaAplicacion {
         fgui.muestraVMisJuegos(usuario);
     }
     
-    public void muestraVCarrito(Usuario usuario, java.util.List<Juego> juegos){
-        fgui.muestraVCarrito(usuario, juegos);
+    public void muestraJugar(Jugador jugador, Juego juego){
+        fgui.muestraJugar(jugador, juego);
     }
+    
+    public void muestraVCarrito(gui.VPrincipal VPrincipal, Usuario usuario, java.util.List<Juego> juegos){
+        fgui.muestraVCarrito(VPrincipal, usuario, juegos);
+    }
+    
+    public void jugar(Jugador jugador, Juego juego){
+        gu.jugar(jugador, juego);
+    }
+    
+    public void dejarJugar(Jugador jugador, Juego juego){
+        gu.dejarJugar(jugador, juego);
+    }
+    
+    public void retransmitir(Jugador jugador, Juego juego){
+        gu.retranmitir(jugador, juego);
+    }
+    
+    public void dejarRetransmitir(Jugador jugador, Juego juego){
+        gu.dejarRetransmitir(jugador, juego);
+    }
+    
+    public java.util.List<Complemento> obtenerComplementos(Juego juego){
+        return gj.obtenerComplementos(juego);
+    }
+    
+    public java.util.List<Logro> obtenerLogros(Juego juego){
+        return gj.obtenerLogros(juego);
+    }
+    
+    public java.util.List<Categoria> obtenerCategoriasJuego(Juego juego){
+        return gc.obtenerCategoriasJuego(juego);
+    }
+    
+    public java.util.ArrayList<Logro> obtenerLogrosJugador(Jugador jugador) {
+        return gu.obtenerLogrosJugador(jugador);
+    }
+    
 }

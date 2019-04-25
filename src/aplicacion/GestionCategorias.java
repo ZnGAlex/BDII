@@ -24,4 +24,8 @@ public class GestionCategorias {
     public java.util.List<Categoria> obtenerCategorias(){
         return fbd.obtenerCategorias();
     }
+    
+    public java.util.List<Categoria> obtenerCategoriasJuego(Juego juego){
+        return fbd.obtenerCategoriasJuego(juego);
+    }
 }

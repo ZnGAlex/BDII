@@ -14,30 +14,48 @@ import java.awt.Toolkit;
  * @author alumnogreibd
  */
 public class VCarrito extends javax.swing.JDialog {
-    private Usuario usuario;
+    private final VPrincipal vPrincipal;
+    private final Usuario usuario;
     private java.util.List<Juego> juegos;
     
     private final aplicacion.FachadaAplicacion fa;
     /**
      * Creates new form VCarrito
+     * @param VPrincipal
      * @param parent
      * @param modal
      * @param fa
      * @param usuario
      * @param juegos
      */
-    public VCarrito(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Usuario usuario, java.util.List<Juego> juegos) {
+    public VCarrito(gui.VPrincipal VPrincipal, java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Usuario usuario, java.util.List<Juego> juegos) {
         
         super(parent, modal);
         //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
         this.fa = fa;    
         this.usuario = usuario;
         this.juegos = juegos;
+        this.vPrincipal = VPrincipal;
         initComponents();
+        
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
+        
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
         //Hacemos la ventana visible para el usuario
         this.setVisible(true);  
+        
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent w) {
+                salir();
+            }
+        });
+        
+    }
+    
+    public void salir(){
+        vPrincipal.actualizarCarrito(this.juegos);
     }
 
     /**
@@ -55,7 +73,7 @@ public class VCarrito extends javax.swing.JDialog {
         btnRealizarCompra = new javax.swing.JButton();
         btnVerDetalles = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaJuegos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -67,23 +85,23 @@ public class VCarrito extends javax.swing.JDialog {
         });
 
         btnEliminarDelCarrito.setText("Eliminar del Carrito");
+        btnEliminarDelCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarDelCarritoActionPerformed(evt);
+            }
+        });
 
         btnRealizarCompra.setText("Realizar Compra");
 
         btnVerDetalles.setText("Ver Detalles");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        btnVerDetalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerDetallesActionPerformed(evt);
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        });
+
+        tablaJuegos.setModel(new ModeloTablaJuegos());
+        jScrollPane1.setViewportView(tablaJuegos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -137,8 +155,19 @@ public class VCarrito extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVaciarCarritoActionPerformed
-        // TODO add your handling code here:
+        this.juegos.clear();
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
     }//GEN-LAST:event_btnVaciarCarritoActionPerformed
+
+    private void btnEliminarDelCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDelCarritoActionPerformed
+        Juego j = ((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow());
+        this.juegos.remove(j);
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
+    }//GEN-LAST:event_btnEliminarDelCarritoActionPerformed
+
+    private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
+        fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()));
+    }//GEN-LAST:event_btnVerDetallesActionPerformed
 
  
 
@@ -149,6 +178,6 @@ public class VCarrito extends javax.swing.JDialog {
     private javax.swing.JButton btnVerDetalles;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaJuegos;
     // End of variables declaration//GEN-END:variables
 }

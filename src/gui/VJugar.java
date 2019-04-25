@@ -6,30 +6,60 @@
 package gui;
 
 import java.awt.Toolkit;
+import aplicacion.Juego;
+import aplicacion.Jugador;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author alumnogreibd
  */
 public class VJugar extends javax.swing.JDialog {
-    
+
+    private Jugador jugador;
+    private Juego juego;
+    private int retransmitiendo;
+
     private final aplicacion.FachadaAplicacion fa;
+
     /**
      * Creates new form VJugar
+     *
      * @param parent
      * @param modal
      * @param fa
      */
-    public VJugar(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa) {
-        
+    public VJugar(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Jugador j, Juego ju) {
+
         super(parent, modal);
         //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
-        this.fa = fa;       
+        this.fa = fa;
+        this.juego = ju;
+        this.jugador = j;
+        this.retransmitiendo = 0;
         initComponents();
+        this.etiquetaRetransmitiendo.setVisible(false);
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
-        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
+        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - this.getWidth() / 2, Toolkit.getDefaultToolkit().getScreenSize().height / 2 - this.getHeight() / 2);
         //Hacemos la ventana visible para el usuario
-        this.setVisible(true);  
+        this.setVisible(true);
+        
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent w) {
+                salir();
+            }
+        });
+
+    }
+
+    void salir() {
+        if(this.retransmitiendo==1){
+        fa.dejarRetransmitir(jugador, juego);
+        }
+        fa.dejarJugar(jugador, juego);
+        this.dispose();
     }
 
     /**
@@ -60,6 +90,11 @@ public class VJugar extends javax.swing.JDialog {
         etiquetaRetransmitiendo.setText("***** Retransmitiendo *****");
 
         btnRetransmitir.setText("Retransmitir");
+        btnRetransmitir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetransmitirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -107,6 +142,19 @@ public class VJugar extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRetransmitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetransmitirActionPerformed
+        // TODO add your handling code here:
+        if(this.retransmitiendo==0){
+            this.retransmitiendo=1;
+            fa.retransmitir(jugador, juego);
+            this.etiquetaRetransmitiendo.setVisible(true);
+        }
+        else{
+            this.retransmitiendo=0;
+            fa.dejarRetransmitir(jugador, juego);
+            this.etiquetaRetransmitiendo.setVisible(false);
+        }
+    }//GEN-LAST:event_btnRetransmitirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

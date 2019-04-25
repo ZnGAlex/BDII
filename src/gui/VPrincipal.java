@@ -1,6 +1,7 @@
 package gui;
 
 import aplicacion.*;
+import java.awt.Toolkit;
 public class VPrincipal extends javax.swing.JFrame {
   
     FachadaAplicacion fa;
@@ -12,6 +13,10 @@ public class VPrincipal extends javax.swing.JFrame {
     public VPrincipal(aplicacion.FachadaAplicacion fa) {
         this.fa=fa;
         initComponents();
+        
+        //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
+        this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
+        
         btnAnadir.setEnabled(false);
         btnDetalles.setEnabled(false);
         this.carrito = new java.util.ArrayList<>();
@@ -31,6 +36,13 @@ public class VPrincipal extends javax.swing.JFrame {
         for(Desarrolladora des: desarrolladoras){
             boxDesarrolladora.addItem(des.getNombre());
         }
+    }
+    
+    //Método que actualiza el carrito de un jugador después de haber llamado a VCarrito
+    public void actualizarCarrito(java.util.List<Juego> juegos){
+        this.carrito = juegos;
+        Integer numero = juegos.size();
+        etiquetaCarrito.setText(numero.toString());
     }
 
     /** This method is called from within the constructor to
@@ -280,8 +292,8 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnJuegosActionPerformed
 
     private void btnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarritoActionPerformed
-        // TODO add your handling code here:
-        fa.muestraVCarrito(usuario,carrito);
+        // Necesitamos pasarle la VPrincipal para poder actuar sobre el carrito
+        fa.muestraVCarrito(this, usuario, carrito);
     }//GEN-LAST:event_btnCarritoActionPerformed
 
     private void tablaJuegosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaJuegosKeyReleased

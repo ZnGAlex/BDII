@@ -307,8 +307,8 @@ public class VLogin extends javax.swing.JDialog {
             etiquetaFallo.setVisible(true);
         } else {
             /* Login correcto */
-            this.fa.muestraVPrincipal(usuario);
             this.dispose();
+            this.fa.muestraVPrincipal(usuario);
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -319,12 +319,36 @@ public class VLogin extends javax.swing.JDialog {
 
     private void datosLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datosLoginKeyPressed
         // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String login = datosLogin.getText();
+            String pw = new String(datosClave.getPassword());
+            Usuario usuario = this.fa.validarUsuario(login, pw);
         
+            if (usuario == null) {
+                etiquetaFallo.setVisible(true);
+            } else {
+                /* Login correcto */
+                this.dispose();
+                this.fa.muestraVPrincipal(usuario);
+            }
+        }
     }//GEN-LAST:event_datosLoginKeyPressed
 
     private void datosClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datosClaveKeyPressed
         // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String login = datosLogin.getText();
+            String pw = new String(datosClave.getPassword());
+            Usuario usuario = this.fa.validarUsuario(login, pw);
         
+            if (usuario == null) {
+                etiquetaFallo.setVisible(true);
+            } else {
+                /* Login correcto */
+                this.dispose();
+                this.fa.muestraVPrincipal(usuario);
+            }
+        }
     }//GEN-LAST:event_datosClaveKeyPressed
 
     private void datosNickKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datosNickKeyPressed

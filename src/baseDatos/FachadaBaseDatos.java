@@ -1,6 +1,7 @@
 package baseDatos;
 
 import aplicacion.Categoria;
+import aplicacion.Complemento;
 import aplicacion.Desarrolladora;
 import aplicacion.Usuario;
 import java.io.FileInputStream;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.util.Properties;
 import aplicacion.Juego;
 import aplicacion.Jugador;
+import aplicacion.Logro;
 
 public class FachadaBaseDatos {
     private aplicacion.FachadaAplicacion fa;
@@ -94,8 +96,28 @@ public class FachadaBaseDatos {
         return daoJuegos.consultarJuegosTienda(categoria, desarrolladora, nombre);
     }
     
+    public java.util.List<Juego> consultarJuegosPropios(String categoria, String desarrolladora, String nombre, Jugador jugador){
+        return daoJuegos.consultarJuegosPropios(categoria, desarrolladora, nombre, jugador);
+    }
+    
     public boolean usuarioTieneJuego(String nick,Integer idJuego){
         return daoUsuarios.usuarioTieneJuego(nick,idJuego);
+    }
+    
+    public java.util.List<Complemento> obtenerComplementos(Juego juego){
+        return daoJuegos.obtenerComplementos(juego);
+    }
+    
+    public java.util.List<Logro> obtenerLogros(Juego juego){
+        return daoJuegos.obtenerLogros(juego);
+    }
+    
+    public java.util.List<Categoria> obtenerCategoriasJuego(Juego juego){
+        return daoCategorias.obtenerCategoriasJuego(juego);
+    }
+    
+    public java.util.ArrayList<Logro> obtenerLogrosJugador(Jugador jugador) {
+        return daoUsuarios.obtenerLogrosJugador(jugador);
     }
     
 }

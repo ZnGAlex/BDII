@@ -5,23 +5,45 @@
  */
 package gui;
 
+import aplicacion.FachadaAplicacion;
+import aplicacion.Jugador;
+import aplicacion.Logro;
 import aplicacion.Usuario;
 import java.awt.Toolkit;
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.ArrayList;
 
 /**
  *
  * @author alumnogreibd
  */
 public class VMiPerfil extends javax.swing.JDialog {
-    private Usuario usuario;
+    private FachadaAplicacion fa;
+    private Jugador jugador;
+    private ArrayList<Logro> logros;
     /**
      * Creates new form VMiPerfil
      */
-    public VMiPerfil(java.awt.Frame parent, boolean modal, boolean modoExterno, Usuario usuario) {
+    public VMiPerfil(java.awt.Frame parent, FachadaAplicacion fa, boolean modal, boolean modoExterno, Usuario usuario) {
         super(parent, modal);
-        
-        this.usuario = usuario;
+        this.fa = fa;
+        this.jugador = (Jugador) usuario;
         initComponents();
+        
+        java.util.Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+        cal.setTime(usuario.getFechaNacimiento());
+        
+        this.campoNombre.setText(usuario.getNick());
+        this.campoDiaNacimiento.setText(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+        this.campoMesNacimiento.setText(String.valueOf(cal.get(Calendar.MONTH)));
+        this.campoAnoNacimiento.setText(String.valueOf(cal.get(Calendar.YEAR)));
+        this.campoCorreo.setText(usuario.getCorreo());
+        
+        this.logros = new ArrayList<>();
+        logros = this.fa.obtenerLogrosJugador(jugador);
+        
+        setTablaLogros();
         
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
@@ -90,7 +112,6 @@ public class VMiPerfil extends javax.swing.JDialog {
         etiquetaNombre = new javax.swing.JLabel();
         campoNombre = new javax.swing.JTextField();
         etiquetaClave = new javax.swing.JLabel();
-        campoClave = new javax.swing.JTextField();
         etiquetaFechaNacimiento = new javax.swing.JLabel();
         campoDiaNacimiento = new javax.swing.JTextField();
         etiquetaBarra1 = new javax.swing.JLabel();
@@ -106,6 +127,7 @@ public class VMiPerfil extends javax.swing.JDialog {
         btnCompartirLogro = new javax.swing.JButton();
         btnOcultarLogro = new javax.swing.JButton();
         btnVerSusJuegos = new javax.swing.JButton();
+        campoClave = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -127,17 +149,7 @@ public class VMiPerfil extends javax.swing.JDialog {
 
         etiquetaLogros.setText("Logros:");
 
-        tablaLogros.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        tablaLogros.setModel(new ModeloTablaLogros());
         jScrollPane1.setViewportView(tablaLogros);
 
         btnCompartirLogro.setText("Compartir Logro");
@@ -147,6 +159,8 @@ public class VMiPerfil extends javax.swing.JDialog {
 
         btnVerSusJuegos.setText("Ver sus juegos");
         btnVerSusJuegos.setEnabled(false);
+
+        campoClave.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -184,8 +198,8 @@ public class VMiPerfil extends javax.swing.JDialog {
                                         .addComponent(etiquetaCorreo)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(campoClave)
-                                    .addComponent(campoCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)))
+                                    .addComponent(campoCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                                    .addComponent(campoClave)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(etiquetaLogros)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -250,6 +264,15 @@ public class VMiPerfil extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setTablaLogros(){
+        ModeloTablaLogros m;
+
+        m=(ModeloTablaLogros) tablaLogros.getModel();
+        m.setFilas(logros);
+        if (m.getRowCount() > 0) {
+            tablaLogros.setRowSelectionInterval(0, 0);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarDatos;
@@ -257,7 +280,7 @@ public class VMiPerfil extends javax.swing.JDialog {
     private javax.swing.JButton btnOcultarLogro;
     private javax.swing.JButton btnVerSusJuegos;
     private javax.swing.JTextField campoAnoNacimiento;
-    private javax.swing.JTextField campoClave;
+    private javax.swing.JPasswordField campoClave;
     private javax.swing.JTextField campoCorreo;
     private javax.swing.JTextField campoDiaNacimiento;
     private javax.swing.JTextField campoMesNacimiento;

@@ -3,11 +3,13 @@ package baseDatos;
 import aplicacion.Jugador;
 import aplicacion.Administrador;
 import aplicacion.Juego;
+import aplicacion.Logro;
 import aplicacion.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DAOUsuarios extends AbstractDAO {
     
@@ -20,11 +22,12 @@ public class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Usuario usuario = null;
+        Jugador jugador = null;
         
         Connection con = this.getConexion();
         
-        try {
-            stmt = con.prepareStatement("SELECT * FROM Jugador WHERE nick = ? AND clave = MD5(?)");
+        try {            
+            stmt = con.prepareStatement("SELECT * FROM Jugador WHERE nick = ? AND clave = crypt(?, clave)");
             stmt.setString(1, login);
             stmt.setString(2, pw);
             
@@ -33,12 +36,21 @@ public class DAOUsuarios extends AbstractDAO {
             if (rs.next()) {
                 /* Si el usuario a hacer login es jugador, se crea una instancia de jugador */
                 java.util.Date fecha = (java.util.Date) rs.getObject("fec_nacimiento");
-                usuario = new Jugador(rs.getString("nick"), rs.getString("clave"), rs.getString("correo"), fecha ,rs.getBoolean("baneado"));
+                usuario = new Jugador(rs.getString("nick"), rs.getString("clave"), rs.getString("correo"), fecha, rs.getBoolean("baneado"));
             }
             
-            if (usuario != null) return usuario;
+            if (usuario != null) {
+                jugador = (Jugador) usuario;
+                if (jugador.getBaneado()) {
+                    this.getFachadaAplicacion().muestraAvisoCorrecto("El jugador esta baneado, no puede iniciar sesion.");
+                    usuario = null;
+                    return usuario;
+                } else {
+                    return usuario;
+                }
+            }
             
-            stmt = con.prepareStatement("SELECT * FROM Administrador WHERE nick = ? AND clave = MD5(?)");
+            stmt = con.prepareStatement("SELECT * FROM Administrador WHERE nick = ? AND clave = crypt(?, clave)");
             stmt.setString(1, login);
             stmt.setString(2, pw);
             
@@ -69,13 +81,12 @@ public class DAOUsuarios extends AbstractDAO {
         
         try {
 
-            stmt = con.prepareStatement("INSERT INTO Jugador (nick, clave, correo, fec_nacimiento, baneado)"
-                                      + " VALUES (?, MD5(?), ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO Jugador (nick, clave, correo, fec_nacimiento)"
+                                      + " VALUES (?, crypt(?, gen_salt('bf')), ?, ?)");
             stmt.setString(1, login);
             stmt.setString(2, pw);
             stmt.setString(3, correo);
             stmt.setObject(4, new java.sql.Date(fechaNacimiento.getTime()));
-            stmt.setBoolean(5, false);
             
             stmt.executeUpdate();
             
@@ -103,7 +114,7 @@ public class DAOUsuarios extends AbstractDAO {
             stmc = con.prepareStatement("insert into Jugar(jugador,juego) "
             +" values(?,?) ");
             stmc.setString(1, jugador.getNick());
-            stmc.setString(2, juego.getNombre());
+            stmc.setInt(2, juego.getId());
             
             stmc.executeUpdate();
             
@@ -130,11 +141,11 @@ public class DAOUsuarios extends AbstractDAO {
         con = this.getConexion();
         try {
             stmc = con.prepareStatement("update Jugar "
-            +"set fec_fin = now() "
-            +"where juego like ? "
-            +"and jugador like ? "
-            +"and fec_fin = null ");
-            stmc.setString(1, juego.getNombre());
+            +"set fechafin = now() "
+            +"where juego = ? "
+            +"and jugador = ? "
+            +"and fechafin is null ");
+            stmc.setInt(1, juego.getId());
             stmc.setString(2, jugador.getNick());
             
             
@@ -165,7 +176,7 @@ public class DAOUsuarios extends AbstractDAO {
             stmc = con.prepareStatement("insert into Retransmitir(jugador,juego) "
             +" values(?,?) ");
             stmc.setString(1, jugador.getNick());
-            stmc.setString(2, juego.getNombre());
+            stmc.setInt(2, juego.getId());
             
             stmc.executeUpdate();
             
@@ -191,12 +202,12 @@ public class DAOUsuarios extends AbstractDAO {
 
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("update Retrasnmitir "
-            +"set fec_fin = now() "
-            +"where juego like ? "
+            stmc = con.prepareStatement("update Retransmitir "
+            +"set fechafin = now() "
+            +"where juego = ? "
             +"and jugador like ? "
-            +"and fec_fin = null ");
-            stmc.setString(1, juego.getNombre());
+            +"and fechafin is null ");
+            stmc.setInt(1, juego.getId());
             stmc.setString(2, jugador.getNick());
             
             
@@ -308,6 +319,38 @@ public class DAOUsuarios extends AbstractDAO {
             }
         }
         return resultado;
+    }
+    
+    public ArrayList<Logro> obtenerLogrosJugador(Jugador jugador) {
+        ArrayList<Logro> logros = new ArrayList<>();
+        Logro logro = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        Connection con = this.getConexion();
+        
+        try {
+            stmt = con.prepareStatement("SELECT l.nombre, l.descripcion, l.puntos FROM conseguirlogro c INNER JOIN logro l on c.logro = l.nombre and c.juego = l.juego WHERE c.jugador = ?");
+            stmt.setString(1, jugador.getNick());
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                logro = new Logro(rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("puntos"));
+                logros.add(logro);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return logros;
     }
     
     

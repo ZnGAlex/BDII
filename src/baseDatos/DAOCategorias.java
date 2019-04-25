@@ -6,6 +6,7 @@
 package baseDatos;
 
 import aplicacion.Categoria;
+import aplicacion.Juego;
 import java.sql.*;
 
 /**
@@ -47,6 +48,39 @@ class DAOCategorias extends AbstractDAO{
         } finally {
             try {
                 stmc.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
+    
+    public java.util.List<Categoria> obtenerCategoriasJuego(Juego juego){
+        java.util.List<Categoria> resultado = new java.util.ArrayList<Categoria>();
+        Categoria catactual;
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+        con=this.getConexion();
+        try {
+            stmc=con.prepareStatement("select c.nombre, c.descripcion "
+                    + "from categoria as c, tenercategoria as t "
+                    + "where c.nombre = t.categoria "
+                    + "and t.juego = ? ");
+            stmc.setInt(0, juego.getId());
+            rst=stmc.executeQuery();
+            while(rst.next()){
+                catactual = new Categoria(rst.getString("nombre"), rst.getString("descripcion"));
+                resultado.add(catactual);
+            }
+        
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, obtencion de categorias fallida");
+        } finally {
+            try {
+                stmc.close();
+
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
