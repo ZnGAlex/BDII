@@ -88,6 +88,10 @@ public class FachadaBaseDatos {
         daoUsuarios.retrasnmitir(j, ju);
     }
     
+    public void comprarListaJuegos(Jugador jugador, java.util.List<Juego> juegos){
+        daoJuegos.comprarListaJuegos(jugador, juegos);
+    }
+    
     public void dejarRetransmitir(Jugador j, Juego ju){
         daoUsuarios.dejarRetransmitir(j, ju);
     }

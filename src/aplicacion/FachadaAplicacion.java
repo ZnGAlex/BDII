@@ -65,6 +65,10 @@ public class FachadaAplicacion {
         return gu.usuarioTieneJuego(nick,idJuego);
     }
     
+    public void comprarListaJuegos(Jugador jugador, java.util.List<Juego> juegos){
+        fbd.comprarListaJuegos(jugador, juegos);
+    }
+    
     public void muestraVVerDetalles(Juego juego){
         fgui.muestraVVerDetalles(juego);
     }
