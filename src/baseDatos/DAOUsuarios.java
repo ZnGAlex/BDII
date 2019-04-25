@@ -395,7 +395,9 @@ public class DAOUsuarios extends AbstractDAO {
         Connection con = this.getConexion();
         
         try {
-            stmt = con.prepareStatement("SELECT l.nombre, l.descripcion, l.puntos FROM conseguirlogro c INNER JOIN logro l on c.logro = l.nombre and c.juego = l.juego WHERE c.jugador = ?");
+            stmt = con.prepareStatement("SELECT l.nombre, l.descripcion, l.puntos "
+                                      + "FROM conseguirlogro c INNER JOIN logro l on c.logro = l.nombre and c.juego = l.juego "
+                                      + "WHERE c.jugador = ?");
             stmt.setString(1, jugador.getNick());
             
             rs = stmt.executeQuery();
@@ -416,6 +418,40 @@ public class DAOUsuarios extends AbstractDAO {
         }
         
         return logros;
+    }
+    
+    public ArrayList<Jugador> buscarJugadores(String nick, String correo) {
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+        Jugador jugador = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Connection con = this.getConexion();
+        
+        try {
+            stmt = con.prepareStatement("SELECT nick, correo, fec_nacimiento, baneado FROM jugador WHERE nick = ? AND correo = ?");
+            stmt.setString(1, '%' + nick + '%');
+            stmt.setString(2, '%' + correo + '%');
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                java.util.Date fecha = (java.util.Date) rs.getObject("fec_nacimiento");
+                jugador = new Jugador(rs.getString("nick"), rs.getString("correo"), fecha, rs.getBoolean("baneado"));
+                jugadores.add(jugador);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto(e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return jugadores;
     }
     
     

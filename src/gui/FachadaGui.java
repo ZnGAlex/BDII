@@ -8,16 +8,22 @@ public class FachadaGui {
 
     aplicacion.FachadaAplicacion fa;
     VPrincipal vp;
+    VPrincipalAdministrador vpa;
 
     public FachadaGui(aplicacion.FachadaAplicacion fa) {
         this.fa = fa;
         this.vp = new VPrincipal(this.fa);
+        this.vpa = new VPrincipalAdministrador(this.fa);
     }
 
     public void muestraVPrincipal(Usuario usuario) {
         vp.inicializarBoxes();
         vp.setUsuario(usuario);
         this.vp.setVisible(true);
+    }
+    
+    public void muestraVPrincipalAdministrador(Usuario usuario) {
+        this.vpa.setVisible(true);
     }
 
     public void iniciaLogin() {

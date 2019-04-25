@@ -28,6 +28,10 @@ public class FachadaAplicacion {
     public void muestraVPrincipal(Usuario usuario) {
         fgui.muestraVPrincipal(usuario);
     }
+    
+    public void muestraVPrincipalAdministrador (Usuario usuario) {
+        fgui.muestraVPrincipalAdministrador(usuario);
+    }
 
     public void iniciaLogin() {
         fgui.iniciaLogin();

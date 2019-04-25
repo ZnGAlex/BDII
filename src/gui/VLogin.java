@@ -315,7 +315,10 @@ public class VLogin extends javax.swing.JDialog {
         } else {
             /* Login correcto */
             this.dispose();
-            this.fa.muestraVPrincipal(usuario);
+            if (usuario instanceof Jugador)
+                this.fa.muestraVPrincipal(usuario);
+            else
+                this.fa.muestraVPrincipalAdministrador(usuario);
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 

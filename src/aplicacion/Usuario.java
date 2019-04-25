@@ -6,12 +6,18 @@ public abstract class Usuario {
      private String correo;
      private java.util.Date fechaNacimiento;
      
-     public Usuario(String nick, String pw, String correo, java.util.Date fechaNacimiento) {
-         this.nick = nick;
-         this.pw = pw;
-         this.correo = correo;
-         this.fechaNacimiento = fechaNacimiento;
-     }
+    public Usuario(String nick, String pw, String correo, java.util.Date fechaNacimiento) {
+        this.nick = nick;
+        this.pw = pw;
+        this.correo = correo;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+    
+    public Usuario(String nick, String correo, java.util.Date fechaNacimiento) {
+        this.nick = nick;
+        this.correo = correo;
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     public String getNick() {
         return nick;

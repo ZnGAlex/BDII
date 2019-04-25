@@ -8,6 +8,11 @@ public class Jugador extends Usuario {
         this.baneado = baneado;
     }
     
+    public Jugador(String nick, String correo, java.util.Date fechaNacimiento, boolean baneado) {
+        super(nick, correo, fechaNacimiento);
+        this.baneado = baneado;
+    }
+    
     @Override
     public String getNick(){
         return super.getNick();
