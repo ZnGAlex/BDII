@@ -6,6 +6,7 @@
 package gui;
 
 import aplicacion.Juego;
+import aplicacion.Jugador;
 import aplicacion.Usuario;
 import java.awt.Toolkit;
 
@@ -92,6 +93,11 @@ public class VCarrito extends javax.swing.JDialog {
         });
 
         btnRealizarCompra.setText("Realizar Compra");
+        btnRealizarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarCompraActionPerformed(evt);
+            }
+        });
 
         btnVerDetalles.setText("Ver Detalles");
         btnVerDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +174,11 @@ public class VCarrito extends javax.swing.JDialog {
     private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
         fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()));
     }//GEN-LAST:event_btnVerDetallesActionPerformed
+
+    private void btnRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarCompraActionPerformed
+
+        fa.comprarListaJuegos((Jugador)this.usuario, this.juegos);
+    }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
  
 
