@@ -10,9 +10,12 @@ import aplicacion.Jugador;
 import aplicacion.Logro;
 import aplicacion.Usuario;
 import java.awt.Toolkit;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -31,14 +34,7 @@ public class VMiPerfil extends javax.swing.JDialog {
         this.jugador = (Jugador) usuario;
         initComponents();
         
-        java.util.Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
-        cal.setTime(usuario.getFechaNacimiento());
-        
-        this.campoNombre.setText(usuario.getNick());
-        this.campoDiaNacimiento.setText(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
-        this.campoMesNacimiento.setText(String.valueOf(cal.get(Calendar.MONTH)));
-        this.campoAnoNacimiento.setText(String.valueOf(cal.get(Calendar.YEAR)));
-        this.campoCorreo.setText(usuario.getCorreo());
+        setDatosUsuario();
         
         this.logros = new ArrayList<>();
         logros = this.fa.obtenerLogrosJugador(jugador);
@@ -146,6 +142,11 @@ public class VMiPerfil extends javax.swing.JDialog {
         etiquetaCorreo.setText("Correo:");
 
         btnActualizarDatos.setText("Actualizar Datos");
+        btnActualizarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarDatosActionPerformed(evt);
+            }
+        });
 
         etiquetaLogros.setText("Logros:");
 
@@ -264,6 +265,28 @@ public class VMiPerfil extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnActualizarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDatosActionPerformed
+        // TODO add your handling code here:
+        
+        String pw = new String(this.campoClave.getPassword());
+        Date fechaNacimiento = null;
+        
+        
+        try {
+            fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(this.campoDiaNacimiento.getText() + '/' + this.campoMesNacimiento.getText() + '/' + this.campoAnoNacimiento.getText());
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        if (pw.isEmpty())
+            fa.modificarDatosUsuario(jugador, fechaNacimiento, this.campoCorreo.getText());
+        else
+            fa.modificarDatosUsuarioConPW(jugador, pw, fechaNacimiento, this.campoCorreo.getText());
+        
+        setDatosUsuario();
+        
+    }//GEN-LAST:event_btnActualizarDatosActionPerformed
+
     public void setTablaLogros(){
         ModeloTablaLogros m;
 
@@ -272,6 +295,17 @@ public class VMiPerfil extends javax.swing.JDialog {
         if (m.getRowCount() > 0) {
             tablaLogros.setRowSelectionInterval(0, 0);
         }
+    }
+    
+    public void setDatosUsuario() {
+        java.util.Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+        cal.setTime(jugador.getFechaNacimiento());
+        
+        this.campoNombre.setText(jugador.getNick());
+        this.campoDiaNacimiento.setText(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+        this.campoMesNacimiento.setText(String.valueOf(cal.get(Calendar.MONTH)));
+        this.campoAnoNacimiento.setText(String.valueOf(cal.get(Calendar.YEAR)));
+        this.campoCorreo.setText(jugador.getCorreo());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

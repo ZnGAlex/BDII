@@ -28,11 +28,7 @@ public class VLogin extends javax.swing.JDialog {
         
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent w) {
-                System.exit(0);
-            }
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent w) {
+            public void windowClosing(java.awt.event.WindowEvent e) {
                 System.exit(0);
             }
         });

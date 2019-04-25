@@ -68,6 +68,14 @@ public class FachadaBaseDatos {
         daoUsuarios.registrarUsuario(login, pw, correo, fechaNacimiento);
     }
     
+    public void modificarDatosUsuario(Usuario usuario, java.util.Date fechaNacimiento, String correo) {
+        daoUsuarios.modificarDatosUsuario(usuario, fechaNacimiento, correo);
+    }
+    
+    public void modificarDatosUsuarioConPW(Usuario usuario, String pw, java.util.Date fechaNacimiento, String correo) {
+        daoUsuarios.modificarDatosUsarioConPW(usuario, pw, fechaNacimiento, correo);
+    }
+    
     public java.util.List<Categoria> obtenerCategorias(){
         return daoCategorias.obtenerCategorias();
     }
