@@ -44,6 +44,14 @@ public class FachadaAplicacion {
     public Usuario validarUsuario(String login, String pw) {
         return gu.validarUsuario(login, pw);
     }
+    
+    public void modificarDatosUsuario(Usuario usuario, java.util.Date fechaNacimiento, String correo) {
+        fbd.modificarDatosUsuario(usuario, fechaNacimiento, correo);
+    }
+    
+    public void modificarDatosUsuarioConPW(Usuario usuario, String pw, java.util.Date fechaNacimiento, String correo) {
+        fbd.modificarDatosUsuarioConPW(usuario, pw, fechaNacimiento, correo);
+    }
 
     public java.util.List<Categoria> obtenerCategorias() {
         return gc.obtenerCategorias();
@@ -63,6 +71,10 @@ public class FachadaAplicacion {
     
     public boolean usuarioTieneJuego(String nick,Integer idJuego){
         return gu.usuarioTieneJuego(nick,idJuego);
+    }
+    
+    public void comprarListaJuegos(Jugador jugador, java.util.List<Juego> juegos){
+        fbd.comprarListaJuegos(jugador, juegos);
     }
     
     public void muestraVVerDetalles(Juego juego){

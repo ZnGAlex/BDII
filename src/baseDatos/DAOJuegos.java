@@ -134,7 +134,7 @@ public class DAOJuegos extends AbstractDAO {
             stmc = con.prepareStatement("insert into Comprar(jugador,juego) "
             +" values(?,?) ");
             stmc.setString(1, jugador.getNick());
-            stmc.setString(2, juego.getNombre());
+            stmc.setInt(2, juego.getId());
             
             stmc.executeUpdate();
             
@@ -152,6 +152,7 @@ public class DAOJuegos extends AbstractDAO {
         }
     }
     
+    //Comprar una lista de juegos de forma atómica
     public void comprarListaJuegos(Jugador jugador, java.util.List<Juego> juegos){
         
         PreparedStatement stmc = null;
@@ -170,7 +171,7 @@ public class DAOJuegos extends AbstractDAO {
                 stmc = con.prepareStatement("insert into Comprar(jugador,juego) "
                         +" values(?,?) ");
                 stmc.setString(1, jugador.getNick());
-                stmc.setString(2, juego.getNombre());
+                stmc.setInt(2, juego.getId());
                 stmc.executeUpdate();
             }
 
@@ -188,7 +189,7 @@ public class DAOJuegos extends AbstractDAO {
                 System.out.println("Imposible realizar el rollback");
             }
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, ese juego ya pertenece al jugador");
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error en comprar juegos, intentelo de nuevo");
         } finally {
 
             try {

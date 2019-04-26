@@ -6,6 +6,7 @@
 package gui;
 
 import aplicacion.Juego;
+import aplicacion.Jugador;
 import aplicacion.Usuario;
 import java.awt.Toolkit;
 
@@ -54,8 +55,16 @@ public class VCarrito extends javax.swing.JDialog {
         
     }
     
+    //Con esta función los cambios que realizamos en esta ventana son transmitidos a la ventana princpal
     public void salir(){
         vPrincipal.actualizarCarrito(this.juegos);
+        this.dispose();
+    }
+    
+    //Vaciamos el carrito y repintamos la tabla para que se vea vacío
+    public void vaciarCarrito(){
+        this.juegos.clear();
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
     }
 
     /**
@@ -92,6 +101,11 @@ public class VCarrito extends javax.swing.JDialog {
         });
 
         btnRealizarCompra.setText("Realizar Compra");
+        btnRealizarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarCompraActionPerformed(evt);
+            }
+        });
 
         btnVerDetalles.setText("Ver Detalles");
         btnVerDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -155,19 +169,25 @@ public class VCarrito extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVaciarCarritoActionPerformed
-        this.juegos.clear();
-        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
+            vaciarCarrito();
     }//GEN-LAST:event_btnVaciarCarritoActionPerformed
 
     private void btnEliminarDelCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDelCarritoActionPerformed
-        Juego j = ((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow());
-        this.juegos.remove(j);
-        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
+        Juego j = ((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()); //Sacamos el juego que tiene el usuario seleccionado
+        this.juegos.remove(j);      //Eliminamos el juego de la tabla
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);   //Rehacemos la lista que enseñamos sin el juego seleccionado
     }//GEN-LAST:event_btnEliminarDelCarritoActionPerformed
 
     private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
         fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()));
     }//GEN-LAST:event_btnVerDetallesActionPerformed
+
+    private void btnRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarCompraActionPerformed
+
+        fa.comprarListaJuegos((Jugador)this.usuario, this.juegos);  //Realizamos de forma atómica la compra de todos los juegos de la lista
+        vaciarCarrito();        //Vaciamos el carrito
+        salir();                //Cerramos la ventana actualizando en la ventana principal la lista del carrito
+    }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
  
 

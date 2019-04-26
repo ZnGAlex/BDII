@@ -103,6 +103,71 @@ public class DAOUsuarios extends AbstractDAO {
         
     }
     
+    public void modificarDatosUsuario(Usuario usuario, java.util.Date fechaNac, String correo) {
+        PreparedStatement stmt = null;
+        Connection con = this.getConexion();
+        
+        try {
+            stmt = con.prepareStatement("UPDATE Jugador "
+                                      + "SET correo = ?, fec_nacimiento = ? "
+                                      + "WHERE nick = ?");
+            stmt.setString(1, correo);
+            stmt.setObject(2, new java.sql.Date(fechaNac.getTime()));
+            stmt.setString(3, usuario.getNick());
+            
+            stmt.executeUpdate();
+            
+            usuario.setCorreo(correo);
+            usuario.setFechaNacimiento(fechaNac);
+            
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Datos de usuario actualizados correctamente.");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error modificando perfil.");
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void modificarDatosUsarioConPW(Usuario usuario, String pw, java.util.Date fechaNac, String correo) {
+        PreparedStatement stmt = null;
+        Connection con = this.getConexion();
+        
+        try {
+            stmt = con.prepareStatement("UPDATE Jugador "
+                                      + "SET clave = crypt(?, gen_salt('bf')), "
+                                      + "correo = ?, fec_nacimiento = ? "
+                                      + "WHERE nick = ?");
+            stmt.setString(1, pw);
+            stmt.setString(2, correo);
+            stmt.setObject(3, new java.sql.Date(fechaNac.getTime()));
+            stmt.setString(4, usuario.getNick());
+            
+            stmt.executeUpdate();
+            
+            usuario.setCorreo(correo);
+            usuario.setFechaNacimiento(fechaNac);
+            usuario.setPw(pw);
+            
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Datos de usuario actualizados correctamente.");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error modificando perfil.");
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
      public void jugar(Jugador jugador, Juego juego){
         
         PreparedStatement stmc = null;

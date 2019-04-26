@@ -76,6 +76,11 @@ public class VVerDetalles extends javax.swing.JDialog {
         etiquetaComplementos.setText("Complementos:");
 
         tablaComplementos.setModel(new ModeloTablaComplementos());
+        tablaComplementos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaComplementosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaComplementos);
 
         btnAdquirir.setText("Adquirir");
@@ -90,6 +95,11 @@ public class VVerDetalles extends javax.swing.JDialog {
         jLabel1.setText("Categorías:");
 
         tablaCategorias.setModel(new ModeloTablaCategorias());
+        tablaCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCategoriasMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tablaCategorias);
 
         etiquetaDescripcionCategoria.setText("Descripción:");
@@ -175,6 +185,18 @@ public class VVerDetalles extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tablaComplementosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaComplementosMouseClicked
+        // TODO add your handling code here:
+        String descripcion = ((ModeloTablaComplementos)tablaComplementos.getModel()).getJuegoAt(tablaComplementos.getSelectedRow()).getDescripcion();
+        this.DescripcionComplemento.setText(descripcion);
+    }//GEN-LAST:event_tablaComplementosMouseClicked
+
+    private void tablaCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCategoriasMouseClicked
+        // TODO add your handling code here:
+        String descripcion = ((ModeloTablaCategorias)tablaCategorias.getModel()).getJuegoAt(tablaCategorias.getSelectedRow()).getDescripcion();
+        this.DescripcionCategorias.setText(descripcion);
+    }//GEN-LAST:event_tablaCategoriasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -67,7 +67,7 @@ class DAOCategorias extends AbstractDAO{
                     + "from categoria as c, tenercategoria as t "
                     + "where c.nombre = t.categoria "
                     + "and t.juego = ? ");
-            stmc.setInt(0, juego.getId());
+            stmc.setInt(1, juego.getId());
             rst=stmc.executeQuery();
             while(rst.next()){
                 catactual = new Categoria(rst.getString("nombre"), rst.getString("descripcion"));
