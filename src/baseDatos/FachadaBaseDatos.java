@@ -120,4 +120,8 @@ public class FachadaBaseDatos {
         return daoUsuarios.obtenerLogrosJugador(jugador);
     }
     
+    public java.util.List<Jugador> obtenerAmigos(Usuario usuario, String nombre){
+        return daoUsuarios.obtenerAmigos(usuario, nombre);
+    }
+    
 }

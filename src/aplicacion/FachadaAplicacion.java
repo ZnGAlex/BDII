@@ -125,4 +125,8 @@ public class FachadaAplicacion {
         return gu.obtenerLogrosJugador(jugador);
     }
     
+    public java.util.List<Jugador> obtenerAmigos(Usuario usuario, String nombre){
+        return gu.obtenerAmigos(usuario, nombre);
+    }
+    
 }

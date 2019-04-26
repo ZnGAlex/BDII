@@ -353,5 +353,40 @@ public class DAOUsuarios extends AbstractDAO {
         return logros;
     }
     
+    public java.util.List<Jugador> obtenerAmigos(Usuario usuario, String nombre){
+        
+        java.util.List<Jugador> resultado = new java.util.ArrayList<>();
+        Jugador jActual;
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("select * "
+                    + "from seramigo "
+                    + "where jugador like ? "
+                    + "and amigo like ? "); // MODIFICAR ESTO !!!!!!!!! CONTINUAR NO se si tengo que pasar usuario o jugador
+            stmc.setString(1, usuario.getNick());
+            stmc.setString(2,"%" + nombre + "%");
+            
+            rst = stmc.executeQuery();
+            while (rst.next()) {
+                jActual = new Jugador(rst.getString("nick"), rst.getString("correo"), rst.getDate("fec_nacimiento"));
+                resultado.add(jActual);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al obtener los amigos");
+        } finally {
+            try {
+                stmc.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
     
 }

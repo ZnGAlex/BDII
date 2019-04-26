@@ -61,6 +61,11 @@ public class VMisAmigos extends javax.swing.JDialog {
         etiquetaNombre.setText("Nombre:");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnSelectorAmigosTotal.setText("Mis Amigos");
         btnSelectorAmigosTotal.setToolTipText("");
@@ -163,6 +168,16 @@ public class VMisAmigos extends javax.swing.JDialog {
             this.btnSelectorAmigosTotal.setText("Mis Amigos");
         }
     }//GEN-LAST:event_btnSelectorAmigosTotalActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        String nombre = this.campoNombre.getText();
+        if(this.btnSelectorAmigosTotal.isSelected()){  //TODOS LOS USUARIOS
+            
+        } else { //SOLO AMIGOS
+            fa.obtenerAmigos(usuario, nombre);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

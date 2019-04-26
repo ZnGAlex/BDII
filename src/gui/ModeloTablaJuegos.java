@@ -75,8 +75,4 @@ public class ModeloTablaJuegos extends AbstractTableModel{
         fireTableDataChanged();
     }
 
-    public Juego obtenerLibro(int i){
-        return this.juegos.get(i);
-    }
-
 }

@@ -41,4 +41,9 @@ public class GestionUsuarios {
     public ArrayList<Logro> obtenerLogrosJugador(Jugador jugador) {
         return fbd.obtenerLogrosJugador(jugador);
     }
+    
+    public java.util.List<Jugador> obtenerAmigos(Usuario usuario, String nombre){
+        return fbd.obtenerAmigos(usuario, nombre);
+    }
+    
 }
