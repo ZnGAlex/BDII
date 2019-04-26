@@ -5,8 +5,10 @@
  */
 package gui;
 
+import aplicacion.Jugador;
 import aplicacion.Usuario;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,6 +16,8 @@ import java.awt.Toolkit;
  */
 public class VMisAmigos extends javax.swing.JDialog {
     private Usuario usuario;
+    private java.util.List<Jugador> jugadores;
+    private java.util.List<Jugador> amigos;
     
     private final aplicacion.FachadaAplicacion fa;
     /**
@@ -28,9 +32,16 @@ public class VMisAmigos extends javax.swing.JDialog {
         //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
         this.fa = fa;       
         this.usuario = usuario;
+        this.jugadores = new ArrayList<>();
+        this.amigos = new ArrayList<>();
         initComponents();
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
+        this.btnHacerAmigo.setEnabled(false);
+        
+        this.btnBloquear.setEnabled(false);
+        this.btnHacerAmigo.setEnabled(false);
+        this.btnVerInfoAmigo.setEnabled(false);
         //Hacemos la ventana visible para el usuario
         this.setVisible(true);  
     }
@@ -69,11 +80,6 @@ public class VMisAmigos extends javax.swing.JDialog {
 
         btnSelectorAmigosTotal.setText("Mis Amigos");
         btnSelectorAmigosTotal.setToolTipText("");
-        btnSelectorAmigosTotal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSelectorAmigosTotalMouseClicked(evt);
-            }
-        });
         btnSelectorAmigosTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelectorAmigosTotalActionPerformed(evt);
@@ -81,9 +87,24 @@ public class VMisAmigos extends javax.swing.JDialog {
         });
 
         tablaJugadores.setModel(new ModeloTablaJugadores());
+        tablaJugadores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaJugadoresMouseClicked(evt);
+            }
+        });
+        tablaJugadores.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tablaJugadoresKeyReleased(evt);
+            }
+        });
         ScrollTablaUsuarios.setViewportView(tablaJugadores);
 
         btnBloquear.setText("Bloquear");
+        btnBloquear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBloquearActionPerformed(evt);
+            }
+        });
 
         btnVerInfoAmigo.setText("Ver info amigo");
 
@@ -157,15 +178,18 @@ public class VMisAmigos extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSelectorAmigosTotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelectorAmigosTotalMouseClicked
-        
-    }//GEN-LAST:event_btnSelectorAmigosTotalMouseClicked
-
     private void btnSelectorAmigosTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectorAmigosTotalActionPerformed
-        if (this.btnSelectorAmigosTotal.isSelected()){
+        ((ModeloTablaJugadores) this.tablaJugadores.getModel()).setFilas(new ArrayList<>());
+        this.btnVerInfoAmigo.setEnabled(false);
+        this.btnHacerAmigo.setEnabled(false);
+        this.btnBloquear.setEnabled(false);
+        
+        if (this.btnSelectorAmigosTotal.isSelected()){ //TODOS LOS USUARIOS
             this.btnSelectorAmigosTotal.setText("Todos Usuarios");
-        }else{
+            ((ModeloTablaJugadores)tablaJugadores.getModel()).setFilas(jugadores);
+        }else{ //AMIGOS
             this.btnSelectorAmigosTotal.setText("Mis Amigos");
+            ((ModeloTablaJugadores)tablaJugadores.getModel()).setFilas(amigos);
         }
     }//GEN-LAST:event_btnSelectorAmigosTotalActionPerformed
 
@@ -173,11 +197,37 @@ public class VMisAmigos extends javax.swing.JDialog {
         // TODO add your handling code here:
         String nombre = this.campoNombre.getText();
         if(this.btnSelectorAmigosTotal.isSelected()){  //TODOS LOS USUARIOS
-            
+            this.jugadores = fa.obtenerJugadores(usuario, nombre);
+            ((ModeloTablaJugadores)this.tablaJugadores.getModel()).setFilas(jugadores);
         } else { //SOLO AMIGOS
-            fa.obtenerAmigos(usuario, nombre);
+            this.amigos = fa.obtenerAmigos(usuario, nombre);
+            ((ModeloTablaJugadores)this.tablaJugadores.getModel()).setFilas(amigos);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void tablaJugadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJugadoresMouseClicked
+        // TODO add your handling code here:
+            this.btnBloquear.setEnabled(true);
+        if (this.btnSelectorAmigosTotal.isSelected()){ //Todos los usuarios
+            this.btnHacerAmigo.setEnabled(true);
+        }else{ //Amigos
+            this.btnVerInfoAmigo.setEnabled(false);
+            btnVerInfoAmigo.setEnabled(true);
+        }
+        
+    }//GEN-LAST:event_tablaJugadoresMouseClicked
+
+    private void tablaJugadoresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaJugadoresKeyReleased
+        // TODO add your handling code here:
+        tablaJugadoresMouseClicked(null);
+    }//GEN-LAST:event_tablaJugadoresKeyReleased
+
+    private void btnBloquearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBloquearActionPerformed
+        // TODO add your handling code here:
+        Jugador bloquear = ((ModeloTablaJugadores)tablaJugadores.getModel()).obtenerJugador(tablaJugadores.getSelectedRow());
+        
+        fa.bloquearJugador(usuario, bloquear);
+    }//GEN-LAST:event_btnBloquearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

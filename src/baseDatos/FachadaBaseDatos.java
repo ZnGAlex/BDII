@@ -136,4 +136,11 @@ public class FachadaBaseDatos {
         return daoUsuarios.obtenerAmigos(usuario, nombre);
     }
     
+    public java.util.List<Jugador> obtenerJugadores(Usuario usuario, String nombre){
+        return daoUsuarios.obtenerJugadores(usuario, nombre);
+    }
+    
+    public void bloquearJugador(Usuario usuario, Jugador jugador){
+        daoUsuarios.bloquearJugador(usuario, jugador);
+    }
 }

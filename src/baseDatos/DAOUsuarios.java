@@ -428,12 +428,14 @@ public class DAOUsuarios extends AbstractDAO {
 
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("select * "
-                    + "from seramigo "
-                    + "where jugador like ? "
-                    + "and amigo like ? "); // MODIFICAR ESTO !!!!!!!!! CONTINUAR NO se si tengo que pasar usuario o jugador
+            stmc = con.prepareStatement("select j.nick, j.correo, j.fec_nacimiento "
+                    + "from seramigo s, jugador j "
+                    + "where (s.jugador like ? and s.amigo like ? and j.nick like s.amigo) "
+                    + "or (s.jugador like ? and s.amigo like ? and j.nick like s.jugador)");
             stmc.setString(1, usuario.getNick());
             stmc.setString(2,"%" + nombre + "%");
+            stmc.setString(3,"%" + nombre + "%");
+            stmc.setString(4, usuario.getNick());
             
             rst = stmc.executeQuery();
             while (rst.next()) {
@@ -454,4 +456,66 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
+    public java.util.List<Jugador> obtenerJugadores(Usuario usuario, String nombre){
+        
+        java.util.List<Jugador> resultado = new java.util.ArrayList<>();
+        Jugador jActual;
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("select nick, correo, fec_nacimiento "
+                    + "from jugador "
+                    + "where nick not like ? "
+                    + "and nick like ?"); 
+            stmc.setString(1, usuario.getNick());
+            stmc.setString(2,"%" + nombre + "%");
+            
+            rst = stmc.executeQuery();
+            while (rst.next()) {
+                jActual = new Jugador(rst.getString("nick"), rst.getString("correo"), rst.getDate("fec_nacimiento"));
+                resultado.add(jActual);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al obtener los jugadores");
+        } finally {
+            try {
+                stmc.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
+    
+    public java.util.List<Jugador> bloquearJugador(Usuario usuario, Jugador jugador){
+        
+        java.util.List<Jugador> resultado = new java.util.ArrayList<>();
+        Jugador jActual;
+        PreparedStatement stmc = null;
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("insert into bloquear(jugador, bloqueado) values(?, ?)");
+            stmc.setString(1, usuario.getNick());
+            stmc.setString(2,jugador.getNick());            
+            //stmc.executeUpdate();  CONTINUAR -- NO SE SI HAY QUE SACARLO DE TABLA DE AMIGOS
+          
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al bloquear al jugador");
+        } finally {
+            try {
+                stmc.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
 }

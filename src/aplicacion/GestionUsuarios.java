@@ -46,4 +46,12 @@ public class GestionUsuarios {
         return fbd.obtenerAmigos(usuario, nombre);
     }
     
+    public java.util.List<Jugador> obtenerJugadores(Usuario usuario, String nombre){
+        return fbd.obtenerJugadores(usuario, nombre);
+    }
+    
+    public void bloquearJugador(Usuario usuario, Jugador jugador){
+        fbd.bloquearJugador(usuario, jugador);
+    }
+    
 }

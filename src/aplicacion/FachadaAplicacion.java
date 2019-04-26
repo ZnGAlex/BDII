@@ -141,4 +141,11 @@ public class FachadaAplicacion {
         return gu.obtenerAmigos(usuario, nombre);
     }
     
+    public java.util.List<Jugador> obtenerJugadores(Usuario usuario, String nombre){
+        return gu.obtenerJugadores(usuario, nombre);
+    }
+    
+    public void bloquearJugador(Usuario usuario, Jugador jugador){
+        gu.bloquearJugador(usuario, jugador);
+    }
 }
