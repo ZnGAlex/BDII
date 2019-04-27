@@ -276,14 +276,10 @@ public class VMisJuegos extends javax.swing.JDialog {
         
         if(compartido == true){
             compartido=false;
-            
             btnCompartir.setText("No compartir");
-            
-            
         }
         else{
             compartido=true;
-            
             btnCompartir.setText("Compartir");
             
         }
