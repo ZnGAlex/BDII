@@ -178,4 +178,20 @@ public class FachadaAplicacion {
     public void muestraVPerfilAmigo(Usuario usuario){
         fgui.muestraVPerfilAmigo(usuario);
     }
+        
+    public boolean visibilidadLogro(Jugador jugador, Logro logro){
+        return gj.visibilidadLogro(jugador, logro);
+    }
+    
+    public boolean visibilidadCompra(Jugador jugador, Juego juego){
+        return gj.visibilidadCompra(jugador, juego);
+    }
+    
+    public void cambiarVisibilidadCompra(Jugador jugador, Juego juego, boolean v){
+        gj.cambiarVisibilidadCompra(jugador, juego, v);
+    }
+    
+    public void cambiarVisibilidadLogro(Jugador jugador, Logro logro, boolean v){
+        gj.cambiarVisibilidadLogro(jugador, logro, v);
+    }
 }

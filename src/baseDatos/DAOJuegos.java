@@ -267,6 +267,131 @@ public class DAOJuegos extends AbstractDAO {
         }
         return resultado;
     }
+    
+    public boolean visibilidadLogro(Jugador jugador, Logro logro){
+        boolean resultado=false;
+        
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+        con=this.getConexion();
+        try {
+            stmc=con.prepareStatement("select visibilidad"
+                    + "from conseguirlogro as c "
+                    + "where juego = ? "
+                    + "and logro like ? "
+                    + "and jugador like ?");
+            stmc.setInt(1, logro.getJuego().getId());
+            stmc.setString(2, logro.getNombre());
+            stmc.setString(3, jugador.getNick());
+            rst=stmc.executeQuery();
+            if(rst.next()){
+                resultado = rst.getBoolean("visibilidad");
+            }
+        
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, obtencion de visibilidad fallida");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
+    
+    public boolean visibilidadCompra(Jugador jugador, Juego juego){
+        boolean resultado=false;
+        
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+        con=this.getConexion();
+        try {
+            stmc=con.prepareStatement("select visibilidad "
+                    + "from comprar as c "
+                    + "where juego = ? "
+                    + "and jugador like ? ");
+            stmc.setInt(1, juego.getId());
+            
+            stmc.setString(2, jugador.getNick());
+            rst=stmc.executeQuery();
+            if(rst.next()){
+                resultado = rst.getBoolean("visibilidad");
+            }
+        
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, obtencion de visibilidad de compra fallida");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
+    
+    public void cambiarVisibilidadCompra(Jugador jugador, Juego juego, boolean visibilidad){
+        Connection con;
+        PreparedStatement stmc = null;
+        
+        con=this.getConexion();
+        try{
+            stmc=con.prepareStatement("update comprar "
+                    + "set visibilidad = ? "
+                    + "where jugador like ? "
+                    + "and juego = ? ");
+            stmc.setBoolean(1, visibilidad);
+            stmc.setString(2, jugador.getNick());
+            stmc.setInt(3, juego.getId());
+            stmc.executeUpdate();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, cambiar visibilidad de compra fallida");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        
+    }
+    
+    public void cambiarVisibilidadLogro(Jugador jugador, Logro logro, boolean visibilidad){
+        Connection con;
+        PreparedStatement stmc = null;
+        
+        con=this.getConexion();
+        try{
+            stmc=con.prepareStatement("update comprar "
+                    + "set visibilidad = ? "
+                    + "where jugador like ? "
+                    + "and juego = ? ");
+            stmc.setBoolean(1, visibilidad);
+            stmc.setString(2, jugador.getNick());
+            stmc.setInt(3, logro.getJuego().getId());
+            stmc.executeUpdate();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, cambiar visibilidad de logro fallida");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        
+    }
 }
     
     

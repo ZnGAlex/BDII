@@ -20,6 +20,7 @@ public class VMisJuegos extends javax.swing.JDialog {
     
     private Usuario usuario;
     java.util.List<Juego> juegos;
+    boolean compartido;
     
     private final aplicacion.FachadaAplicacion fa;
     /**
@@ -59,6 +60,7 @@ public class VMisJuegos extends javax.swing.JDialog {
         btnJugar.setEnabled(false);
         btnVerDetalles.setEnabled(false);
         btnVerLogros.setEnabled(false);
+        btnCompartir.setEnabled(false);
         this.setVisible(true);  
         
     }
@@ -87,6 +89,7 @@ public class VMisJuegos extends javax.swing.JDialog {
         btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaJuegos = new javax.swing.JTable();
+        btnCompartir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -132,6 +135,13 @@ public class VMisJuegos extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tablaJuegos);
 
+        btnCompartir.setText("Compartir");
+        btnCompartir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompartirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -160,8 +170,13 @@ public class VMisJuegos extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnVerLogros))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(81, 81, 81)
-                        .addComponent(btnBuscar)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
+                                .addComponent(btnBuscar))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(btnCompartir)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -183,7 +198,9 @@ public class VMisJuegos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVerDetalles)
                     .addComponent(btnJugar)
-                    .addComponent(btnVerLogros))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnVerLogros)
+                        .addComponent(btnCompartir)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -231,7 +248,15 @@ public class VMisJuegos extends javax.swing.JDialog {
         btnJugar.setEnabled(true);
         btnVerDetalles.setEnabled(true);
         btnVerLogros.setEnabled(true);
-        
+        btnCompartir.setEnabled(true);
+        Juego juego=((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow());
+        compartido = fa.visibilidadCompra((Jugador)this.usuario, juego);
+        if(compartido == true){
+            btnCompartir.setText("No compartir");
+        }
+        else{
+            btnCompartir.setText("Compartir");
+        }
     }//GEN-LAST:event_tablaJuegosMouseClicked
 
     private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
@@ -245,6 +270,26 @@ public class VMisJuegos extends javax.swing.JDialog {
         fa.muestraVVerLogros(juego, (Jugador)this.usuario);
     }//GEN-LAST:event_btnVerLogrosActionPerformed
 
+    private void btnCompartirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompartirActionPerformed
+            // TODO add your handling code here:
+        Juego juego = ((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow());
+        
+        if(compartido == true){
+            compartido=false;
+            
+            btnCompartir.setText("No compartir");
+            
+            
+        }
+        else{
+            compartido=true;
+            
+            btnCompartir.setText("Compartir");
+            
+        }
+        fa.cambiarVisibilidadCompra((Jugador)this.usuario, juego, compartido);
+    }//GEN-LAST:event_btnCompartirActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -252,6 +297,7 @@ public class VMisJuegos extends javax.swing.JDialog {
     private javax.swing.JComboBox boxCategorias;
     private javax.swing.JComboBox boxDesarrolladora;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCompartir;
     private javax.swing.JButton btnJugar;
     private javax.swing.JButton btnVerDetalles;
     private javax.swing.JButton btnVerLogros;

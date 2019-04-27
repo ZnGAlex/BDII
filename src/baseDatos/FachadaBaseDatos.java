@@ -163,4 +163,20 @@ public class FachadaBaseDatos {
     public void desbloquearJugador(Jugador jugador, Jugador desbloquear){
         daoUsuarios.desbloquearJugador(jugador,desbloquear);
     }
+    
+    public boolean visibilidadLogro(Jugador jugador, Logro logro){
+        return daoJuegos.visibilidadLogro(jugador, logro);
+    }
+    
+    public boolean visibilidadCompra(Jugador jugador, Juego juego){
+        return daoJuegos.visibilidadCompra(jugador, juego);
+    }
+    
+    public void cambiarVisibilidadCompra(Jugador jugador, Juego juego, boolean v){
+        daoJuegos.cambiarVisibilidadCompra(jugador, juego, v);
+    }
+    
+    public void cambiarVisibilidadLogro(Jugador jugador, Logro logro, boolean v){
+        daoJuegos.cambiarVisibilidadLogro(jugador, logro, v);
+    }
 }
