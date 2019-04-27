@@ -66,4 +66,12 @@ public class GestionUsuarios {
     public void anhadirAmigo(Jugador jugador, Jugador amigo){
         fbd.anhadirAmigo(jugador, amigo);
     }
+    
+    public java.util.List<Jugador> obtenerBloqueados(Jugador jugador, String nombre){
+        return fbd.obtenerBloqueados(jugador,nombre);
+    }
+    
+    public void desbloquearJugador(Jugador jugador, Jugador desbloquear){
+        fbd.desbloquearJugador(jugador,desbloquear);
+    }
 }

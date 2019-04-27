@@ -3,6 +3,7 @@ package gui;
 import aplicacion.Juego;
 import aplicacion.Jugador;
 import aplicacion.Usuario;
+import javax.swing.JDialog;
 
 public class FachadaGui {
 
@@ -73,6 +74,12 @@ public class FachadaGui {
         VCarrito vc;
         
         vc = new VCarrito(VPrincipal, this.vp,true,fa,usuario,juegos);
+    }
+    
+    public void muestraVBloqueados(Usuario usuario, JDialog parent){
+        VBloqueados vb;
+        
+        vb = new VBloqueados(parent, true,fa,usuario);
     }
 
 }

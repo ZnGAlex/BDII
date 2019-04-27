@@ -168,7 +168,7 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
-     public void jugar(Jugador jugador, Juego juego){
+    public void jugar(Jugador jugador, Juego juego){
         
         PreparedStatement stmc = null;
        
@@ -413,7 +413,6 @@ public class DAOUsuarios extends AbstractDAO {
         return logros;
     }
     
-    
     public java.util.List<Jugador> obtenerAmigos(Jugador jugador, String nombre){
         
         java.util.List<Jugador> resultado = new java.util.ArrayList<>();
@@ -601,6 +600,64 @@ public class DAOUsuarios extends AbstractDAO {
             }
         }
         return resultado;
+    }
+    
+    public java.util.List<Jugador> obtenerBloqueados(Jugador jugador, String nombre){
+        java.util.List<Jugador> resultado = new java.util.ArrayList<>();
+        Jugador jActual;
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("select bloqueado "
+                    + "from bloquear "
+                    + "where jugador like ? and bloqueado like ?");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2,"%" + nombre + "%");
+            
+            rst = stmc.executeQuery();
+            while (rst.next()) {
+                jActual = new Jugador(rst.getString("bloqueado"));
+                resultado.add(jActual);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al obtener los bloqueados");
+        } finally {
+            try {
+                stmc.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
+    
+    public void desbloquearJugador(Jugador jugador, Jugador desbloquear){
+        PreparedStatement stmt = null;
+        Connection con = this.getConexion();
+        
+        try {
+            stmt = con.prepareStatement("delete from bloquear "
+                                      + "where jugador like ? and bloqueado like ?");
+            stmt.setString(1, jugador.getNick());
+            stmt.setString(2, desbloquear.getNick());
+            
+            stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error desbloqueando jugador.");
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
 

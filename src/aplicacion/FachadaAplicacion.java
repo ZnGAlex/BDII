@@ -1,5 +1,7 @@
 package aplicacion;
 
+import javax.swing.JDialog;
+
 public class FachadaAplicacion {
 
     gui.FachadaGui fgui;
@@ -159,5 +161,17 @@ public class FachadaAplicacion {
     
     public void anhadirAmigo(Jugador jugador, Jugador amigo){
         gu.anhadirAmigo(jugador, amigo);
+    }
+    
+    public java.util.List<Jugador> obtenerBloqueados(Jugador jugador, String nombre){
+        return gu.obtenerBloqueados(jugador,nombre);
+    }
+    
+    public void muestraVBloqueados(Usuario usuario, JDialog parent){
+        fgui.muestraVBloqueados(usuario,parent);
+    }
+    
+    public void desbloquearJugador(Jugador jugador, Jugador desbloquear){
+        gu.desbloquearJugador(jugador,desbloquear);
     }
 }

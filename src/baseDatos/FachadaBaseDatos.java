@@ -155,4 +155,12 @@ public class FachadaBaseDatos {
     public void anhadirAmigo(Jugador jugador, Jugador amigo){
         daoUsuarios.anhadirAmigo(jugador, amigo);
     }
+    
+    public java.util.List<Jugador> obtenerBloqueados(Jugador jugador, String nombre){
+        return daoUsuarios.obtenerBloqueados(jugador,nombre);
+    }
+    
+    public void desbloquearJugador(Jugador jugador, Jugador desbloquear){
+        daoUsuarios.desbloquearJugador(jugador,desbloquear);
+    }
 }

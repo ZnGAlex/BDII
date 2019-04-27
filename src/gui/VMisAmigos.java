@@ -16,8 +16,6 @@ import java.util.ArrayList;
  */
 public class VMisAmigos extends javax.swing.JDialog {
     private Usuario usuario;
-    private java.util.List<Jugador> jugadores;
-    private java.util.List<Jugador> amigos;
     
     private final aplicacion.FachadaAplicacion fa;
     /**
@@ -32,8 +30,6 @@ public class VMisAmigos extends javax.swing.JDialog {
         //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
         this.fa = fa;       
         this.usuario = usuario;
-        this.jugadores = new ArrayList<>();
-        this.amigos = new ArrayList<>();
         initComponents();
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
@@ -114,6 +110,11 @@ public class VMisAmigos extends javax.swing.JDialog {
         });
 
         btnVerBloqueados.setText("Ver Bloqueados");
+        btnVerBloqueados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerBloqueadosActionPerformed(evt);
+            }
+        });
 
         btnHacerAmigo.setText("Hacer amigo");
         btnHacerAmigo.addActionListener(new java.awt.event.ActionListener() {
@@ -193,13 +194,13 @@ public class VMisAmigos extends javax.swing.JDialog {
         this.btnVerInfoAmigo.setEnabled(false);
         this.btnHacerAmigo.setEnabled(false);
         this.btnBloquear.setEnabled(false);
+        ((ModeloTablaJugadores)tablaJugadores.getModel()).setFilas(new ArrayList<>());
         
         if (this.btnSelectorAmigosTotal.isSelected()){ //TODOS LOS USUARIOS
             this.btnSelectorAmigosTotal.setText("Todos Usuarios");
-            ((ModeloTablaJugadores)tablaJugadores.getModel()).setFilas(jugadores);
+
         }else{ //AMIGOS
             this.btnSelectorAmigosTotal.setText("Mis Amigos");
-            ((ModeloTablaJugadores)tablaJugadores.getModel()).setFilas(amigos);
         }
     }//GEN-LAST:event_btnSelectorAmigosTotalActionPerformed
 
@@ -207,11 +208,9 @@ public class VMisAmigos extends javax.swing.JDialog {
         // TODO add your handling code here:
         String nombre = this.campoNombre.getText();
         if(this.btnSelectorAmigosTotal.isSelected()){  //TODOS LOS USUARIOS
-            this.jugadores = fa.obtenerJugadores((Jugador)usuario, nombre);
-            ((ModeloTablaJugadores)this.tablaJugadores.getModel()).setFilas(jugadores);
+            ((ModeloTablaJugadores)this.tablaJugadores.getModel()).setFilas(fa.obtenerJugadores((Jugador)usuario, nombre));
         } else { //SOLO AMIGOS
-            this.amigos = fa.obtenerAmigos((Jugador)usuario, nombre);
-            ((ModeloTablaJugadores)this.tablaJugadores.getModel()).setFilas(amigos);
+            ((ModeloTablaJugadores)this.tablaJugadores.getModel()).setFilas(fa.obtenerAmigos((Jugador)usuario, nombre));
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -251,6 +250,7 @@ public class VMisAmigos extends javax.swing.JDialog {
         fa.bloquearJugador((Jugador)usuario, bloquear);
         
         this.btnBuscarActionPerformed(null);
+        this.btnBloquear.setEnabled(false);
     }//GEN-LAST:event_btnBloquearActionPerformed
 
     private void btnHacerAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHacerAmigoActionPerformed
@@ -262,6 +262,11 @@ public class VMisAmigos extends javax.swing.JDialog {
     private void btnVerInfoAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerInfoAmigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVerInfoAmigoActionPerformed
+
+    private void btnVerBloqueadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerBloqueadosActionPerformed
+        // TODO add your handling code here:
+        fa.muestraVBloqueados(usuario,this);
+    }//GEN-LAST:event_btnVerBloqueadosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -3,6 +3,10 @@ package aplicacion;
 public class Jugador extends Usuario {
     private boolean baneado;
 
+    public Jugador(String nick){
+        super(nick);
+    }
+    
     public Jugador(String nick, String pw, String correo, java.util.Date fechaNacimiento, boolean baneado) {
         super(nick, pw, correo, fechaNacimiento);
         this.baneado = baneado;
