@@ -276,11 +276,11 @@ public class DAOJuegos extends AbstractDAO {
         Connection con;
         con=this.getConexion();
         try {
-            stmc=con.prepareStatement("select visibilidad"
+            stmc=con.prepareStatement("select visibilidad "
                     + "from conseguirlogro as c "
                     + "where juego = ? "
                     + "and logro like ? "
-                    + "and jugador like ?");
+                    + "and jugador like ? ");
             stmc.setInt(1, logro.getJuego().getId());
             stmc.setString(2, logro.getNombre());
             stmc.setString(3, jugador.getNick());
@@ -371,13 +371,15 @@ public class DAOJuegos extends AbstractDAO {
         
         con=this.getConexion();
         try{
-            stmc=con.prepareStatement("update comprar "
+            stmc=con.prepareStatement("update conseguirlogro "
                     + "set visibilidad = ? "
                     + "where jugador like ? "
+                    + "and logro like ?"
                     + "and juego = ? ");
             stmc.setBoolean(1, visibilidad);
             stmc.setString(2, jugador.getNick());
-            stmc.setInt(3, logro.getJuego().getId());
+            stmc.setString(3, logro.getNombre());
+            stmc.setInt(4, logro.getJuego().getId());
             stmc.executeUpdate();
         }catch (SQLException e) {
             System.out.println(e.getMessage());
