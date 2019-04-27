@@ -46,7 +46,9 @@ public class VMiPerfil extends javax.swing.JDialog {
         
         //El modo externo sirve para mostrar información de un usuario a un amigo, sin que  éste pueda
         //  modificar datos del usuario ni ocultar/compartir logros
-        if(modoExterno){    
+        if(modoExterno){  
+            this.etiquetaClave.setVisible(false);
+            this.campoClave.setVisible(false);
             this.campoAnoNacimiento.setEditable(false);
             this.campoMesNacimiento.setEditable(false);
             this.campoDiaNacimiento.setEditable(false);
@@ -126,6 +128,7 @@ public class VMiPerfil extends javax.swing.JDialog {
         campoClave = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Perfil");
 
         etiquetaNombre.setText("Nombre:");
 
@@ -160,6 +163,11 @@ public class VMiPerfil extends javax.swing.JDialog {
 
         btnVerSusJuegos.setText("Ver sus juegos");
         btnVerSusJuegos.setEnabled(false);
+        btnVerSusJuegos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerSusJuegosActionPerformed(evt);
+            }
+        });
 
         campoClave.setToolTipText("");
 
@@ -167,12 +175,15 @@ public class VMiPerfil extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnActualizarDatos))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -210,8 +221,7 @@ public class VMiPerfil extends javax.swing.JDialog {
                                 .addComponent(btnOcultarLogro)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                                 .addComponent(btnVerSusJuegos)
-                                .addGap(99, 99, 99))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(99, 99, 99)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -251,9 +261,7 @@ public class VMiPerfil extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,6 +294,11 @@ public class VMiPerfil extends javax.swing.JDialog {
         setDatosUsuario();
         
     }//GEN-LAST:event_btnActualizarDatosActionPerformed
+
+    private void btnVerSusJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerSusJuegosActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnVerSusJuegosActionPerformed
 
     public void setTablaLogros(){
         ModeloTablaLogros m;

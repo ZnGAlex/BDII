@@ -261,6 +261,7 @@ public class VMisAmigos extends javax.swing.JDialog {
 
     private void btnVerInfoAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerInfoAmigoActionPerformed
         // TODO add your handling code here:
+        fa.muestraVPerfilAmigo(((ModeloTablaJugadores)tablaJugadores.getModel()).obtenerJugador(tablaJugadores.getSelectedRow()));
     }//GEN-LAST:event_btnVerInfoAmigoActionPerformed
 
     private void btnVerBloqueadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerBloqueadosActionPerformed

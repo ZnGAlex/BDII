@@ -81,5 +81,11 @@ public class FachadaGui {
         
         vb = new VBloqueados(parent, true,fa,usuario);
     }
+    
+    public void muestraVPerfilAmigo(Usuario usuario){
+        VMiPerfil vmp;
+        
+        vmp = new VMiPerfil(this.vp,fa,true,true, usuario); 
+    }
 
 }

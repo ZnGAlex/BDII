@@ -174,4 +174,8 @@ public class FachadaAplicacion {
     public void desbloquearJugador(Jugador jugador, Jugador desbloquear){
         gu.desbloquearJugador(jugador,desbloquear);
     }
+    
+    public void muestraVPerfilAmigo(Usuario usuario){
+        fgui.muestraVPerfilAmigo(usuario);
+    }
 }
