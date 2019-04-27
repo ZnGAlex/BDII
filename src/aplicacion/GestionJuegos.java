@@ -36,4 +36,19 @@ public class GestionJuegos {
     public java.util.List<Logro> obtenerLogros(Juego juego){
         return fbd.obtenerLogros(juego);
     }
+    
+    public boolean visibilidadLogro(Jugador jugador, Logro logro){
+        return fbd.visibilidadLogro(jugador, logro);
+    }
+    
+    public boolean visibilidadCompra(Jugador jugador, Juego juego){
+        return fbd.visibilidadCompra(jugador, juego);
+    }
+    
+    public void cambiarVisibilidadCompra(Jugador jugador, Juego juego, boolean v){
+        fbd.cambiarVisibilidadCompra(jugador, juego, v);
+    }
+    public void cambiarVisibilidadLogro(Jugador jugador, Logro logro, boolean v){
+        fbd.cambiarVisibilidadLogro(jugador, logro, v);
+    }
 }
