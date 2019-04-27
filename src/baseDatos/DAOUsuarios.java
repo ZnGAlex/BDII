@@ -293,20 +293,15 @@ public class DAOUsuarios extends AbstractDAO {
     }
     
     public void anhadirAmigo(Jugador jugador, Jugador amigo){
-        
         PreparedStatement stmc = null;
-       
         Connection con;
-
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("");
-            
-            
-            
+            stmc = con.prepareStatement("insert into seramigo values (?, ?)");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2, amigo.getNick());
             stmc.executeUpdate();
             
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraAvisoCorrecto("Error, al intentar entablar amistad");
@@ -418,7 +413,8 @@ public class DAOUsuarios extends AbstractDAO {
         return logros;
     }
     
-    public java.util.List<Jugador> obtenerAmigos(Usuario usuario, String nombre){
+    
+    public java.util.List<Jugador> obtenerAmigos(Jugador jugador, String nombre){
         
         java.util.List<Jugador> resultado = new java.util.ArrayList<>();
         Jugador jActual;
@@ -432,10 +428,10 @@ public class DAOUsuarios extends AbstractDAO {
                     + "from seramigo s, jugador j "
                     + "where (s.jugador like ? and s.amigo like ? and j.nick like s.amigo) "
                     + "or (s.jugador like ? and s.amigo like ? and j.nick like s.jugador)");
-            stmc.setString(1, usuario.getNick());
+            stmc.setString(1, jugador.getNick());
             stmc.setString(2,"%" + nombre + "%");
             stmc.setString(3,"%" + nombre + "%");
-            stmc.setString(4, usuario.getNick());
+            stmc.setString(4, jugador.getNick());
             
             rst = stmc.executeQuery();
             while (rst.next()) {
@@ -456,7 +452,7 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
-    public java.util.List<Jugador> obtenerJugadores(Usuario usuario, String nombre){
+    public java.util.List<Jugador> obtenerJugadores(Jugador jugador, String nombre){
         
         java.util.List<Jugador> resultado = new java.util.ArrayList<>();
         Jugador jActual;
@@ -470,7 +466,7 @@ public class DAOUsuarios extends AbstractDAO {
                     + "from jugador "
                     + "where nick not like ? "
                     + "and nick like ?"); 
-            stmc.setString(1, usuario.getNick());
+            stmc.setString(1, jugador.getNick());
             stmc.setString(2,"%" + nombre + "%");
             
             rst = stmc.executeQuery();
@@ -492,23 +488,111 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
-    public java.util.List<Jugador> bloquearJugador(Usuario usuario, Jugador jugador){
-        
-        java.util.List<Jugador> resultado = new java.util.ArrayList<>();
-        Jugador jActual;
+    /**
+     * CONSULTA COMPUESTA
+     * @param jugador
+     * @param aBloquear
+     */
+    public void bloquearJugador(Jugador jugador, Jugador aBloquear){ 
         PreparedStatement stmc = null;
+        Connection con;
+        con = this.getConexion();
+         
+        try {
+        //Desactivamos autocommit 
+        con.setAutoCommit(false);
+            stmc = con.prepareStatement("insert into bloquear(jugador, bloqueado) values(?, ?)");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2,aBloquear.getNick());            
+            stmc.executeUpdate();
+            
+            stmc = con.prepareStatement("delete from seramigo "
+                    + "where (jugador like ? and amigo like ?) "
+                        + "or (jugador like ? and amigo like ?)");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2,aBloquear.getNick());            
+            stmc.setString(3,aBloquear.getNick());            
+            stmc.setString(4, jugador.getNick());
+            stmc.executeUpdate();
+        con.commit();
+            
+        } catch (SQLException e) {
+            try {
+                //Si ha fallado hacemos el rollback
+                con.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Imposible realizar el rollback");
+            }
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al bloquear jugador");
+        } finally {
+            try {
+                //Desactivamos autocommit 
+                con.setAutoCommit(true);
+                stmc.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+    
+    public boolean estaBloqueado(Jugador jugador, Jugador bloqueado){
+        boolean resultado = false;
+        PreparedStatement stmc = null;
+        ResultSet rst;
         Connection con;
 
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("insert into bloquear(jugador, bloqueado) values(?, ?)");
-            stmc.setString(1, usuario.getNick());
-            stmc.setString(2,jugador.getNick());            
-            //stmc.executeUpdate();  CONTINUAR -- NO SE SI HAY QUE SACARLO DE TABLA DE AMIGOS
-          
+            stmc = con.prepareStatement("select * "
+                    + "from bloquear "
+                    + "where jugador like ? and bloqueado like ? ");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2, bloqueado.getNick());
+
+            rst = stmc.executeQuery();
+            if (rst.next()) {
+                resultado = true;
+            }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al bloquear al jugador");
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al consultar si está bloqueado");
+        } finally {
+            try {
+                stmc.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
+    
+    public boolean sonAmigos(Jugador jugador, Jugador amigo){
+        boolean resultado = false;
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("select * "
+                    + "from seramigo "
+                    + "where (jugador like ? and amigo like ?) "
+                    + "or (jugador like ? and amigo like ?)");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2, amigo.getNick());
+            stmc.setString(3, amigo.getNick());
+            stmc.setString(4, jugador.getNick());
+
+            rst = stmc.executeQuery();
+            if (rst.next()) {
+                resultado = true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al consultar si eson amigos");
         } finally {
             try {
                 stmc.close();
@@ -519,3 +603,4 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
 }
+

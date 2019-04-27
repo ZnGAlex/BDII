@@ -42,16 +42,28 @@ public class GestionUsuarios {
         return fbd.obtenerLogrosJugador(jugador);
     }
     
-    public java.util.List<Jugador> obtenerAmigos(Usuario usuario, String nombre){
-        return fbd.obtenerAmigos(usuario, nombre);
+    
+    public java.util.List<Jugador> obtenerAmigos(Jugador jugador, String nombre){
+        return fbd.obtenerAmigos(jugador, nombre);
     }
     
-    public java.util.List<Jugador> obtenerJugadores(Usuario usuario, String nombre){
-        return fbd.obtenerJugadores(usuario, nombre);
+    public java.util.List<Jugador> obtenerJugadores(Jugador jugador, String nombre){
+        return fbd.obtenerJugadores(jugador, nombre);
     }
     
-    public void bloquearJugador(Usuario usuario, Jugador jugador){
-        fbd.bloquearJugador(usuario, jugador);
+    public void bloquearJugador(Jugador jugador, Jugador aBloquear){
+        fbd.bloquearJugador(jugador, aBloquear);
     }
     
+    public boolean estaBloqueado(Jugador jugador, Jugador bloqueado){
+        return fbd.estaBloqueado(jugador, bloqueado);
+    }
+    
+    public boolean sonAmigos(Jugador jugador, Jugador amigo){
+        return fbd.sonAmigos(jugador, amigo);
+    }
+    
+    public void anhadirAmigo(Jugador jugador, Jugador amigo){
+        fbd.anhadirAmigo(jugador, amigo);
+    }
 }

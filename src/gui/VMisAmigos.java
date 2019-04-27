@@ -107,10 +107,20 @@ public class VMisAmigos extends javax.swing.JDialog {
         });
 
         btnVerInfoAmigo.setText("Ver info amigo");
+        btnVerInfoAmigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerInfoAmigoActionPerformed(evt);
+            }
+        });
 
         btnVerBloqueados.setText("Ver Bloqueados");
 
         btnHacerAmigo.setText("Hacer amigo");
+        btnHacerAmigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHacerAmigoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -197,22 +207,34 @@ public class VMisAmigos extends javax.swing.JDialog {
         // TODO add your handling code here:
         String nombre = this.campoNombre.getText();
         if(this.btnSelectorAmigosTotal.isSelected()){  //TODOS LOS USUARIOS
-            this.jugadores = fa.obtenerJugadores(usuario, nombre);
+            this.jugadores = fa.obtenerJugadores((Jugador)usuario, nombre);
             ((ModeloTablaJugadores)this.tablaJugadores.getModel()).setFilas(jugadores);
         } else { //SOLO AMIGOS
-            this.amigos = fa.obtenerAmigos(usuario, nombre);
+            this.amigos = fa.obtenerAmigos((Jugador)usuario, nombre);
             ((ModeloTablaJugadores)this.tablaJugadores.getModel()).setFilas(amigos);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void tablaJugadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJugadoresMouseClicked
         // TODO add your handling code here:
-            this.btnBloquear.setEnabled(true);
+        int row = tablaJugadores.getSelectedRow();
+        Jugador jugSelec = ((ModeloTablaJugadores)tablaJugadores.getModel()).obtenerJugador(row);
+        
+        boolean yoBloqueo = fa.estaBloqueado((Jugador)usuario,jugSelec);
+        boolean elBloquea = fa.estaBloqueado(jugSelec,(Jugador)usuario);
+        boolean esAmigo = fa.sonAmigos((Jugador)usuario,jugSelec);
+        
         if (this.btnSelectorAmigosTotal.isSelected()){ //Todos los usuarios
             this.btnHacerAmigo.setEnabled(true);
+            
+            this.btnBloquear.setEnabled(!yoBloqueo);
+            this.btnHacerAmigo.setEnabled(!yoBloqueo && !elBloquea && !esAmigo);
+            this.btnVerInfoAmigo.setEnabled(esAmigo);
+            
         }else{ //Amigos
             this.btnVerInfoAmigo.setEnabled(false);
             btnVerInfoAmigo.setEnabled(true);
+            this.btnBloquear.setEnabled(true);
         }
         
     }//GEN-LAST:event_tablaJugadoresMouseClicked
@@ -226,8 +248,20 @@ public class VMisAmigos extends javax.swing.JDialog {
         // TODO add your handling code here:
         Jugador bloquear = ((ModeloTablaJugadores)tablaJugadores.getModel()).obtenerJugador(tablaJugadores.getSelectedRow());
         
-        fa.bloquearJugador(usuario, bloquear);
+        fa.bloquearJugador((Jugador)usuario, bloquear);
+        
+        this.btnBuscarActionPerformed(null);
     }//GEN-LAST:event_btnBloquearActionPerformed
+
+    private void btnHacerAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHacerAmigoActionPerformed
+        // TODO add your handling code here:
+        Jugador jugSelec = ((ModeloTablaJugadores)tablaJugadores.getModel()).obtenerJugador(tablaJugadores.getSelectedRow());
+        fa.anhadirAmigo((Jugador)usuario, jugSelec);
+    }//GEN-LAST:event_btnHacerAmigoActionPerformed
+
+    private void btnVerInfoAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerInfoAmigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerInfoAmigoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

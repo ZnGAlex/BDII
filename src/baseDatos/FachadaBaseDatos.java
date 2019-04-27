@@ -132,15 +132,27 @@ public class FachadaBaseDatos {
         return daoUsuarios.obtenerLogrosJugador(jugador);
     }
     
-    public java.util.List<Jugador> obtenerAmigos(Usuario usuario, String nombre){
-        return daoUsuarios.obtenerAmigos(usuario, nombre);
+    public java.util.List<Jugador> obtenerAmigos(Jugador jugador, String nombre){
+        return daoUsuarios.obtenerAmigos(jugador, nombre);
     }
     
-    public java.util.List<Jugador> obtenerJugadores(Usuario usuario, String nombre){
-        return daoUsuarios.obtenerJugadores(usuario, nombre);
+    public java.util.List<Jugador> obtenerJugadores(Jugador jugador, String nombre){
+        return daoUsuarios.obtenerJugadores(jugador, nombre);
     }
     
-    public void bloquearJugador(Usuario usuario, Jugador jugador){
-        daoUsuarios.bloquearJugador(usuario, jugador);
+    public void bloquearJugador(Jugador jugador, Jugador aBloquear){
+        daoUsuarios.bloquearJugador(jugador, aBloquear);
+    }
+    
+    public boolean estaBloqueado(Jugador jugador, Jugador bloqueado){
+        return daoUsuarios.estaBloqueado(jugador, bloqueado);
+    }
+    
+    public boolean sonAmigos(Jugador jugador, Jugador amigo){
+        return daoUsuarios.sonAmigos(jugador, amigo);
+    }
+    
+    public void anhadirAmigo(Jugador jugador, Jugador amigo){
+        daoUsuarios.anhadirAmigo(jugador, amigo);
     }
 }

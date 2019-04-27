@@ -159,6 +159,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ver info amigo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerInfoAmigoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnVerBloqueados">
           <Properties>
@@ -169,6 +172,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Hacer amigo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHacerAmigoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

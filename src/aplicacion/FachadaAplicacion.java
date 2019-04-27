@@ -137,15 +137,27 @@ public class FachadaAplicacion {
         return gu.obtenerLogrosJugador(jugador);
     }
     
-    public java.util.List<Jugador> obtenerAmigos(Usuario usuario, String nombre){
-        return gu.obtenerAmigos(usuario, nombre);
+    public java.util.List<Jugador> obtenerAmigos(Jugador jugador, String nombre){
+        return gu.obtenerAmigos(jugador, nombre);
     }
     
-    public java.util.List<Jugador> obtenerJugadores(Usuario usuario, String nombre){
-        return gu.obtenerJugadores(usuario, nombre);
+    public java.util.List<Jugador> obtenerJugadores(Jugador jugador, String nombre){
+        return gu.obtenerJugadores(jugador, nombre);
     }
     
-    public void bloquearJugador(Usuario usuario, Jugador jugador){
-        gu.bloquearJugador(usuario, jugador);
+    public void bloquearJugador(Jugador jugador, Jugador aBloquear){
+        gu.bloquearJugador(jugador, aBloquear);
+    }
+    
+    public boolean estaBloqueado(Jugador jugador, Jugador bloqueado){
+        return gu.estaBloqueado(jugador, bloqueado);
+    }
+    
+    public boolean sonAmigos(Jugador jugador, Jugador amigo){
+        return gu.sonAmigos(jugador, amigo);
+    }
+    
+    public void anhadirAmigo(Jugador jugador, Jugador amigo){
+        gu.anhadirAmigo(jugador, amigo);
     }
 }
