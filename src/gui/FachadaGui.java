@@ -23,7 +23,16 @@ public class FachadaGui {
     }
     
     public void muestraVPrincipalAdministrador(Usuario usuario) {
+        this.vpa.inicializarBoxes();
         this.vpa.setVisible(true);
+    }
+    
+    public void muestraVAnhadirJuego() {
+        VAnhadirJuego vaj;
+        
+        vaj = new VAnhadirJuego(this.vp, true, this.fa);
+        vaj.inicializarBoxes();
+        vaj.setVisible(true);
     }
 
     public void iniciaLogin() {

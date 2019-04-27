@@ -31,13 +31,7 @@ public class DAOJuegos extends AbstractDAO {
         PreparedStatement stmc = null;
         ResultSet rst;
         Connection con;
-        
-        if(categoria.equals("")){
-            categoria = "%";
-        }
-        if(desarrolladora.equals("")){
-            desarrolladora = "%";
-        }
+       
 
         con = this.getConexion();
         try {
@@ -48,9 +42,9 @@ public class DAOJuegos extends AbstractDAO {
                     + "and j.nombre like ? "
                     + "and j.desarrolladora like ? "
                     + "and c.categoria like ? ");
-            stmc.setString(1, "%" + nombre + "%");
-            stmc.setString(2, desarrolladora);
-            stmc.setString(3, categoria);
+            stmc.setString(1, '%' + nombre + '%');
+            stmc.setString(2, '%' + desarrolladora + '%');
+            stmc.setString(3, '%' + categoria + '%');
 
             rst = stmc.executeQuery();
             while (rst.next()) {

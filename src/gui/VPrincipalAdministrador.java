@@ -5,7 +5,10 @@
  */
 package gui;
 
+import aplicacion.Categoria;
+import aplicacion.Desarrolladora;
 import aplicacion.FachadaAplicacion;
+import aplicacion.Juego;
 import aplicacion.Jugador;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 public class VPrincipalAdministrador extends javax.swing.JDialog {
     private FachadaAplicacion fa;
     private ArrayList<Jugador> jugadores;
+    private java.util.List<Juego> juegos;
     
     /**
      * Creates new form VPrincipalAdministrador
@@ -53,9 +57,19 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         datosNick = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         datosCorreo = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
+        btnBuscarUsuarios = new javax.swing.JButton();
         btnBanear = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        etiquetaCategoria = new javax.swing.JLabel();
+        boxCategorias = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        boxDesarrolladora = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        CampoNombre = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaJuegos = new javax.swing.JTable();
+        btnBuscarJuegos = new javax.swing.JButton();
+        btnAnhadirJuego = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administración");
@@ -67,10 +81,10 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
 
         jLabel1.setText("Correo:");
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarUsuarios.setText("Buscar");
+        btnBuscarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                btnBuscarUsuariosActionPerformed(evt);
             }
         });
 
@@ -88,7 +102,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(etiquetaNick, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -98,7 +112,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(datosCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBuscarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnBanear)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -113,25 +127,86 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
                     .addComponent(datosNick, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(datosCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscarUsuarios))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBanear)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Usuarios", jPanel1);
+
+        etiquetaCategoria.setText("Categoría:");
+
+        jLabel2.setText("Desarrolladora:");
+
+        jLabel3.setText("Nombre:");
+
+        tablaJuegos.setModel(new ModeloTablaJuegos());
+        jScrollPane2.setViewportView(tablaJuegos);
+
+        btnBuscarJuegos.setText("Buscar");
+        btnBuscarJuegos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarJuegosActionPerformed(evt);
+            }
+        });
+
+        btnAnhadirJuego.setText("Añadir juego");
+        btnAnhadirJuego.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnhadirJuegoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 603, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 53, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(etiquetaCategoria)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boxDesarrolladora, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CampoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBuscarJuegos, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnAnhadirJuego)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 349, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etiquetaCategoria)
+                    .addComponent(boxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(boxDesarrolladora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(CampoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscarJuegos)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAnhadirJuego)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Juegos", jPanel2);
@@ -156,17 +231,15 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+    private void btnBuscarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuariosActionPerformed
         String nick = this.datosNick.getText();
         String correo = this.datosCorreo.getText();
         
         jugadores = fa.buscarJugadores(nick, correo);
         setTablaJugadores();
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }//GEN-LAST:event_btnBuscarUsuariosActionPerformed
 
     private void btnBanearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanearActionPerformed
-        // TODO add your handling code here:
         ModeloTablaJugadoresAdmin mtl = (ModeloTablaJugadoresAdmin) tablaJugadores.getModel();
         String nickJugador;
         nickJugador = mtl.obtenerJugador(tablaJugadores.getSelectedRow()).getNick();
@@ -174,6 +247,17 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         this.jugadores = fa.buscarJugadores(this.datosNick.getText(), this.datosCorreo.getText());
         setTablaJugadores();
     }//GEN-LAST:event_btnBanearActionPerformed
+
+    private void btnBuscarJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarJuegosActionPerformed
+        String categoria=(String)boxCategorias.getSelectedItem();
+        String desarrolladora=(String) boxDesarrolladora.getSelectedItem();
+        juegos = fa.consultarJuegosTienda(categoria, desarrolladora, CampoNombre.getText());
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
+    }//GEN-LAST:event_btnBuscarJuegosActionPerformed
+
+    private void btnAnhadirJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnhadirJuegoActionPerformed
+        this.fa.muestraVAnhadirJuego();
+    }//GEN-LAST:event_btnAnhadirJuegoActionPerformed
 
     
     public void setTablaJugadores(){
@@ -185,18 +269,44 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
             tablaJugadores.setRowSelectionInterval(0, 0);
         }
     }
+    
+    public void inicializarBoxes(){
+         //Inicializar listado de categorias de boxCategorias
+        java.util.List<Categoria> categorias = fa.obtenerCategorias();
+        boxCategorias.addItem("");
+        for(Categoria cat: categorias){
+            boxCategorias.addItem(cat.getNombre());
+        }
+        
+        //Inicializar listado de Desarrolladoras de boxDesarrolladora
+        java.util.List<Desarrolladora> desarrolladoras = fa.obtenerDesarrolladoras();
+        boxDesarrolladora.addItem("");
+        for(Desarrolladora des: desarrolladoras){
+            boxDesarrolladora.addItem(des.getNombre());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CampoNombre;
+    private javax.swing.JComboBox boxCategorias;
+    private javax.swing.JComboBox boxDesarrolladora;
+    private javax.swing.JButton btnAnhadirJuego;
     private javax.swing.JButton btnBanear;
-    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarJuegos;
+    private javax.swing.JButton btnBuscarUsuarios;
     private javax.swing.JTextField datosCorreo;
     private javax.swing.JTextField datosNick;
+    private javax.swing.JLabel etiquetaCategoria;
     private javax.swing.JLabel etiquetaNick;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable tablaJuegos;
     private javax.swing.JTable tablaJugadores;
     // End of variables declaration//GEN-END:variables
 }
