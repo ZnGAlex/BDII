@@ -82,10 +82,10 @@ public class VMiPerfil extends javax.swing.JDialog {
             this.btnActualizarDatos.setEnabled(true);
             this.btnActualizarDatos.setVisible(true);
             
-            this.btnCompartirLogro.setEnabled(true);
+            this.btnCompartirLogro.setEnabled(false);
             this.btnCompartirLogro.setVisible(true);
             
-            this.btnOcultarLogro.setEnabled(true);
+            this.btnOcultarLogro.setEnabled(false);
             this.btnOcultarLogro.setVisible(true);
             
             this.btnVerSusJuegos.setEnabled(false);
@@ -154,12 +154,27 @@ public class VMiPerfil extends javax.swing.JDialog {
         etiquetaLogros.setText("Logros:");
 
         tablaLogros.setModel(new ModeloTablaLogros());
+        tablaLogros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaLogrosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaLogros);
 
         btnCompartirLogro.setText("Compartir Logro");
+        btnCompartirLogro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompartirLogroActionPerformed(evt);
+            }
+        });
 
         btnOcultarLogro.setText("Ocultar Logro");
         btnOcultarLogro.setEnabled(false);
+        btnOcultarLogro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOcultarLogroActionPerformed(evt);
+            }
+        });
 
         btnVerSusJuegos.setText("Ver sus juegos");
         btnVerSusJuegos.setEnabled(false);
@@ -299,6 +314,32 @@ public class VMiPerfil extends javax.swing.JDialog {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_btnVerSusJuegosActionPerformed
+
+    private void btnCompartirLogroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompartirLogroActionPerformed
+        // TODO add your handling code here:
+        Logro logro = ((ModeloTablaLogros)tablaLogros.getModel()).getJuegoAt(tablaLogros.getSelectedRow());
+        fa.cambiarVisibilidadLogro(jugador, logro, true);
+        btnCompartirLogro.setEnabled(false);
+    }//GEN-LAST:event_btnCompartirLogroActionPerformed
+
+    private void btnOcultarLogroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOcultarLogroActionPerformed
+        // TODO add your handling code here:
+        Logro logro = ((ModeloTablaLogros)tablaLogros.getModel()).getJuegoAt(tablaLogros.getSelectedRow());
+        fa.cambiarVisibilidadLogro(jugador, logro, false);
+        btnOcultarLogro.setEnabled(false);
+    }//GEN-LAST:event_btnOcultarLogroActionPerformed
+
+    private void tablaLogrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaLogrosMouseClicked
+        // TODO add your handling code here:
+        Logro logro = ((ModeloTablaLogros)tablaLogros.getModel()).getJuegoAt(tablaLogros.getSelectedRow());
+        boolean compartir = fa.visibilidadLogro(jugador, logro);
+        if(compartir == false){
+        btnCompartirLogro.setEnabled(true);
+        }
+        else{
+        btnOcultarLogro.setEnabled(true);
+        }
+    }//GEN-LAST:event_tablaLogrosMouseClicked
 
     public void setTablaLogros(){
         ModeloTablaLogros m;

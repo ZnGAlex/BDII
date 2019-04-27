@@ -210,6 +210,9 @@
                   <Connection code="new ModeloTablaLogros()" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaLogrosMouseClicked"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="VMiPerfil_tablaLogros"/>
               </AuxValues>
@@ -220,12 +223,18 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Compartir Logro"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCompartirLogroActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnOcultarLogro">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ocultar Logro"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOcultarLogroActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnVerSusJuegos">
           <Properties>
