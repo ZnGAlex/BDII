@@ -70,6 +70,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         tablaJuegos = new javax.swing.JTable();
         btnBuscarJuegos = new javax.swing.JButton();
         btnAnhadirJuego = new javax.swing.JButton();
+        btnEditarJuego = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administración");
@@ -129,10 +130,10 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
                     .addComponent(datosCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarUsuarios))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBanear)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Usuarios", jPanel1);
@@ -157,6 +158,13 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         btnAnhadirJuego.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnhadirJuegoActionPerformed(evt);
+            }
+        });
+
+        btnEditarJuego.setText("Editar juego");
+        btnEditarJuego.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarJuegoActionPerformed(evt);
             }
         });
 
@@ -186,6 +194,8 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
                             .addComponent(btnBuscarJuegos, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnAnhadirJuego)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditarJuego)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -205,7 +215,9 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAnhadirJuego)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAnhadirJuego)
+                    .addComponent(btnEditarJuego))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -259,6 +271,16 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         this.fa.muestraVAnhadirJuego();
     }//GEN-LAST:event_btnAnhadirJuegoActionPerformed
 
+    private void btnEditarJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarJuegoActionPerformed
+        ModeloTablaJuegos mtJuegos = (ModeloTablaJuegos) this.tablaJuegos.getModel();
+        Juego juego = mtJuegos.getJuegoAt(this.tablaJuegos.getSelectedRow());
+        this.fa.muestraVEditarJuego(juego);
+        String categoria=(String)boxCategorias.getSelectedItem();
+        String desarrolladora=(String) boxDesarrolladora.getSelectedItem();
+        juegos = fa.consultarJuegosTienda(categoria, desarrolladora, CampoNombre.getText());
+        ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
+    }//GEN-LAST:event_btnEditarJuegoActionPerformed
+
     
     public void setTablaJugadores(){
         ModeloTablaJugadoresAdmin m;
@@ -294,6 +316,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
     private javax.swing.JButton btnBanear;
     private javax.swing.JButton btnBuscarJuegos;
     private javax.swing.JButton btnBuscarUsuarios;
+    private javax.swing.JButton btnEditarJuego;
     private javax.swing.JTextField datosCorreo;
     private javax.swing.JTextField datosNick;
     private javax.swing.JLabel etiquetaCategoria;

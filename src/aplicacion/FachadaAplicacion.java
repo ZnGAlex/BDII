@@ -38,6 +38,10 @@ public class FachadaAplicacion {
     public void muestraVAnhadirJuego() {
         fgui.muestraVAnhadirJuego();
     }
+    
+    public void muestraVEditarJuego(Juego juego) {
+        fgui.muestraEditarJuego(juego);
+    }
 
     public void iniciaLogin() {
         fgui.iniciaLogin();
@@ -157,6 +161,10 @@ public class FachadaAplicacion {
     
     public void anhadirJuego(String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
         fbd.anhadirJuego(nombre, edadRecomendada, desarrolladora, categorias);
+    }
+    
+    public void editarJuego(int idJuego, String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        fbd.editarJuego(idJuego, nombre, edadRecomendada, desarrolladora, categorias);
     }
     
 }

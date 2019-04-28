@@ -271,6 +271,8 @@ public class DAOJuegos extends AbstractDAO {
         int idJuego = 0;
         
         try {
+            con.setAutoCommit(false);
+            
             stmt = con.prepareStatement("INSERT INTO Juego (nombre, edadrecomendada, desarrolladora) "
                                       + "VALUES (?, ?, ?)");
             stmt.setString(1, nombre);
@@ -298,7 +300,57 @@ public class DAOJuegos extends AbstractDAO {
                 stmt.executeUpdate();
             }
             
+            con.setAutoCommit(true);
+            
             this.getFachadaAplicacion().muestraAvisoCorrecto("Juego " + nombre + " añadido correctamente.");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error añadiendo el juego.");
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void editarJuego(int idJuego, String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Connection con = this.getConexion();
+        
+        try {
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement("UPDATE Juego "
+                                      + "SET nombre = ?, edadRecomendada = ?, desarrolladora = ? "
+                                      + "WHERE id = ?");
+            stmt.setString(1, nombre);
+            stmt.setInt(2, (int) edadRecomendada);
+            stmt.setString(3, desarrolladora);
+            stmt.setInt(4, idJuego);
+            
+            stmt.executeUpdate();
+            
+            stmt = con.prepareStatement("DELETE FROM tenercategoria "
+                                      + "WHERE juego = ?");
+            stmt.setInt(1, idJuego);
+            
+            stmt.executeUpdate();
+            
+            for (Categoria c : categorias) {
+                stmt = con.prepareStatement("INSERT INTO tenercategoria "
+                                          + "VALUES (?, ?)");
+                stmt.setString(1, c.getNombre());
+                stmt.setInt(2, idJuego); 
+                
+                stmt.executeUpdate();
+            }
+            
+            con.setAutoCommit(true);
+            
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Juego " + nombre + " editado correctamente.");
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -8,27 +8,39 @@ package gui;
 import aplicacion.Categoria;
 import aplicacion.Desarrolladora;
 import aplicacion.FachadaAplicacion;
+import aplicacion.Juego;
 import java.util.ArrayList;
 
 /**
  *
  * @author Alex
  */
-public class VAnhadirJuego extends javax.swing.JDialog {
+public class VEditarJuego extends javax.swing.JDialog {
+
     private FachadaAplicacion fa;
+    private java.util.ArrayList<Desarrolladora> desarrolladoras;
     private java.util.ArrayList<Categoria> categoriasTotal;
     private java.util.ArrayList<Categoria> categoriasTemporales;
+    private Juego juego;
     
-    public VAnhadirJuego(java.awt.Frame parent, boolean modal, FachadaAplicacion fa) {
+    public VEditarJuego(java.awt.Frame parent, boolean modal, FachadaAplicacion fa, Juego juego) {
         super(parent, modal);
         this.fa = fa;
         initComponents();
         
-        categoriasTemporales = new ArrayList<>();
-        categoriasTotal = (ArrayList<Categoria>) fa.obtenerCategorias();
+        this.juego = juego;
+        this.inicializarBoxes();
+        this.datosNombreJuego.setText(juego.getNombre());
+        this.datosEdadRecomendada.setText(juego.getEdadRecomendada().toString());
+        this.categoriasTemporales = new ArrayList<>();
+        this.categoriasTemporales = (ArrayList<Categoria>) fa.obtenerCategoriasJuego(juego);
+        this.categoriasTotal = (ArrayList<Categoria>) fa.obtenerCategorias();
         ((ModeloTablaCategorias) this.tablaCategorias.getModel()).setFilas(categoriasTotal);
+        ((ModeloTablaCategorias) this.tablaCategoriasJuego.getModel()).setFilas(categoriasTemporales);
         if (!categoriasTotal.isEmpty())
             this.tablaCategorias.setRowSelectionInterval(0, 0);
+        if (!categoriasTemporales.isEmpty())
+            this.tablaCategoriasJuego.setRowSelectionInterval(0, 0);
     }
 
     /**
@@ -48,16 +60,16 @@ public class VAnhadirJuego extends javax.swing.JDialog {
         boxDesarrolladora = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        btnAnhadirCategoria = new javax.swing.JButton();
-        btnSacarCategoria = new javax.swing.JButton();
-        btnAnhadirJuego = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaCategorias = new javax.swing.JTable();
+        btnAnhadirCategoria = new javax.swing.JButton();
+        btnSacarCategoria = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCategoriasJuego = new javax.swing.JTable();
+        btnEditarJuego = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Añadir juego");
+        setTitle("Edicion de juego");
 
         jLabel1.setText("Nombre:");
 
@@ -75,6 +87,9 @@ public class VAnhadirJuego extends javax.swing.JDialog {
 
         jLabel5.setText("Categorías del juego");
 
+        tablaCategorias.setModel(new ModeloTablaCategorias());
+        jScrollPane3.setViewportView(tablaCategorias);
+
         btnAnhadirCategoria.setText("Añadir");
         btnAnhadirCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,18 +104,15 @@ public class VAnhadirJuego extends javax.swing.JDialog {
             }
         });
 
-        btnAnhadirJuego.setText("Añadir juego");
-        btnAnhadirJuego.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnhadirJuegoActionPerformed(evt);
-            }
-        });
-
-        tablaCategorias.setModel(new ModeloTablaCategorias());
-        jScrollPane3.setViewportView(tablaCategorias);
-
         tablaCategoriasJuego.setModel(new ModeloTablaCategorias());
         jScrollPane1.setViewportView(tablaCategoriasJuego);
+
+        btnEditarJuego.setText("Editar juego");
+        btnEditarJuego.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarJuegoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,7 +123,7 @@ public class VAnhadirJuego extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAnhadirJuego))
+                        .addComponent(btnEditarJuego))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -138,7 +150,7 @@ public class VAnhadirJuego extends javax.swing.JDialog {
                                     .addComponent(btnSacarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 11, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -166,8 +178,8 @@ public class VAnhadirJuego extends javax.swing.JDialog {
                         .addComponent(btnSacarCategoria))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(btnAnhadirJuego)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(btnEditarJuego)
                 .addContainerGap())
         );
 
@@ -184,12 +196,21 @@ public class VAnhadirJuego extends javax.swing.JDialog {
         ModeloTablaCategorias mtCatJuego = (ModeloTablaCategorias) this.tablaCategoriasJuego.getModel();
         Categoria cat = mtCatTot.obtenerCategoria(filaSeleccionada);
         if (!categoriasTemporales.contains(cat))
-            this.categoriasTemporales.add(cat);
+        this.categoriasTemporales.add(cat);
         mtCatJuego.setFilas(categoriasTemporales);
         this.tablaCategoriasJuego.setRowSelectionInterval(0, 0);
     }//GEN-LAST:event_btnAnhadirCategoriaActionPerformed
 
-    private void btnAnhadirJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnhadirJuegoActionPerformed
+    private void btnSacarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacarCategoriaActionPerformed
+        ModeloTablaCategorias mtCatJuego = (ModeloTablaCategorias) this.tablaCategoriasJuego.getModel();
+        Categoria cat = mtCatJuego.obtenerCategoria(this.tablaCategoriasJuego.getSelectedRow());
+        this.categoriasTemporales.remove(cat);
+        mtCatJuego.setFilas(categoriasTemporales);
+        if (!categoriasTemporales.isEmpty())
+        this.tablaCategoriasJuego.setRowSelectionInterval(0, 0);
+    }//GEN-LAST:event_btnSacarCategoriaActionPerformed
+
+    private void btnEditarJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarJuegoActionPerformed
         if (this.datosNombreJuego.getText().isEmpty()) {
             this.fa.muestraAvisoCorrecto("Escribe el nombre del juego.");
             return;
@@ -200,36 +221,30 @@ public class VAnhadirJuego extends javax.swing.JDialog {
             this.fa.muestraAvisoCorrecto("Indica la desarrolladora del juego.");
             return;
         } else {
-        String nombreJuego = this.datosNombreJuego.getText();
-        Integer edadRecomendada = Integer.parseInt(this.datosEdadRecomendada.getText());
-        String desarrolladora = String.valueOf(this.boxDesarrolladora.getSelectedItem());
-        fa.anhadirJuego(nombreJuego, edadRecomendada, desarrolladora, this.categoriasTemporales);
-        this.dispose();
+            String nombreJuego = this.datosNombreJuego.getText();
+            Integer edadRecomendada = Integer.parseInt(this.datosEdadRecomendada.getText());
+            String desarrolladora = String.valueOf(this.boxDesarrolladora.getSelectedItem());
+            fa.editarJuego(this.juego.getId(), nombreJuego, edadRecomendada, desarrolladora, this.categoriasTemporales);
+            this.dispose();
         }
-    }//GEN-LAST:event_btnAnhadirJuegoActionPerformed
-
-    private void btnSacarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacarCategoriaActionPerformed
-       ModeloTablaCategorias mtCatJuego = (ModeloTablaCategorias) this.tablaCategoriasJuego.getModel();
-       Categoria cat = mtCatJuego.obtenerCategoria(this.tablaCategoriasJuego.getSelectedRow());
-       this.categoriasTemporales.remove(cat);
-       mtCatJuego.setFilas(categoriasTemporales);
-       if (!categoriasTemporales.isEmpty())
-           this.tablaCategoriasJuego.setRowSelectionInterval(0, 0);
-    }//GEN-LAST:event_btnSacarCategoriaActionPerformed
+    }//GEN-LAST:event_btnEditarJuegoActionPerformed
 
     public void inicializarBoxes(){
         //Inicializar listado de Desarrolladoras de boxDesarrolladora
-        java.util.List<Desarrolladora> desarrolladoras = fa.obtenerDesarrolladoras();
+        this.desarrolladoras = (ArrayList<Desarrolladora>) fa.obtenerDesarrolladoras();
         boxDesarrolladora.addItem("");
-        for(Desarrolladora des: desarrolladoras){
+        for(Desarrolladora des : this.desarrolladoras){
             boxDesarrolladora.addItem(des.getNombre());
+            if (des.getNombre().equals(this.juego.getDesarrolladora().getNombre())) {
+                boxDesarrolladora.setSelectedIndex(this.desarrolladoras.indexOf(des) + 1);
+            }
         }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxDesarrolladora;
     private javax.swing.JButton btnAnhadirCategoria;
-    private javax.swing.JButton btnAnhadirJuego;
+    private javax.swing.JButton btnEditarJuego;
     private javax.swing.JButton btnSacarCategoria;
     private javax.swing.JTextField datosEdadRecomendada;
     private javax.swing.JTextField datosNombreJuego;

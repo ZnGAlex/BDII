@@ -145,4 +145,8 @@ public class FachadaBaseDatos {
         daoJuegos.anhadirJuego(nombre, edadRecomendada, desarrolladora, categorias);
     }
     
+    public void editarJuego(int idJuego, String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        daoJuegos.editarJuego(idJuego, nombre, edadRecomendada, desarrolladora, categorias);
+    }
+    
 }

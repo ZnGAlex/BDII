@@ -34,6 +34,13 @@ public class FachadaGui {
         vaj.inicializarBoxes();
         vaj.setVisible(true);
     }
+    
+    public void muestraEditarJuego(Juego juego) {
+        VEditarJuego vej;
+        
+        vej = new VEditarJuego(this.vp, true, this.fa, juego);
+        vej.setVisible(true);
+    }
 
     public void iniciaLogin() {
         VLogin va;
