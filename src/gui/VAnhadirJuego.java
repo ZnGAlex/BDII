@@ -165,7 +165,7 @@ public class VAnhadirJuego extends javax.swing.JDialog {
                         .addComponent(btnSacarCategoria))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(btnAnhadirJuego)
                 .addContainerGap())
         );
@@ -201,8 +201,8 @@ public class VAnhadirJuego extends javax.swing.JDialog {
         } else {
         String nombreJuego = this.datosNombreJuego.getText();
         Integer edadRecomendada = Integer.parseInt(this.datosEdadRecomendada.getText());
-        Desarrolladora desarrolladora = (Desarrolladora) this.boxDesarrolladora.getSelectedItem();
-        
+        String desarrolladora = String.valueOf(this.boxDesarrolladora.getSelectedItem());
+        fa.anhadirJuego(nombreJuego, edadRecomendada, desarrolladora, this.categoriasTemporales);
         }
     }//GEN-LAST:event_btnAnhadirJuegoActionPerformed
 

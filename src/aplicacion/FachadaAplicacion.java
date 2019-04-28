@@ -1,5 +1,7 @@
 package aplicacion;
 
+import java.util.ArrayList;
+
 public class FachadaAplicacion {
 
     gui.FachadaGui fgui;
@@ -151,6 +153,10 @@ public class FachadaAplicacion {
     
     public void banearJugador(String nickJugador) {
         gu.banearJugador(nickJugador);
+    }
+    
+    public void anhadirJuego(String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        fbd.anhadirJuego(nombre, edadRecomendada, desarrolladora, categorias);
     }
     
 }

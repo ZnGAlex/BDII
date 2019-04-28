@@ -11,6 +11,7 @@ import java.util.Properties;
 import aplicacion.Juego;
 import aplicacion.Jugador;
 import aplicacion.Logro;
+import java.util.ArrayList;
 
 public class FachadaBaseDatos {
     private aplicacion.FachadaAplicacion fa;
@@ -138,6 +139,10 @@ public class FachadaBaseDatos {
     
     public void banearJugador(String nickJugador) {
         daoUsuarios.banearJugador(nickJugador);
+    }
+    
+    public void anhadirJuego(String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        daoJuegos.anhadirJuego(nombre, edadRecomendada, desarrolladora, categorias);
     }
     
 }
