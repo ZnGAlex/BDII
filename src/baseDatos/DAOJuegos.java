@@ -394,6 +394,33 @@ public class DAOJuegos extends AbstractDAO {
         }
         
     }
+    
+    public void obtenerComplementoJugador(Jugador jugador, Complemento complemento){
+        Connection con;
+        PreparedStatement stmc = null;
+        
+        con=this.getConexion();
+        try{
+            stmc=con.prepareStatement("insert into tenerComplemento(juego,jugador,complemento) "
+                    + "values(?,?,?)");
+            stmc.setInt(1, complemento.getJuego().getId());
+            stmc.setString(2, jugador.getNick());
+            stmc.setString(3, complemento.getNombre());
+            
+            stmc.executeUpdate();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error, obtencion de complemento para jugador fallida, seguramente ya obtenido");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        
+    }
 }
     
     
