@@ -396,7 +396,9 @@ public class DAOUsuarios extends AbstractDAO {
             rs = stmt.executeQuery();
             
             while (rs.next()) {
-                logro = new Logro(rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("puntos"), new Juego(rs.getInt("juego")));
+                //System.out.println(rs.getInt("juego"));
+                Juego juego = new Juego(rs.getInt("juego"), "nombre", 0, null);
+                logro = new Logro(rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("puntos"), juego);
                 logros.add(logro);
             }
             
