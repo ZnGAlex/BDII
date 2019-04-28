@@ -469,5 +469,20 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    public void desbanearJugador(String nickJugador) {
+        PreparedStatement stmt = null;
+        Connection con = this.getConexion();
+        
+        try {
+            stmt = con.prepareStatement("UPDATE Jugador SET baneado = FALSE WHERE nick = ?");
+            stmt.setString(1, nickJugador);
+            
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto(e.getMessage());
+        }
+    }
+    
     
 }

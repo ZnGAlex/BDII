@@ -59,6 +59,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         datosCorreo = new javax.swing.JTextField();
         btnBuscarUsuarios = new javax.swing.JButton();
         btnBanear = new javax.swing.JButton();
+        btnDesbanear = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         etiquetaCategoria = new javax.swing.JLabel();
         boxCategorias = new javax.swing.JComboBox();
@@ -96,6 +97,13 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
             }
         });
 
+        btnDesbanear.setText("Desbanear");
+        btnDesbanear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesbanearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,6 +124,8 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
                         .addComponent(btnBuscarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnBanear)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDesbanear)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -132,7 +142,9 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBanear)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBanear)
+                    .addComponent(btnDesbanear))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -281,6 +293,15 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
         ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
     }//GEN-LAST:event_btnEditarJuegoActionPerformed
 
+    private void btnDesbanearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesbanearActionPerformed
+        ModeloTablaJugadoresAdmin mtl = (ModeloTablaJugadoresAdmin) tablaJugadores.getModel();
+        String nickJugador;
+        nickJugador = mtl.obtenerJugador(tablaJugadores.getSelectedRow()).getNick();
+        fa.desbanearJugador(nickJugador);
+        this.jugadores = fa.buscarJugadores(this.datosNick.getText(), this.datosCorreo.getText());
+        setTablaJugadores();
+    }//GEN-LAST:event_btnDesbanearActionPerformed
+
     
     public void setTablaJugadores(){
         ModeloTablaJugadoresAdmin m;
@@ -316,6 +337,7 @@ public class VPrincipalAdministrador extends javax.swing.JDialog {
     private javax.swing.JButton btnBanear;
     private javax.swing.JButton btnBuscarJuegos;
     private javax.swing.JButton btnBuscarUsuarios;
+    private javax.swing.JButton btnDesbanear;
     private javax.swing.JButton btnEditarJuego;
     private javax.swing.JTextField datosCorreo;
     private javax.swing.JTextField datosNick;

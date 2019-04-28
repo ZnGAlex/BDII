@@ -141,6 +141,10 @@ public class FachadaBaseDatos {
         daoUsuarios.banearJugador(nickJugador);
     }
     
+    public void desbanearJugador(String nickJugador) {
+        daoUsuarios.desbanearJugador(nickJugador);
+    }
+    
     public void anhadirJuego(String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
         daoJuegos.anhadirJuego(nombre, edadRecomendada, desarrolladora, categorias);
     }

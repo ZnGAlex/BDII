@@ -45,4 +45,8 @@ public class GestionUsuarios {
     public void banearJugador(String nickJugador) {
         fbd.banearJugador(nickJugador);
     }
+    
+    public void desbanearJugador(String nickJugador) {
+        fbd.desbanearJugador(nickJugador);
+    }
 }

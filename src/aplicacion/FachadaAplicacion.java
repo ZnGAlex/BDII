@@ -159,12 +159,16 @@ public class FachadaAplicacion {
         gu.banearJugador(nickJugador);
     }
     
+    public void desbanearJugador(String nickJugador) {
+        gu.desbanearJugador(nickJugador);
+    }
+    
     public void anhadirJuego(String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
-        fbd.anhadirJuego(nombre, edadRecomendada, desarrolladora, categorias);
+        gj.anhadirJuego(nombre, edadRecomendada, desarrolladora, categorias);
     }
     
     public void editarJuego(int idJuego, String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
-        fbd.editarJuego(idJuego, nombre, edadRecomendada, desarrolladora, categorias);
+        gj.editarJuego(idJuego, nombre, edadRecomendada, desarrolladora, categorias);
     }
     
 }
