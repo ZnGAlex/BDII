@@ -79,8 +79,8 @@ public class FachadaAplicacion {
         fbd.comprarListaJuegos(jugador, juegos);
     }
     
-    public void muestraVVerDetalles(Juego juego){
-        fgui.muestraVVerDetalles(juego);
+    public void muestraVVerDetalles(Juego juego, Jugador jugador){
+        fgui.muestraVVerDetalles(juego, jugador);
     }
     
     public void muestraVVerLogros(Juego juego, Jugador jugador){
