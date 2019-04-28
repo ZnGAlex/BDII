@@ -211,7 +211,7 @@ public class VVerDetalles extends javax.swing.JDialog {
     private void btnAdquirirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdquirirActionPerformed
         // TODO add your handling code here:
         Complemento c = ((ModeloTablaComplementos)tablaComplementos.getModel()).getJuegoAt(tablaComplementos.getSelectedRow());
-        //fa.obtenerComplementoJugador(this., c);
+        fa.obtenerComplementoJugador(this.jugador, c);
     }//GEN-LAST:event_btnAdquirirActionPerformed
 
 
