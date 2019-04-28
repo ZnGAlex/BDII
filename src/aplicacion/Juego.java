@@ -45,13 +45,6 @@ public class Juego {
         this.desarrolladora = desarrolladora;
     }
     
-    public Juego (Integer id) {
-        this.id = id;
-        this.nombre = "kk";
-        this.categorias = new ArrayList<>();
-        
-        this.desarrolladora = new Desarrolladora("kk", "kk");
-    }
     
     public void anhadirCategoria(Categoria categoria) {
         this.categorias.add(categoria);
