@@ -85,6 +85,11 @@ public class VVerDetalles extends javax.swing.JDialog {
 
         btnAdquirir.setText("Adquirir");
         btnAdquirir.setEnabled(false);
+        btnAdquirir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdquirirActionPerformed(evt);
+            }
+        });
 
         DescripcionComplemento.setColumns(20);
         DescripcionComplemento.setRows(5);
@@ -190,6 +195,7 @@ public class VVerDetalles extends javax.swing.JDialog {
         // TODO add your handling code here:
         String descripcion = ((ModeloTablaComplementos)tablaComplementos.getModel()).getJuegoAt(tablaComplementos.getSelectedRow()).getDescripcion();
         this.DescripcionComplemento.setText(descripcion);
+        btnAdquirir.setEnabled(true);
     }//GEN-LAST:event_tablaComplementosMouseClicked
 
     private void tablaCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCategoriasMouseClicked
@@ -197,6 +203,12 @@ public class VVerDetalles extends javax.swing.JDialog {
         String descripcion = ((ModeloTablaCategorias)tablaCategorias.getModel()).getJuegoAt(tablaCategorias.getSelectedRow()).getDescripcion();
         this.DescripcionCategorias.setText(descripcion);
     }//GEN-LAST:event_tablaCategoriasMouseClicked
+
+    private void btnAdquirirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdquirirActionPerformed
+        // TODO add your handling code here:
+        Complemento c = ((ModeloTablaComplementos)tablaComplementos.getModel()).getJuegoAt(tablaComplementos.getSelectedRow());
+        //fa.obtenerComplementoJugador(this., c);
+    }//GEN-LAST:event_btnAdquirirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -51,4 +51,8 @@ public class GestionJuegos {
     public void cambiarVisibilidadLogro(Jugador jugador, Logro logro, boolean v){
         fbd.cambiarVisibilidadLogro(jugador, logro, v);
     }
+    
+    public void obtenerComplementoJugador(Jugador jugador, Complemento complemento){
+        fbd.obtenerComplementoJugador(jugador, complemento);
+    }
 }

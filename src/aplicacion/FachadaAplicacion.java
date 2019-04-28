@@ -194,4 +194,8 @@ public class FachadaAplicacion {
     public void cambiarVisibilidadLogro(Jugador jugador, Logro logro, boolean v){
         gj.cambiarVisibilidadLogro(jugador, logro, v);
     }
+    
+    public void obtenerComplementoJugador(Jugador jugador, Complemento complemento){
+        gj.obtenerComplementoJugador(jugador, complemento);
+    }
 }
