@@ -37,7 +37,12 @@ public class VMiPerfil extends javax.swing.JDialog {
         setDatosUsuario();
         
         this.logros = new ArrayList<>();
-        logros = this.fa.obtenerLogrosJugador(jugador);
+        
+        if(!modoExterno){
+            logros = this.fa.obtenerLogrosJugador(jugador);
+        } else {
+            logros = this.fa.obtenerLogrosCompartidos(jugador);
+        }
         
         setTablaLogros();
         
@@ -312,7 +317,7 @@ public class VMiPerfil extends javax.swing.JDialog {
 
     private void btnVerSusJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerSusJuegosActionPerformed
         // TODO add your handling code here:
-        
+        fa.muestraVJuegosAmigo(this.jugador);
     }//GEN-LAST:event_btnVerSusJuegosActionPerformed
 
     private void btnCompartirLogroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompartirLogroActionPerformed

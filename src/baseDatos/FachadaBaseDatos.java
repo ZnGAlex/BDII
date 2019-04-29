@@ -112,6 +112,10 @@ public class FachadaBaseDatos {
         return daoJuegos.consultarJuegosPropios(categoria, desarrolladora, nombre, jugador);
     }
     
+    public java.util.List<Juego> consultarJuegosCompartidos(String categoria, String desarrolladora, String nombre, Jugador jugador){
+        return daoJuegos.consultarJuegosCompartidos(categoria,desarrolladora,nombre, jugador);
+    }
+    
     public boolean usuarioTieneJuego(String nick,Integer idJuego){
         return daoUsuarios.usuarioTieneJuego(nick,idJuego);
     }
@@ -130,6 +134,10 @@ public class FachadaBaseDatos {
     
     public java.util.ArrayList<Logro> obtenerLogrosJugador(Jugador jugador) {
         return daoUsuarios.obtenerLogrosJugador(jugador);
+    }
+    
+    public java.util.ArrayList<Logro> obtenerLogrosCompartidos(Jugador jugador) {
+        return daoUsuarios.obtenerLogrosCompartidos(jugador);
     }
     
     public java.util.List<Jugador> obtenerAmigos(Jugador jugador, String nombre){
@@ -154,6 +162,10 @@ public class FachadaBaseDatos {
     
     public void anhadirAmigo(Jugador jugador, Jugador amigo){
         daoUsuarios.anhadirAmigo(jugador, amigo);
+    }
+    
+    public void borrarAmigo(Jugador jugador, Jugador amigo){
+        daoUsuarios.borrarAmigo(jugador, amigo);
     }
     
     public java.util.List<Jugador> obtenerBloqueados(Jugador jugador, String nombre){

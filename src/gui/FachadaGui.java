@@ -88,5 +88,11 @@ public class FachadaGui {
         
         vmp = new VMiPerfil(this.vp,fa,true,true, usuario); 
     }
+    
+    public void muestraVJuegosAmigo(Usuario usuario){
+        VMisJuegos vmj;
+        
+        vmj = new VMisJuegos(this.vp, true,fa, usuario, true);
+    }
 
 }

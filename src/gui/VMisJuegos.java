@@ -61,11 +61,13 @@ public class VMisJuegos extends javax.swing.JDialog {
         btnVerDetalles.setEnabled(false);
         btnVerLogros.setEnabled(false);
         btnCompartir.setEnabled(false);
-        this.externo = externo;
         
+        this.externo = externo;
         if(externo){
             btnJugar.setVisible(false);
             btnCompartir.setVisible(false);
+            btnVerDetalles.setVisible(false);
+            btnVerLogros.setVisible(false);
         }
         
         this.setVisible(true);  
@@ -234,7 +236,11 @@ public class VMisJuegos extends javax.swing.JDialog {
         // TODO add your handling code here:
         String categoria=(String)boxCategorias.getSelectedItem();
         String desarrolladora=(String) boxDesarrolladora.getSelectedItem();
-        juegos = fa.consultarJuegosPropios(categoria,desarrolladora, CampoNombre.getText(), (Jugador)this.usuario);
+        if(!externo){
+            juegos = fa.consultarJuegosPropios(categoria,desarrolladora, CampoNombre.getText(), (Jugador)this.usuario);
+        } else {
+            juegos = fa.consultarJuegosCompartidos(categoria,desarrolladora,CampoNombre.getText(),(Jugador)this.usuario);
+        }
         ((ModeloTablaJuegos)tablaJuegos.getModel()).setFilas(juegos);
         btnJugar.setEnabled(false);
         btnVerDetalles.setEnabled(false);

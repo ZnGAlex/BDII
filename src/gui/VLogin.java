@@ -15,10 +15,12 @@ import java.util.Date;
 public class VLogin extends javax.swing.JDialog {
 
     aplicacion.FachadaAplicacion fa;
+    private boolean loginCorrecto;
     
     public VLogin(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa) {
         super(parent, modal);
         this.fa=fa;
+        this.loginCorrecto = false;
         initComponents();
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
@@ -86,6 +88,11 @@ public class VLogin extends javax.swing.JDialog {
         setModal(true);
         setName("VAutentificacion"); // NOI18N
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Usuario:");
 
@@ -314,6 +321,7 @@ public class VLogin extends javax.swing.JDialog {
             etiquetaFallo.setVisible(true);
         } else {
             /* Login correcto */
+            loginCorrecto = true;
             this.dispose();
             this.fa.muestraVPrincipal(usuario);
         }
@@ -335,6 +343,7 @@ public class VLogin extends javax.swing.JDialog {
                 etiquetaFallo.setVisible(true);
             } else {
                 /* Login correcto */
+                loginCorrecto = true;
                 this.dispose();
                 this.fa.muestraVPrincipal(usuario);
             }
@@ -352,6 +361,7 @@ public class VLogin extends javax.swing.JDialog {
                 etiquetaFallo.setVisible(true);
             } else {
                 /* Login correcto */
+                loginCorrecto = true;
                 this.dispose();
                 this.fa.muestraVPrincipal(usuario);
             }
@@ -388,6 +398,13 @@ public class VLogin extends javax.swing.JDialog {
     private void datosDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datosDiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_datosDiaActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        if(!this.loginCorrecto){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosed
 
     /**
     * @param args the command line arguments

@@ -42,6 +42,9 @@ public class GestionUsuarios {
         return fbd.obtenerLogrosJugador(jugador);
     }
     
+    public java.util.ArrayList<Logro> obtenerLogrosCompartidos(Jugador jugador) {
+        return fbd.obtenerLogrosCompartidos(jugador);
+    }
     
     public java.util.List<Jugador> obtenerAmigos(Jugador jugador, String nombre){
         return fbd.obtenerAmigos(jugador, nombre);
@@ -65,6 +68,10 @@ public class GestionUsuarios {
     
     public void anhadirAmigo(Jugador jugador, Jugador amigo){
         fbd.anhadirAmigo(jugador, amigo);
+    }
+    
+    public void borrarAmigo(Jugador jugador, Jugador amigo){
+        fbd.borrarAmigo(jugador, amigo);
     }
     
     public java.util.List<Jugador> obtenerBloqueados(Jugador jugador, String nombre){

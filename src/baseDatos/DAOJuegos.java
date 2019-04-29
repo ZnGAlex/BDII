@@ -111,7 +111,59 @@ public class DAOJuegos extends AbstractDAO {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al buscar en la tienda");
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al buscar los juegos propios");
+        } finally {
+            try {
+                stmc.close();
+
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
+    
+    public java.util.List<Juego> consultarJuegosCompartidos(String categoria, String desarrolladora, String nombre, Jugador jugador) {
+
+        java.util.List<Juego> resultado = new java.util.ArrayList<>();
+        Juego jactual;
+        PreparedStatement stmc = null;
+        ResultSet rst;
+        Connection con;
+        
+        if(categoria.equals("")){
+            categoria = "%";
+        }
+        if(desarrolladora.equals("")){
+            desarrolladora = "%";
+        }
+        
+        con = this.getConexion();
+        try {
+            stmc = con.prepareStatement("select distinct j.id, j.nombre, j.edadrecomendada, j.desarrolladora, d.pais "
+                    + "from Juego as j, TenerCategoria as c, Desarrolladora as d, Comprar as co "
+                    + "where j.id = c.juego "
+                    + "and j.desarrolladora like d.nombre "
+                    + "and co.jugador like ? "
+                    + "and co.juego = j.id "
+                    + "and j.nombre like ? "
+                    + "and j.desarrolladora like ? "
+                    + "and c.categoria like ? "
+                    + "and co.visibilidad = true ");
+            stmc.setString(1, "%"+jugador.getNick()+"%");
+            stmc.setString(2, "%"+nombre+"%");
+            stmc.setString(3, desarrolladora);
+            stmc.setString(4, categoria);
+
+            rst = stmc.executeQuery();
+            while (rst.next()) {
+                jactual = new Juego(rst.getInt("id"), rst.getString("nombre"), rst.getInt("edadrecomendada"), null, new Desarrolladora(rst.getString("desarrolladora"), rst.getString("pais")));
+                resultado.add(jactual);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al buscar los juegos compartidos");
         } finally {
             try {
                 stmc.close();

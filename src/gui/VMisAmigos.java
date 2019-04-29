@@ -223,14 +223,19 @@ public class VMisAmigos extends javax.swing.JDialog {
         boolean elBloquea = fa.estaBloqueado(jugSelec,(Jugador)usuario);
         boolean esAmigo = fa.sonAmigos((Jugador)usuario,jugSelec);
         
+        if(esAmigo){
+            this.btnHacerAmigo.setText("Eliminar amigo");
+        } else {
+            this.btnHacerAmigo.setText("Hacer amigo");
+        }
+        
         if (this.btnSelectorAmigosTotal.isSelected()){ //Todos los usuarios
-            this.btnHacerAmigo.setEnabled(true);
-            
             this.btnBloquear.setEnabled(!yoBloqueo);
-            this.btnHacerAmigo.setEnabled(!yoBloqueo && !elBloquea && !esAmigo);
+            this.btnHacerAmigo.setEnabled(!yoBloqueo && !elBloquea);
             this.btnVerInfoAmigo.setEnabled(esAmigo);
             
         }else{ //Amigos
+            this.btnHacerAmigo.setEnabled(true);
             this.btnVerInfoAmigo.setEnabled(false);
             btnVerInfoAmigo.setEnabled(true);
             this.btnBloquear.setEnabled(true);
@@ -256,7 +261,12 @@ public class VMisAmigos extends javax.swing.JDialog {
     private void btnHacerAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHacerAmigoActionPerformed
         // TODO add your handling code here:
         Jugador jugSelec = ((ModeloTablaJugadores)tablaJugadores.getModel()).obtenerJugador(tablaJugadores.getSelectedRow());
-        fa.anhadirAmigo((Jugador)usuario, jugSelec);
+        
+        if(btnHacerAmigo.getText().equals("Hacer amigo")){
+            fa.anhadirAmigo((Jugador)usuario, jugSelec);
+        } else {
+            fa.borrarAmigo((Jugador) usuario, jugSelec);
+        }
     }//GEN-LAST:event_btnHacerAmigoActionPerformed
 
     private void btnVerInfoAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerInfoAmigoActionPerformed

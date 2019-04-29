@@ -71,6 +71,10 @@ public class FachadaAplicacion {
         return gj.consultarJuegosPropios(categoria,desarrolladora,nombre, jugador);
     }
     
+    public java.util.List<Juego> consultarJuegosCompartidos(String categoria, String desarrolladora, String nombre, Jugador jugador){
+        return gj.consultarJuegosCompartidos(categoria,desarrolladora,nombre, jugador);
+    }
+       
     public boolean usuarioTieneJuego(String nick,Integer idJuego){
         return gu.usuarioTieneJuego(nick,idJuego);
     }
@@ -139,6 +143,10 @@ public class FachadaAplicacion {
         return gu.obtenerLogrosJugador(jugador);
     }
     
+    public java.util.ArrayList<Logro> obtenerLogrosCompartidos(Jugador jugador) {
+        return gu.obtenerLogrosCompartidos(jugador);
+    }
+    
     public java.util.List<Jugador> obtenerAmigos(Jugador jugador, String nombre){
         return gu.obtenerAmigos(jugador, nombre);
     }
@@ -161,6 +169,10 @@ public class FachadaAplicacion {
     
     public void anhadirAmigo(Jugador jugador, Jugador amigo){
         gu.anhadirAmigo(jugador, amigo);
+    }
+    
+    public void borrarAmigo(Jugador jugador, Jugador amigo){
+        gu.borrarAmigo(jugador, amigo);
     }
     
     public java.util.List<Jugador> obtenerBloqueados(Jugador jugador, String nombre){
@@ -197,5 +209,9 @@ public class FachadaAplicacion {
     
     public void obtenerComplementoJugador(Jugador jugador, Complemento complemento){
         gj.obtenerComplementoJugador(jugador, complemento);
+    }
+    
+    public void muestraVJuegosAmigo(Usuario usuario){
+        fgui.muestraVJuegosAmigo(usuario);
     }
 }

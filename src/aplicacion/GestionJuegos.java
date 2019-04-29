@@ -29,6 +29,10 @@ public class GestionJuegos {
         return fbd.consultarJuegosPropios(categoria, desarrolladora, nombre, jugador);
     }
     
+    public java.util.List<Juego> consultarJuegosCompartidos(String categoria, String desarrolladora, String nombre, Jugador jugador){
+        return fbd.consultarJuegosCompartidos(categoria,desarrolladora,nombre, jugador);
+    }
+    
     public java.util.List<Complemento> obtenerComplementos(Juego juego){
         return fbd.obtenerComplementos(juego);
     }

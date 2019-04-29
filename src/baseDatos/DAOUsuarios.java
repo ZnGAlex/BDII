@@ -315,7 +315,7 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
-    public void quitarAmigo(Jugador jugador, Jugador amigo){
+    public void borrarAmigo(Jugador jugador, Jugador amigo){
         
         PreparedStatement stmc = null;
        
@@ -323,7 +323,7 @@ public class DAOUsuarios extends AbstractDAO {
 
         con = this.getConexion();
         try {
-            stmc = con.prepareStatement("delete from amigos "
+            stmc = con.prepareStatement("delete from seramigo "
                 +" where (jugador like ? and amigo like ?) "
                 + " or (jugador like ? and amigo like ?) ");
             stmc.setString(1, jugador.getNick());
@@ -391,6 +391,43 @@ public class DAOUsuarios extends AbstractDAO {
         
         try {
             stmt = con.prepareStatement("SELECT l.nombre, l.descripcion, l.puntos, l.juego FROM conseguirlogro c INNER JOIN logro l on c.logro = l.nombre and c.juego = l.juego WHERE c.jugador = ?");
+            stmt.setString(1, jugador.getNick());
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                //System.out.println(rs.getInt("juego"));
+                Juego juego = new Juego(rs.getInt("juego"), "nombre", 0, null);
+                logro = new Logro(rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("puntos"), juego);
+                logros.add(logro);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return logros;
+    }
+    
+    public ArrayList<Logro> obtenerLogrosCompartidos(Jugador jugador) {
+        ArrayList<Logro> logros = new ArrayList<>();
+        Logro logro = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        Connection con = this.getConexion();
+        
+        try {
+            stmt = con.prepareStatement("SELECT l.nombre, l.descripcion, l.puntos, l.juego "
+                    + "FROM conseguirlogro c INNER JOIN logro l on c.logro = l.nombre and c.juego = l.juego "
+                    + "WHERE c.jugador = ? "
+                        + "and c.visibilidad = true ");
             stmt.setString(1, jugador.getNick());
             
             rs = stmt.executeQuery();
