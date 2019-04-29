@@ -300,7 +300,7 @@ public class DAOJuegos extends AbstractDAO {
                 stmt.executeUpdate();
             }
             
-            con.setAutoCommit(true);
+            con.commit();
             
             this.getFachadaAplicacion().muestraAvisoCorrecto("Juego " + nombre + " añadido correctamente.");
             
@@ -309,6 +309,7 @@ public class DAOJuegos extends AbstractDAO {
             this.getFachadaAplicacion().muestraAvisoCorrecto("Error añadiendo el juego.");
         } finally {
             try {
+                con.setAutoCommit(true);
                 stmt.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -348,7 +349,7 @@ public class DAOJuegos extends AbstractDAO {
                 stmt.executeUpdate();
             }
             
-            con.setAutoCommit(true);
+            con.commit();
             
             this.getFachadaAplicacion().muestraAvisoCorrecto("Juego " + nombre + " editado correctamente.");
             
@@ -357,6 +358,7 @@ public class DAOJuegos extends AbstractDAO {
             this.getFachadaAplicacion().muestraAvisoCorrecto("Error añadiendo el juego.");
         } finally {
             try {
+                con.setAutoCommit(true);
                 stmt.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
