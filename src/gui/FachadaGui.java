@@ -35,10 +35,10 @@ public class FachadaGui {
         vac.setVisible(true);
     }
 
-    public void muestraVVerDetalles(Juego juego) {
+    public void muestraVVerDetalles(Juego juego, Jugador jugador) {
         VVerDetalles vvd;
 
-        vvd = new VVerDetalles(this.vp, true, fa, juego);
+        vvd = new VVerDetalles(this.vp, true, fa, juego, jugador);
     }
     
     public void muestraVVerLogros(Juego juego, Jugador jugador){

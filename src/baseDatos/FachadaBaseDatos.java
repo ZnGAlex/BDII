@@ -179,4 +179,8 @@ public class FachadaBaseDatos {
     public void cambiarVisibilidadLogro(Jugador jugador, Logro logro, boolean v){
         daoJuegos.cambiarVisibilidadLogro(jugador, logro, v);
     }
+    
+    public void obtenerComplementoJugador(Jugador jugador, Complemento complemento){
+        daoJuegos.obtenerComplementoJugador(jugador, complemento);
+    }
 }

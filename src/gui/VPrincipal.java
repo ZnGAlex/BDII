@@ -237,7 +237,7 @@ public class VPrincipal extends javax.swing.JFrame {
     
     private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
         // TODO add your handling code here:
-        fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()));
+        fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()), null);
     }//GEN-LAST:event_btnDetallesActionPerformed
 
     private void boxDesarrolladoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxDesarrolladoraActionPerformed

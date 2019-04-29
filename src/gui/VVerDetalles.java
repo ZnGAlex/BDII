@@ -9,6 +9,7 @@ import aplicacion.Complemento;
 import aplicacion.Juego;
 import aplicacion.Categoria;
 import java.awt.Toolkit;
+import aplicacion.Jugador;
 
 /**
  *
@@ -19,6 +20,7 @@ public class VVerDetalles extends javax.swing.JDialog {
     private Juego juego;
     private java.util.List<Complemento> complementos;
     private java.util.List<Categoria> categorias;
+    private Jugador jugador;
     
     //private final VLibro padre;
     private final aplicacion.FachadaAplicacion fa;
@@ -29,12 +31,14 @@ public class VVerDetalles extends javax.swing.JDialog {
      * @param fa
      * @param juego
      */
-    public VVerDetalles(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Juego juego) {
+    public VVerDetalles(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Juego juego, Jugador jugador) {
         
         super(parent, modal);
         //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
         this.fa = fa;
         this.juego = juego;
+        if(jugador!=null) this.jugador=jugador;
+        else this.jugador = null;
         initComponents();
         //Centramos en pantalla la ventana, para evitar que aparezca en la esquina superior izquierda
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -this.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2 -this.getHeight()/2);
@@ -85,6 +89,11 @@ public class VVerDetalles extends javax.swing.JDialog {
 
         btnAdquirir.setText("Adquirir");
         btnAdquirir.setEnabled(false);
+        btnAdquirir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdquirirActionPerformed(evt);
+            }
+        });
 
         DescripcionComplemento.setColumns(20);
         DescripcionComplemento.setRows(5);
@@ -190,6 +199,7 @@ public class VVerDetalles extends javax.swing.JDialog {
         // TODO add your handling code here:
         String descripcion = ((ModeloTablaComplementos)tablaComplementos.getModel()).getJuegoAt(tablaComplementos.getSelectedRow()).getDescripcion();
         this.DescripcionComplemento.setText(descripcion);
+        if(jugador!=null) btnAdquirir.setEnabled(true);
     }//GEN-LAST:event_tablaComplementosMouseClicked
 
     private void tablaCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCategoriasMouseClicked
@@ -197,6 +207,12 @@ public class VVerDetalles extends javax.swing.JDialog {
         String descripcion = ((ModeloTablaCategorias)tablaCategorias.getModel()).getJuegoAt(tablaCategorias.getSelectedRow()).getDescripcion();
         this.DescripcionCategorias.setText(descripcion);
     }//GEN-LAST:event_tablaCategoriasMouseClicked
+
+    private void btnAdquirirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdquirirActionPerformed
+        // TODO add your handling code here:
+        Complemento c = ((ModeloTablaComplementos)tablaComplementos.getModel()).getJuegoAt(tablaComplementos.getSelectedRow());
+        fa.obtenerComplementoJugador(this.jugador, c);
+    }//GEN-LAST:event_btnAdquirirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

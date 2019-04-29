@@ -27,4 +27,8 @@ public class Complemento {
         this.descripcion = descripcion;
     }
     
+    public Juego getJuego(){
+        return this.juego;
+    }
+    
 }

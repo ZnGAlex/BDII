@@ -79,8 +79,8 @@ public class FachadaAplicacion {
         fbd.comprarListaJuegos(jugador, juegos);
     }
     
-    public void muestraVVerDetalles(Juego juego){
-        fgui.muestraVVerDetalles(juego);
+    public void muestraVVerDetalles(Juego juego, Jugador jugador){
+        fgui.muestraVVerDetalles(juego, jugador);
     }
     
     public void muestraVVerLogros(Juego juego, Jugador jugador){
@@ -193,5 +193,9 @@ public class FachadaAplicacion {
     
     public void cambiarVisibilidadLogro(Jugador jugador, Logro logro, boolean v){
         gj.cambiarVisibilidadLogro(jugador, logro, v);
+    }
+    
+    public void obtenerComplementoJugador(Jugador jugador, Complemento complemento){
+        gj.obtenerComplementoJugador(jugador, complemento);
     }
 }

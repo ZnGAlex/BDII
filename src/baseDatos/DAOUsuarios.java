@@ -390,13 +390,15 @@ public class DAOUsuarios extends AbstractDAO {
         Connection con = this.getConexion();
         
         try {
-            stmt = con.prepareStatement("SELECT l.nombre, l.descripcion, l.puntos FROM conseguirlogro c INNER JOIN logro l on c.logro = l.nombre and c.juego = l.juego WHERE c.jugador = ?");
+            stmt = con.prepareStatement("SELECT l.nombre, l.descripcion, l.puntos, l.juego FROM conseguirlogro c INNER JOIN logro l on c.logro = l.nombre and c.juego = l.juego WHERE c.jugador = ?");
             stmt.setString(1, jugador.getNick());
             
             rs = stmt.executeQuery();
             
             while (rs.next()) {
-                logro = new Logro(rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("puntos"));
+                //System.out.println(rs.getInt("juego"));
+                Juego juego = new Juego(rs.getInt("juego"), "nombre", 0, null);
+                logro = new Logro(rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("puntos"), juego);
                 logros.add(logro);
             }
             

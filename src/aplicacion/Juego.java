@@ -45,6 +45,7 @@ public class Juego {
         this.desarrolladora = desarrolladora;
     }
     
+    
     public void anhadirCategoria(Categoria categoria) {
         this.categorias.add(categoria);
     }

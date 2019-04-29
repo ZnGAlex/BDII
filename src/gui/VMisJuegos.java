@@ -267,7 +267,7 @@ public class VMisJuegos extends javax.swing.JDialog {
 
     private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
         // TODO add your handling code here:
-        fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()));
+        fa.muestraVVerDetalles(((ModeloTablaJuegos)tablaJuegos.getModel()).getJuegoAt(tablaJuegos.getSelectedRow()), (Jugador)this.usuario);
     }//GEN-LAST:event_btnVerDetallesActionPerformed
 
     private void btnVerLogrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerLogrosActionPerformed
@@ -282,14 +282,10 @@ public class VMisJuegos extends javax.swing.JDialog {
         
         if(compartido == true){
             compartido=false;
-            
             btnCompartir.setText("No compartir");
-            
-            
         }
         else{
             compartido=true;
-            
             btnCompartir.setText("Compartir");
             
         }
