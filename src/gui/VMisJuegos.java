@@ -21,7 +21,7 @@ public class VMisJuegos extends javax.swing.JDialog {
     private Usuario usuario;
     java.util.List<Juego> juegos;
     boolean compartido;
-    
+    private boolean externo;
     private final aplicacion.FachadaAplicacion fa;
     /**
      * Creates new form VMisJuegos
@@ -29,6 +29,7 @@ public class VMisJuegos extends javax.swing.JDialog {
      * @param modal
      * @param fa
      */
+    
     public void inicializarBoxes(){
          //Inicializar listado de categorias de boxCategorias
         java.util.List<Categoria> categorias = fa.obtenerCategorias();
@@ -45,8 +46,7 @@ public class VMisJuegos extends javax.swing.JDialog {
         }
     }
     
-    public VMisJuegos(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Usuario usuario) {
-        
+    public VMisJuegos(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa, Usuario usuario, boolean externo) {
         super(parent, modal);
         //Almacenamos una referencia a la fachada de aplicación para poder tener todas las funcionalidades disponibles
         this.fa = fa;
@@ -61,8 +61,14 @@ public class VMisJuegos extends javax.swing.JDialog {
         btnVerDetalles.setEnabled(false);
         btnVerLogros.setEnabled(false);
         btnCompartir.setEnabled(false);
-        this.setVisible(true);  
+        this.externo = externo;
         
+        if(externo){
+            btnJugar.setVisible(false);
+            btnCompartir.setVisible(false);
+        }
+        
+        this.setVisible(true);  
     }
 
     

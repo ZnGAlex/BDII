@@ -7,8 +7,9 @@ import javax.swing.JDialog;
 
 public class FachadaGui {
 
-    aplicacion.FachadaAplicacion fa;
-    VPrincipal vp;
+    private aplicacion.FachadaAplicacion fa;
+    private VPrincipal vp;
+    
 
     public FachadaGui(aplicacion.FachadaAplicacion fa) {
         this.fa = fa;
@@ -61,7 +62,7 @@ public class FachadaGui {
     public void muestraVMisJuegos(Usuario usuario){
         VMisJuegos vmj;
         
-        vmj = new VMisJuegos(this.vp,true,fa,usuario);
+        vmj = new VMisJuegos(this.vp,true,fa,usuario,false);
     }
     
     public void muestraJugar(Jugador jugador, Juego juego){
