@@ -526,54 +526,6 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
-    /**
-     * CONSULTA COMPUESTA
-     * @param jugador
-     * @param aBloquear
-     */
-    public void bloquearJugador(Jugador jugador, Jugador aBloquear){ 
-        PreparedStatement stmc = null;
-        Connection con;
-        con = this.getConexion();
-         
-        try {
-        //Desactivamos autocommit 
-        con.setAutoCommit(false);
-            stmc = con.prepareStatement("insert into bloquear(jugador, bloqueado) values(?, ?)");
-            stmc.setString(1, jugador.getNick());
-            stmc.setString(2,aBloquear.getNick());            
-            stmc.executeUpdate();
-            
-            stmc = con.prepareStatement("delete from seramigo "
-                    + "where (jugador like ? and amigo like ?) "
-                        + "or (jugador like ? and amigo like ?)");
-            stmc.setString(1, jugador.getNick());
-            stmc.setString(2,aBloquear.getNick());            
-            stmc.setString(3,aBloquear.getNick());            
-            stmc.setString(4, jugador.getNick());
-            stmc.executeUpdate();
-        con.commit();
-            
-        } catch (SQLException e) {
-            try {
-                //Si ha fallado hacemos el rollback
-                con.rollback();
-            } catch (SQLException ex) {
-                System.out.println("Imposible realizar el rollback");
-            }
-            System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al bloquear jugador");
-        } finally {
-            try {
-                //Desactivamos autocommit 
-                con.setAutoCommit(true);
-                stmc.close();
-            } catch (SQLException e) {
-                System.out.println("Imposible cerrar cursores");
-            }
-        }
-    }
-    
     public boolean estaBloqueado(Jugador jugador, Jugador bloqueado){
         boolean resultado = false;
         PreparedStatement stmc = null;
@@ -675,26 +627,111 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
-    public void desbloquearJugador(Jugador jugador, Jugador desbloquear){
-        PreparedStatement stmt = null;
-        Connection con = this.getConexion();
-        
+    /**
+     * CONSULTA COMPUESTA
+     * @param jugador
+     * @param aBloquear
+     */
+    public void bloquearJugador(Jugador jugador, Jugador aBloquear){ 
+        PreparedStatement stmc = null;
+        Connection con;
+        con = this.getConexion();
+         
         try {
-            stmt = con.prepareStatement("delete from bloquear "
-                                      + "where jugador like ? and bloqueado like ?");
-            stmt.setString(1, jugador.getNick());
-            stmt.setString(2, desbloquear.getNick());
+        //Desactivamos autocommit 
+        con.setAutoCommit(false);
+            stmc = con.prepareStatement("insert into bloquear(jugador, bloqueado) values(?, ?)");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2,aBloquear.getNick());            
+            stmc.executeUpdate();
             
-            stmt.executeUpdate();
+            stmc = con.prepareStatement("delete from seramigo "
+                    + "where (jugador like ? and amigo like ?) "
+                        + "or (jugador like ? and amigo like ?)");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2,aBloquear.getNick());            
+            stmc.setString(3,aBloquear.getNick());            
+            stmc.setString(4, jugador.getNick());
+            stmc.executeUpdate();
+        con.commit();
             
         } catch (SQLException e) {
+            try {
+                //Si ha fallado hacemos el rollback
+                con.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Imposible realizar el rollback");
+            }
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraAvisoCorrecto("Error desbloqueando jugador.");
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al bloquear jugador");
         } finally {
             try {
-                stmt.close();
+                //Desactivamos autocommit 
+                con.setAutoCommit(true);
+                stmc.close();
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+    
+    /**
+     * CONSULTA COMPUESTA 3 CONSULTAS
+     * @param jugador
+     * @param desbloquear
+     */
+    public void desbloquearJugador(Jugador jugador, Jugador desbloquear){ 
+        PreparedStatement stmc = null;
+        Connection con;
+        con = this.getConexion();
+        ResultSet rst;
+         
+        try {
+        //Desactivamos autocommit 
+        con.setAutoCommit(false);
+        
+            //// 1 / Eliminar de la tabla bloquear
+            stmc = con.prepareStatement("delete from bloquear "
+                                      + "where jugador like ? and bloqueado like ?");
+            stmc.setString(1, jugador.getNick());
+            stmc.setString(2, desbloquear.getNick());        
+            stmc.executeUpdate();
+            
+            //// 2 / Comprobar si el otro usuario me tiene bloqueado
+            stmc = con.prepareStatement("select * from bloquear "
+                                        + "where jugador like ? and bloqueado like ? ");
+            stmc.setString(1, desbloquear.getNick());
+            stmc.setString(2, jugador.getNick());
+            rst = stmc.executeQuery();
+            
+            
+            ///// 3 / Si el otro usuario no me tiene bloqueado lo añado a amigos
+            if(!rst.next()){
+                stmc = con.prepareStatement("insert into seramigo "
+                        + "values (?, ?)");
+                stmc.setString(1, jugador.getNick());
+                stmc.setString(2,desbloquear.getNick());            
+
+                stmc.executeUpdate();
+            }
+        con.commit();
+            
+        } catch (SQLException e) {
+            try {
+                //Si ha fallado hacemos el rollback
+                con.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Imposible realizar el rollback");
+            }
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error al desbloquear jugador");
+        } finally {
+            try {
+                //Desactivamos autocommit 
+                con.setAutoCommit(true);
+                stmc.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
             }
         }
     }

@@ -230,7 +230,7 @@ public class VMisAmigos extends javax.swing.JDialog {
         }
         
         if (this.btnSelectorAmigosTotal.isSelected()){ //Todos los usuarios
-            this.btnBloquear.setEnabled(!yoBloqueo);
+            this.btnBloquear.setEnabled(esAmigo);
             this.btnHacerAmigo.setEnabled(!yoBloqueo && !elBloquea);
             this.btnVerInfoAmigo.setEnabled(esAmigo);
             
