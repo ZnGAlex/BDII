@@ -11,6 +11,7 @@ import java.util.Properties;
 import aplicacion.Juego;
 import aplicacion.Jugador;
 import aplicacion.Logro;
+import java.util.ArrayList;
 
 public class FachadaBaseDatos {
     private aplicacion.FachadaAplicacion fa;
@@ -195,4 +196,25 @@ public class FachadaBaseDatos {
     public void obtenerComplementoJugador(Jugador jugador, Complemento complemento){
         daoJuegos.obtenerComplementoJugador(jugador, complemento);
     }
+    
+    public java.util.ArrayList<Jugador> buscarJugadores(String nick, String correo) {
+        return daoUsuarios.buscarJugadores(nick, correo);
+    }
+    
+    public void banearJugador(String nickJugador) {
+        daoUsuarios.banearJugador(nickJugador);
+    }
+    
+    public void desbanearJugador(String nickJugador) {
+        daoUsuarios.desbanearJugador(nickJugador);
+    }
+    
+    public void anhadirJuego(String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        daoJuegos.anhadirJuego(nombre, edadRecomendada, desarrolladora, categorias);
+    }
+    
+    public void editarJuego(int idJuego, String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        daoJuegos.editarJuego(idJuego, nombre, edadRecomendada, desarrolladora, categorias);
+    }
+    
 }

@@ -735,5 +735,68 @@ public class DAOUsuarios extends AbstractDAO {
             }
         }
     }
+    
+    public ArrayList<Jugador> buscarJugadores(String nick, String correo) {
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+        Jugador jugador = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Connection con = this.getConexion();
+        
+        try {
+            stmt = con.prepareStatement("SELECT nick, correo, fec_nacimiento, baneado FROM jugador WHERE nick LIKE ? AND correo LIKE ?");
+            stmt.setString(1, '%' + nick + '%');
+            stmt.setString(2, '%' + correo + '%');
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                java.util.Date fecha = (java.util.Date) rs.getObject("fec_nacimiento");
+                jugador = new Jugador(rs.getString("nick"), rs.getString("correo"), fecha, rs.getBoolean("baneado"));
+                jugadores.add(jugador);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto(e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return jugadores;
+    }
+    
+    public void banearJugador(String nickJugador) {
+        PreparedStatement stmt = null;
+        Connection con = this.getConexion();
+        
+        try {
+            stmt = con.prepareStatement("UPDATE Jugador SET baneado = TRUE WHERE nick = ?");
+            stmt.setString(1, nickJugador);
+            
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto(e.getMessage());
+        }
+    }
+    
+    public void desbanearJugador(String nickJugador) {
+        PreparedStatement stmt = null;
+        Connection con = this.getConexion();
+        
+        try {
+            stmt = con.prepareStatement("UPDATE Jugador SET baneado = FALSE WHERE nick = ?");
+            stmt.setString(1, nickJugador);
+            
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto(e.getMessage());
+        }
+    }
 }
-

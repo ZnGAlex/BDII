@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package baseDatos;
 
+import aplicacion.Categoria;
 import aplicacion.Complemento;
 import java.sql.*;
 import aplicacion.Juego;
 import aplicacion.Desarrolladora;
 import aplicacion.Jugador;
 import aplicacion.Logro;
+import java.util.ArrayList;
 
 /**
  *
@@ -473,6 +470,106 @@ public class DAOJuegos extends AbstractDAO {
         }
         
     }
+    
+    public void anhadirJuego(String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Connection con = this.getConexion();
+        int idJuego = 0;
+        
+        try {
+            con.setAutoCommit(false);
+            
+            stmt = con.prepareStatement("INSERT INTO Juego (nombre, edadrecomendada, desarrolladora) "
+                                      + "VALUES (?, ?, ?)");
+            stmt.setString(1, nombre);
+            stmt.setInt(2, (int) edadRecomendada);
+            stmt.setString(3, desarrolladora);
+            
+            stmt.executeUpdate();
+            
+            stmt = con.prepareStatement("SELECT id FROM Juego WHERE nombre = ? AND edadrecomendada = ? AND desarrolladora = ?");
+            stmt.setString(1, nombre);
+            stmt.setInt(2, (int) edadRecomendada);
+            stmt.setString(3, desarrolladora);
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next())
+                idJuego = rs.getInt("id");
+            
+            for (Categoria c : categorias) {
+                stmt = con.prepareStatement("INSERT INTO tenercategoria "
+                                          + "VALUES (?, ?)");
+                stmt.setString(1, c.getNombre());
+                stmt.setInt(2, idJuego); 
+                
+                stmt.executeUpdate();
+            }
+            
+            con.commit();
+            
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Juego " + nombre + " añadido correctamente.");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error añadiendo el juego.");
+        } finally {
+            try {
+                con.setAutoCommit(true);
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void editarJuego(int idJuego, String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Connection con = this.getConexion();
+        
+        try {
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement("UPDATE Juego "
+                                      + "SET nombre = ?, edadRecomendada = ?, desarrolladora = ? "
+                                      + "WHERE id = ?");
+            stmt.setString(1, nombre);
+            stmt.setInt(2, (int) edadRecomendada);
+            stmt.setString(3, desarrolladora);
+            stmt.setInt(4, idJuego);
+            
+            stmt.executeUpdate();
+            
+            stmt = con.prepareStatement("DELETE FROM tenercategoria "
+                                      + "WHERE juego = ?");
+            stmt.setInt(1, idJuego);
+            
+            stmt.executeUpdate();
+            
+            for (Categoria c : categorias) {
+                stmt = con.prepareStatement("INSERT INTO tenercategoria "
+                                          + "VALUES (?, ?)");
+                stmt.setString(1, c.getNombre());
+                stmt.setInt(2, idJuego); 
+                
+                stmt.executeUpdate();
+            }
+            
+            con.commit();
+            
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Juego " + nombre + " editado correctamente.");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraAvisoCorrecto("Error añadiendo el juego.");
+        } finally {
+            try {
+                con.setAutoCommit(true);
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }
-    
-    

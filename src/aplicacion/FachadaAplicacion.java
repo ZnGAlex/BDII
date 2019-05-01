@@ -1,5 +1,6 @@
 package aplicacion;
 
+import java.util.ArrayList;
 import javax.swing.JDialog;
 
 public class FachadaAplicacion {
@@ -29,6 +30,18 @@ public class FachadaAplicacion {
 
     public void muestraVPrincipal(Usuario usuario) {
         fgui.muestraVPrincipal(usuario);
+    }
+    
+    public void muestraVPrincipalAdministrador (Usuario usuario) {
+        fgui.muestraVPrincipalAdministrador(usuario);
+    }
+    
+    public void muestraVAnhadirJuego() {
+        fgui.muestraVAnhadirJuego();
+    }
+    
+    public void muestraVEditarJuego(Juego juego) {
+        fgui.muestraEditarJuego(juego);
     }
 
     public void iniciaLogin() {
@@ -213,5 +226,25 @@ public class FachadaAplicacion {
     
     public void muestraVJuegosAmigo(Usuario usuario){
         fgui.muestraVJuegosAmigo(usuario);
+    }
+    
+    public java.util.ArrayList<Jugador> buscarJugadores(String nick, String correo) {
+        return fbd.buscarJugadores(nick, correo);
+    }
+    
+    public void banearJugador(String nickJugador) {
+        gu.banearJugador(nickJugador);
+    }
+    
+    public void desbanearJugador(String nickJugador) {
+        gu.desbanearJugador(nickJugador);
+    }
+    
+    public void anhadirJuego(String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        gj.anhadirJuego(nombre, edadRecomendada, desarrolladora, categorias);
+    }
+    
+    public void editarJuego(int idJuego, String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        gj.editarJuego(idJuego, nombre, edadRecomendada, desarrolladora, categorias);
     }
 }

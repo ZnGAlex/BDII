@@ -323,7 +323,10 @@ public class VLogin extends javax.swing.JDialog {
             /* Login correcto */
             loginCorrecto = true;
             this.dispose();
-            this.fa.muestraVPrincipal(usuario);
+            if (usuario instanceof Jugador)
+                this.fa.muestraVPrincipal(usuario);
+            else
+                this.fa.muestraVPrincipalAdministrador(usuario);
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -345,7 +348,10 @@ public class VLogin extends javax.swing.JDialog {
                 /* Login correcto */
                 loginCorrecto = true;
                 this.dispose();
-                this.fa.muestraVPrincipal(usuario);
+                if (usuario instanceof Jugador)
+                    this.fa.muestraVPrincipal(usuario);
+                else
+                    this.fa.muestraVPrincipalAdministrador(usuario);
             }
         }
     }//GEN-LAST:event_datosLoginKeyPressed
@@ -363,7 +369,10 @@ public class VLogin extends javax.swing.JDialog {
                 /* Login correcto */
                 loginCorrecto = true;
                 this.dispose();
-                this.fa.muestraVPrincipal(usuario);
+                if (usuario instanceof Jugador)
+                    this.fa.muestraVPrincipal(usuario);
+                else
+                    this.fa.muestraVPrincipalAdministrador(usuario);
             }
         }
     }//GEN-LAST:event_datosClaveKeyPressed

@@ -81,4 +81,12 @@ public class GestionUsuarios {
     public void desbloquearJugador(Jugador jugador, Jugador desbloquear){
         fbd.desbloquearJugador(jugador,desbloquear);
     }
+    
+    public void banearJugador(String nickJugador) {
+        fbd.banearJugador(nickJugador);
+    }
+    
+    public void desbanearJugador(String nickJugador) {
+        fbd.desbanearJugador(nickJugador);
+    }
 }
