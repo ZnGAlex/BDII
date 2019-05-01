@@ -7,6 +7,7 @@ package aplicacion;
 
 import baseDatos.FachadaBaseDatos;
 import gui.FachadaGui;
+import java.util.ArrayList;
 
 /**
  *
@@ -58,5 +59,13 @@ public class GestionJuegos {
     
     public void obtenerComplementoJugador(Jugador jugador, Complemento complemento){
         fbd.obtenerComplementoJugador(jugador, complemento);
+    }
+    
+    public void anhadirJuego(String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        fbd.anhadirJuego(nombre, edadRecomendada, desarrolladora, categorias);
+    }
+    
+    public void editarJuego(int idJuego, String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
+        fbd.editarJuego(idJuego, nombre, edadRecomendada, desarrolladora, categorias);
     }
 }

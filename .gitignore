@@ -1,6 +1,7 @@
 /dist/
-/nbproject/
-/build/
-/dist/
+/nbproject/*
+/build/*
 build.xml
 manifest.mf
+nbactions.xml
+nb-configuration.xml

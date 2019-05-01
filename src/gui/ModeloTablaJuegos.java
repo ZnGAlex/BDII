@@ -1,15 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gui;
+
 import aplicacion.Juego;
 import javax.swing.table.*;
-/**
- *
- * @author basesdatos
- */
+
 public class ModeloTablaJuegos extends AbstractTableModel{
     private java.util.List<Juego> juegos;
 
