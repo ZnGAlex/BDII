@@ -1,17 +1,7 @@
-<<<<<<< HEAD
 /dist/
-/nbproject/
-/build/
-/dist/
+/nbproject/*
+/build/*
 build.xml
 manifest.mf
-=======
-# NetBeans specific #
-nbproject/private/
-build/*
-nbbuild/*
-dist/*
-nbdist/*
 nbactions.xml
 nb-configuration.xml
->>>>>>> test_admin
