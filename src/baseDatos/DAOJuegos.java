@@ -21,6 +21,14 @@ public class DAOJuegos extends AbstractDAO {
         super.setFachadaAplicacion(fa);
     }
 
+    /**
+     * Este metodo le permite al jugador ver los juegos disponible sen la tienda, tanto los
+     * que tiene como los que no.
+     * @param categoria
+     * @param desarrolladora
+     * @param nombre
+     * @return 
+     */
     public java.util.List<Juego> consultarJuegosTienda(String categoria, String desarrolladora, String nombre) {
 
         java.util.List<Juego> resultado = new java.util.ArrayList<>();
@@ -68,7 +76,15 @@ public class DAOJuegos extends AbstractDAO {
         }
         return resultado;
     }
-    //Esta se podria mezclar con la anterior
+    
+    /**
+     * Esta cnsulta le permite al jugador obtener los juegos que tiene comprados.
+     * @param categoria
+     * @param desarrolladora
+     * @param nombre
+     * @param jugador
+     * @return 
+     */
     public java.util.List<Juego> consultarJuegosPropios(String categoria, String desarrolladora, String nombre, Jugador jugador) {
 
         java.util.List<Juego> resultado = new java.util.ArrayList<>();
@@ -120,6 +136,14 @@ public class DAOJuegos extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Este metodo devuelve los juegos que estan siendo compartidos por un dterminado jugador.
+     * @param categoria
+     * @param desarrolladora
+     * @param nombre
+     * @param jugador
+     * @return 
+     */
     public java.util.List<Juego> consultarJuegosCompartidos(String categoria, String desarrolladora, String nombre, Jugador jugador) {
 
         java.util.List<Juego> resultado = new java.util.ArrayList<>();
@@ -172,6 +196,12 @@ public class DAOJuegos extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Este metodo le permite a un jugador comprar un unico juego
+     * Se añadira una tupla a la relacion comprar con ese jugador y juego.
+     * @param jugador
+     * @param juego 
+     */
     public void comprarJuego(Jugador jugador, Juego juego){
         
         PreparedStatement stmc = null;
@@ -201,7 +231,13 @@ public class DAOJuegos extends AbstractDAO {
         }
     }
     
-    //Comprar una lista de juegos de forma atómica
+    /**
+     * Este metodo permite al jugador comprar varios juegos de una sola vez de forma atomica
+     * Se añadiran tantas tuplas a la relación comprar como juegos vaya a comprar el jugador, 
+     * con el juego concreto y el jugador.
+     * @param jugador
+     * @param juegos 
+     */
     public void comprarListaJuegos(Jugador jugador, java.util.List<Juego> juegos){
         
         PreparedStatement stmc = null;
@@ -252,7 +288,11 @@ public class DAOJuegos extends AbstractDAO {
         }
     }
         
-    
+    /**
+     * Este metodo devuelve los complementos de un determinado juego.
+     * @param juego
+     * @return 
+     */
     public java.util.List<Complemento> obtenerComplementos(Juego juego){
         java.util.List<Complemento> resultado = new java.util.ArrayList<>();
         Complemento comactual;
@@ -285,6 +325,11 @@ public class DAOJuegos extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Este metodo devuelve todos los logros de un determinado juego.
+     * @param juego
+     * @return 
+     */
     public java.util.List<Logro> obtenerLogros(Juego juego){
         java.util.List<Logro> resultado = new java.util.ArrayList<>();
         Logro logactual;
@@ -317,6 +362,12 @@ public class DAOJuegos extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Este metodo devuelve la visibilidad que tiene un logro de un juego conseguido por el jugador.
+     * @param jugador
+     * @param logro
+     * @return 
+     */
     public boolean visibilidadLogro(Jugador jugador, Logro logro){
         boolean resultado=false;
         
@@ -352,6 +403,12 @@ public class DAOJuegos extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Este metodo devuelve la visibilidad que tiene un jugador en un juego comprado.
+     * @param jugador
+     * @param juego
+     * @return 
+     */
     public boolean visibilidadCompra(Jugador jugador, Juego juego){
         boolean resultado=false;
         
@@ -386,6 +443,15 @@ public class DAOJuegos extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Este metodo sirve para cambiar la visibilidad de un juego que tiene un jugador
+     * para permiter o evitar que sus amigos lo vean
+     * Actualiza la tupla de comprar en la que coincidan el jugador y el juego, cambiando la visibilidad
+     * a la deseada.
+     * @param jugador
+     * @param juego
+     * @param visibilidad 
+     */
     public void cambiarVisibilidadCompra(Jugador jugador, Juego juego, boolean visibilidad){
         Connection con;
         PreparedStatement stmc = null;
@@ -414,6 +480,15 @@ public class DAOJuegos extends AbstractDAO {
         
     }
     
+    /**
+     * Este metodo sirve para cambiar la visibilidad de un logro conseguido por un jugador
+     * para evitar/permitir que sus anigos lo vean
+     * Actualiza la tupla de conseguirlogroen el que concuerden el jugador, el logro y el juego
+     * a la visibilidad deseada.
+     * @param jugador
+     * @param logro
+     * @param visibilidad 
+     */
     public void cambiarVisibilidadLogro(Jugador jugador, Logro logro, boolean visibilidad){
         Connection con;
         PreparedStatement stmc = null;
@@ -444,6 +519,12 @@ public class DAOJuegos extends AbstractDAO {
         
     }
     
+    /**
+     * Este metodo sirve para que un jugador obtenga un nuevo complemento para uno de sus juegos
+     * añadiendo en la tabla tenercomplemento ese complemento, su juego y el jugador.
+     * @param jugador
+     * @param complemento 
+     */
     public void obtenerComplementoJugador(Jugador jugador, Complemento complemento){
         Connection con;
         PreparedStatement stmc = null;
@@ -471,6 +552,15 @@ public class DAOJuegos extends AbstractDAO {
         
     }
     
+    /**
+     * Este metodo permite a un administrador insertar un nuevo juego en la base de datos
+     * Añade una nueva tupla a la relacion juego con los datos introducidos, e introduciendo en la
+     * relacion tener categoria todas las categorias seleccionadas.
+     * @param nombre
+     * @param edadRecomendada
+     * @param desarrolladora
+     * @param categorias 
+     */
     public void anhadirJuego(String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -524,6 +614,16 @@ public class DAOJuegos extends AbstractDAO {
         }
     }
     
+    /**
+     * Este metodo permite a un administrador cambiar los datos de un juego
+     * Se modificaran los atributos de la tupla de la tabla juego que coincidan con la id del juego, 
+     * y añadiendo o eliminando tuplas de la relacion tenercategoria segun se hayan seleccionado.
+     * @param idJuego
+     * @param nombre
+     * @param edadRecomendada
+     * @param desarrolladora
+     * @param categorias 
+     */
     public void editarJuego(int idJuego, String nombre, Integer edadRecomendada, String desarrolladora, ArrayList<Categoria> categorias) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
