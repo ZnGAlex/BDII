@@ -553,6 +553,7 @@ public class DAOJuegos extends AbstractDAO {
     }
     
     /**
+     * ADMINISTRADOR
      * Este metodo permite a un administrador insertar un nuevo juego en la base de datos
      * Añade una nueva tupla a la relacion juego con los datos introducidos, e introduciendo en la
      * relacion tener categoria todas las categorias seleccionadas.
@@ -615,6 +616,7 @@ public class DAOJuegos extends AbstractDAO {
     }
     
     /**
+     * ADMINISTRADOR
      * Este metodo permite a un administrador cambiar los datos de un juego
      * Se modificaran los atributos de la tupla de la tabla juego que coincidan con la id del juego, 
      * y añadiendo o eliminando tuplas de la relacion tenercategoria segun se hayan seleccionado.

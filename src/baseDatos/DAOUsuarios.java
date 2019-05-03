@@ -18,6 +18,12 @@ public class DAOUsuarios extends AbstractDAO {
         super.setFachadaAplicacion(fa);
     }
     
+    /**
+     * Permite al usuario de la aplicación iniciar sesion
+     * @param login
+     * @param pw
+     * @return 
+     */
     public Usuario validarUsuario(String login, String pw) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -74,6 +80,13 @@ public class DAOUsuarios extends AbstractDAO {
         return usuario;
     }
     
+    /**
+     * Permite el registro de un usuario nuevo en la aplicacion
+     * @param login
+     * @param pw
+     * @param correo
+     * @param fechaNacimiento 
+     */
     public void registrarUsuario (String login, String pw, String correo, java.util.Date fechaNacimiento) {
         PreparedStatement stmt = null;
         
@@ -103,6 +116,12 @@ public class DAOUsuarios extends AbstractDAO {
         
     }
     
+    /**
+     * Permite a un usuario modificar sus datos
+     * @param usuario
+     * @param fechaNac
+     * @param correo 
+     */
     public void modificarDatosUsuario(Usuario usuario, java.util.Date fechaNac, String correo) {
         PreparedStatement stmt = null;
         Connection con = this.getConexion();
@@ -134,6 +153,14 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    /**
+     * Permite a un usuario modificar sus datos, cuando cambia,
+     * además, la contraseña
+     * @param usuario
+     * @param pw
+     * @param fechaNac
+     * @param correo 
+     */
     public void modificarDatosUsarioConPW(Usuario usuario, String pw, java.util.Date fechaNac, String correo) {
         PreparedStatement stmt = null;
         Connection con = this.getConexion();
@@ -168,6 +195,11 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    /**
+     * Cambia el estado de un jugador a jugar
+     * @param jugador
+     * @param juego 
+     */
     public void jugar(Jugador jugador, Juego juego){
         
         PreparedStatement stmc = null;
@@ -197,6 +229,11 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    /**
+     * Permite a un jugador dejar de jugar guardando la fecha de fin
+     * @param jugador
+     * @param juego 
+     */
     public void dejarJugar(Jugador jugador, Juego juego){
         
         PreparedStatement stmc = null;
@@ -230,6 +267,11 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    /**
+     * Permite a un jugador retransmitir cuando esta jugando
+     * @param jugador
+     * @param juego 
+     */
     public void retrasnmitir(Jugador jugador, Juego juego){
         
         PreparedStatement stmc = null;
@@ -259,6 +301,11 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    /**
+     * Permite a un jugador dejar la retransmision guardando la fecha de fin
+     * @param jugador
+     * @param juego 
+     */
     public void dejarRetransmitir(Jugador jugador, Juego juego){
         
         PreparedStatement stmc = null;
@@ -292,6 +339,11 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    /**
+     * Permite a un jugador agregar a su lista de amigos otro jugador
+     * @param jugador
+     * @param amigo 
+     */
     public void anhadirAmigo(Jugador jugador, Jugador amigo){
         PreparedStatement stmc = null;
         Connection con;
@@ -315,6 +367,11 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    /**
+     * Permite a un jugador borrar otro jugador de su lista de amigos
+     * @param jugador
+     * @param amigo 
+     */
     public void borrarAmigo(Jugador jugador, Jugador amigo){
         
         PreparedStatement stmc = null;
@@ -348,6 +405,12 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    /**
+     * Comprueba si un jugador tiene un juego dado
+     * @param nick
+     * @param idJuego
+     * @return 
+     */
     public boolean usuarioTieneJuego(String nick,Integer idJuego){
         boolean resultado = false;
         PreparedStatement stmc = null;
@@ -381,6 +444,11 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Obtiene todos los logros que ha conseguido un jugador
+     * @param jugador
+     * @return 
+     */
     public ArrayList<Logro> obtenerLogrosJugador(Jugador jugador) {
         ArrayList<Logro> logros = new ArrayList<>();
         Logro logro = null;
@@ -415,6 +483,12 @@ public class DAOUsuarios extends AbstractDAO {
         return logros;
     }
     
+    /**
+     * Obtiene todos los logros que ha conseguido un jugador y que tiene marcados
+     * como compartidos
+     * @param jugador
+     * @return 
+     */
     public ArrayList<Logro> obtenerLogrosCompartidos(Jugador jugador) {
         ArrayList<Logro> logros = new ArrayList<>();
         Logro logro = null;
@@ -452,6 +526,12 @@ public class DAOUsuarios extends AbstractDAO {
         return logros;
     }
     
+    /**
+     * Obtiene el listado de amigos de un jugador
+     * @param jugador
+     * @param nombre
+     * @return 
+     */
     public java.util.List<Jugador> obtenerAmigos(Jugador jugador, String nombre){
         
         java.util.List<Jugador> resultado = new java.util.ArrayList<>();
@@ -490,6 +570,12 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Permite obtener la lista del resto de jugadores excepto del propio jugador
+     * @param jugador
+     * @param nombre
+     * @return 
+     */
     public java.util.List<Jugador> obtenerJugadores(Jugador jugador, String nombre){
         
         java.util.List<Jugador> resultado = new java.util.ArrayList<>();
@@ -526,6 +612,12 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Permite saber si un jugador tiene bloqueado a otro jugador
+     * @param jugador
+     * @param bloqueado
+     * @return 
+     */
     public boolean estaBloqueado(Jugador jugador, Jugador bloqueado){
         boolean resultado = false;
         PreparedStatement stmc = null;
@@ -558,6 +650,12 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Permite saber si dos jugadores son amigos
+     * @param jugador
+     * @param amigo
+     * @return 
+     */
     public boolean sonAmigos(Jugador jugador, Jugador amigo){
         boolean resultado = false;
         PreparedStatement stmc = null;
@@ -593,6 +691,12 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
+    /**
+     * Obtiene el listado de jugadores bloqueados de un jugador
+     * @param jugador
+     * @param nombre
+     * @return 
+     */
     public java.util.List<Jugador> obtenerBloqueados(Jugador jugador, String nombre){
         java.util.List<Jugador> resultado = new java.util.ArrayList<>();
         Jugador jActual;
@@ -629,6 +733,7 @@ public class DAOUsuarios extends AbstractDAO {
     
     /**
      * CONSULTA COMPUESTA
+     * Permite bloquear a un jugador
      * @param jugador
      * @param aBloquear
      */
@@ -677,6 +782,7 @@ public class DAOUsuarios extends AbstractDAO {
     
     /**
      * CONSULTA COMPUESTA 3 CONSULTAS
+     * Permite desbloquear a un jugador
      * @param jugador
      * @param desbloquear
      */
@@ -736,6 +842,13 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    /**
+     * ADMINISTRADOR
+     * Permite obtener todos los jugadores de la base de datos
+     * @param nick
+     * @param correo
+     * @return 
+     */
     public ArrayList<Jugador> buscarJugadores(String nick, String correo) {
         ArrayList<Jugador> jugadores = new ArrayList<>();
         Jugador jugador = null;
@@ -770,6 +883,11 @@ public class DAOUsuarios extends AbstractDAO {
         return jugadores;
     }
     
+    /**
+     * ADMINISTRADOR
+     * Permite banear un jugador dado
+     * @param nickJugador 
+     */
     public void banearJugador(String nickJugador) {
         PreparedStatement stmt = null;
         Connection con = this.getConexion();
@@ -785,6 +903,11 @@ public class DAOUsuarios extends AbstractDAO {
         }
     }
     
+    /**
+     * ADMINISTRADOR
+     * Permite desbanear un jugador dado
+     * @param nickJugador 
+     */
     public void desbanearJugador(String nickJugador) {
         PreparedStatement stmt = null;
         Connection con = this.getConexion();

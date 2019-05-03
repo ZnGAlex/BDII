@@ -55,6 +55,11 @@ class DAOCategorias extends AbstractDAO{
         return resultado;
     }
     
+    /**
+     * Obtiene todas las categorias correspondientes a un juego dado
+     * @param juego
+     * @return 
+     */
     public java.util.List<Categoria> obtenerCategoriasJuego(Juego juego){
         java.util.List<Categoria> resultado = new java.util.ArrayList<Categoria>();
         Categoria catactual;
