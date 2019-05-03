@@ -19,6 +19,10 @@ public class DAODesarrolladoras extends AbstractDAO{
         super.setFachadaAplicacion(fa);
     }
     
+    /**
+     * Obtiene el listado de desarrolladoras de la base de datos
+     * @return 
+     */
     public java.util.List<Desarrolladora> obtenerDesarrolladoras() {
         java.util.List<Desarrolladora> resultado = new java.util.ArrayList<>();
         Desarrolladora dactual;

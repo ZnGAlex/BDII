@@ -3,8 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Usuario/OneDrive%20-%20Universidade%20de%20Santiago%20de%20Compostela/2o%20USC/2o%20cuatrimestre/BD/Practicas/P2/BDII/src/gui/VMisAmigos.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive%20-%20Universidade%20de%20Santiago%20de%20Compostela/2o%20USC/2o%20cuatrimestre/BD/Practicas/P2/BDII/src/baseDatos/DAOUsuarios.java</file>
+
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/VLogin.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/VAvisoCorrecto.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/VEditarJuego.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/baseDatos/DAOJuegos.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/VAnhadirJuego.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/ModeloTablaJugadoresAdmin.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/aplicacion/FachadaAplicacion.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/baseDatos/FachadaBaseDatos.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/aplicacion/GestionUsuarios.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/aplicacion/GestionJuegos.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/ModeloTablaJuegos.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/FachadaGui.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/VJugar.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/VMiPerfil.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/VPrincipalAdministrador.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/baseDatos/DAOUsuarios.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/gui/VBloqueados.java</file>
+			
         </group>
     </open-files>
 </project-private>
