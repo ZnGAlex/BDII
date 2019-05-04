@@ -148,11 +148,13 @@ public class VJugar extends javax.swing.JDialog {
             this.retransmitiendo=1;
             fa.retransmitir(jugador, juego);
             this.etiquetaRetransmitiendo.setVisible(true);
+            this.btnRetransmitir.setText("Parar de retransmitir");
         }
         else{
             this.retransmitiendo=0;
             fa.dejarRetransmitir(jugador, juego);
             this.etiquetaRetransmitiendo.setVisible(false);
+            this.btnRetransmitir.setText("Retransmitir");
         }
     }//GEN-LAST:event_btnRetransmitirActionPerformed
 
