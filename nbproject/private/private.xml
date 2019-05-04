@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Usuario/OneDrive%20-%20Universidade%20de%20Santiago%20de%20Compostela/2o%20USC/2o%20cuatrimestre/BD/Practicas/P2/BDII/src/gui/VMisAmigos.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive%20-%20Universidade%20de%20Santiago%20de%20Compostela/2o%20USC/2o%20cuatrimestre/BD/Practicas/P2/BDII/src/baseDatos/DAOUsuarios.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/baseDatos/DAODesarrolladoras.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/baseDatos/DAOUsuarios.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/baseDatos/DAOJuegos.java</file>
+            <file>file:/F:/GrEI/2_Ano/2_Cuatrimestre/BDII/Practicas/Proyecto/BDII/src/baseDatos/DAOCategorias.java</file>
         </group>
     </open-files>
 </project-private>
