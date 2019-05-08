@@ -6,7 +6,7 @@ insert into jugador(nick,clave,correo,fec_nacimiento,baneado) values('juan', cry
 insert into jugador(nick,clave,correo,fec_nacimiento,baneado) values('pedro', crypt('pedro', gen_salt('bf')),'pedro@gmail.com','2005-01-10',false);
 insert into jugador(nick,clave,correo,fec_nacimiento,baneado) values('luis', crypt('luis', gen_salt('bf')),'luis@gmail.com','2000-4-11',false);
 insert into jugador(nick,clave,correo,fec_nacimiento,baneado) values('pepe', crypt('pepe', gen_salt('bf')),'pepe@gmail.com','2003-07-12',false);
-insert into jugador(nick,clave,correo,fec_nacimiento,baneado) values('kksuprema', crypt('kakita', gen_salt('bf')),'superkk@gmail.com','1900-11-06',true);
+insert into jugador(nick,clave,correo,fec_nacimiento,baneado) values('baneado', crypt('baneado', gen_salt('bf')),'superkk@gmail.com','1900-11-06',true);
 insert into bloquear(jugador,bloqueado,fecha,motivo) values('juan','pedro','2019-04-13','Mal comportamiento');
 insert into seramigo(jugador,amigo) values ('pedro','luis');
 insert into seramigo(jugador,amigo) values ('pedro','pepe');
