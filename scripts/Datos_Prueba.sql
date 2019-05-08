@@ -28,7 +28,6 @@ insert into comprar(fecha,visibilidad,juego,jugador) values('2012-03-06',true,2,
 insert into comprar(fecha,visibilidad,juego,jugador) values('2019-11-21',true,1,'juan');
 insert into comprar(fecha,visibilidad,juego,jugador) values('2012-05-17',true,3,'pedro');
 insert into comprar(fecha,visibilidad,juego,jugador) values('2014-07-19',true,3,'luis');
-insert into comprar(fecha,visibilidad,juego,jugador) values('2008-10-12',true,2,'kksuprema');
 insert into logro(nombre,descripcion,puntos,juego) values('50 monturas','Conseguir 50 monturas',20,1);
 insert into logro(nombre,descripcion,puntos,juego) values('Fin de la historia','Termina el modo historia',50,3);
 insert into logro(nombre,descripcion,puntos,juego) values('Ganador','Gana 20 partidas',15,2);
